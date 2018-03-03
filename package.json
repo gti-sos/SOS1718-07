@@ -1,0 +1,15 @@
+{
+  "name": "l04",
+  "version": "0.0.0",
+  "description": "Para el feedback",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Miguel Angel G.C",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
