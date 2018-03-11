@@ -1,8 +1,9 @@
 var express = require("express");
+var path = require("path");
 
 var app = express();
 
-app.use("/",express.static("/home/ubuntu/workspace/SOS1718-07/public"));
+app.use("/",express.static( path.join(__dirname,"public")));
 
 app.get("/hello",(req,res) =>{
     res.send("hello World!");
