@@ -9,13 +9,20 @@ app.use("/", express.static(path.join(__dirname, "public")));
 
 
 var BASE_API_PATH_TERRORISM = "/api/v1/global-terrorism-data";
+var BASE_API_PATH_HOMICIDE = "/api/v1/homicide-reports-data";
 
 var dbGlobalTerrorism = __dirname + "/globalTerrorismData.db";
+var dbHomicideReports = __dirname + "/homicideReportsData.db";
 
 
 var terrorism_data = [
     { "iyear": 1970, "imonth": 7, "iday": 2, "country_txt": "Dominican Republic", "city": "Santo Domingo", "attacktype_txt": "Assassination", "weaptype_txt": "Unknown Explosive Type", "nkill": 1 },
     { "iyear": 1970, "imonth": 2, "iday": 17, "country_txt": "United States", "city": "Oackland", "attacktype_txt": "Bombing/Explosion", "weaptype_txt": "Explosives/Bombs/Dynamite", "nkill": 0 }
+]
+
+var homicide_data = [
+    { "year": 1980, "month": "May", "state": "Alaska", "city": "Anchorage", "crime-type": "Murder or Manslaughter", "victim-count": 0},
+    { "year": 1980, "month": "August", "state": "Alaska", "city": "North Slope", "crime-type": "Murder or Manslaughter", "victim-count": 0}
 ]
 
 
@@ -94,6 +101,84 @@ app.put(BASE_API_PATH_TERRORISM + "/global-terrorism_data/:country_txt", (req, r
     }
     
     dbTerrorism.update({"country_txt": datareq.country_txt},datareq,(err,numUpdated)=>{
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+        console.log("Updated: " + numUpdated);
+    });
+    res.sendStatus(200);
+});
+
+//API Francisco Jesus, HOMICIDE REPORTS DATA
+
+var dbHomicide = new DataStore({
+    filename: dbHomicideReports,
+    autoload: true
+});
+
+dbHomicide.find({}, (err, data) => {
+    if (err) {
+        console.error("Error accesing DB");
+        process.exit(1);
+    }
+    if (data.length == 0) {
+        console.log("Empty DB");
+        dbHomicide.insert(homicide_data);
+    }
+    else {
+        console.log("DB initialized with " + data.length + " data")
+    }
+});
+
+app.get(BASE_API_PATH_HOMICIDE + "/homicide-reports-data", (req, res) => {
+    console.log(Date() + " - GET /homicide-reports-data");
+
+    dbHomicide.find({}, (err, data) => {
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+        res.send(data);
+    });
+});
+
+app.post(BASE_API_PATH_HOMICIDE + "/homicide-reports-data", (req, res) => {
+    console.log(Date() + " - POST /homicide-reports-data");
+    dbHomicide.insert({}, (err, data) => {
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+        var datareq = req.body;
+        homicide_data.push(datareq);
+        res.sendStatus(201);
+    });
+});
+
+app.delete(BASE_API_PATH_HOMICIDE + "/homicide-reports-data", (req, res) => {
+    console.log(Date() + " - DELETE /homicide-reports-data");
+    //terrorism_data = [];
+    dbHomicide.remove({});
+    res.sendStatus(200);
+});
+
+app.put(BASE_API_PATH_HOMICIDE + "/homicide-reports-data/:state", (req, res) => {
+    var state = req.params.state;
+    var datareq = req.body;
+
+    console.log(Date() + " - PUT /contacts/" + state);
+
+    if (state != datareq.state) {
+        res.sendStatus(409);
+        console.warn(Date() + " - Hacking attempt!");
+        return;
+    }
+    
+    dbHomicide.update({"state": datareq.state},datareq,(err,numUpdated)=>{
         if (err) {
             console.error("Error accesing DB");
             res.sendStatus(500);
