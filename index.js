@@ -120,17 +120,17 @@ var dbHomicide = new DataStore({
     autoload: true
 });
 
-dbHomicide.find({}, (err, data) => {
+dbHomicide.find({}, (err, terrorism) => {
     if (err) {
         console.error("Error accesing DB");
         process.exit(1);
     }
-    if (data.length == 0) {
+    if (terrorism.length == 0) {
         console.log("Empty DB");
         dbHomicide.insert(homicide_data);
     }
     else {
-        console.log("DB initialized with " + data.length + " data")
+        console.log("DB initialized with " + terrorism.length + " data");
     }
 });
 
@@ -161,7 +161,7 @@ app.post(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
     console.log(Date() + " - POST /homicide-reports-data");
        
         var datareq = req.body;
-        homicide_data.push(datareq);
+        terrorism.push(datareq);
         res.sendStatus(201);
     
 });
