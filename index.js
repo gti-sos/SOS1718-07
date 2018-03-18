@@ -24,7 +24,7 @@ var homicide_data = [
      "year": 1980, "month": "May", "state": "Alaska", "city": "Anchorage", "crime-type": "Murder or Manslaughter", "weapon": "Rifle", "victim count": 0
     },
     { 
-     "year": 1980, "month": "August", "state": "Alaska", "North Slope": "Anchorage", "crime-type": "Murder or Manslaughter", "weapon": "Rifle", "victim count": 0
+     "year": 1980, "month": "August", "state": "Alaska", "city": "North Slope", "crime-type": "Murder or Manslaughter", "weapon": "Rifle", "victim count": 0
     }
 ];
 
@@ -60,7 +60,7 @@ var dbTerrorism = new DataStore({
     autoload: true
 });
 
-app.get("/loadInitialData", (req, res) => {
+app.get(BASE_API_PATH +"/global-terrorism-data/loadInitialData", (req, res) => {
         dbTerrorism.find({}, (err, terrorism) => {
         if (err) {
             console.error("Error accesing DB");
@@ -145,14 +145,14 @@ var dbHomicide = new DataStore({
 
 
 app.get(BASE_API_PATH + "/homicide-reports-data/loadInitialData", (req, res) => {
-        dbTerrorism.find({}, (err, terrorism) => {
+        dbHomicide.find({}, (err, terrorism) => {
         if (err) {
             console.error("Error accesing DB");
             process.exit(1);
         }
         if (terrorism.length == 0) {
             console.log("Empty DB");
-            dbTerrorism.insert(homicide_data);
+            dbHomicide.insert(homicide_data);
         }
         else {
             console.log("DB initialized with " + terrorism.length + " data");
