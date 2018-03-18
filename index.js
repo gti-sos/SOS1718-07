@@ -91,6 +91,16 @@ app.get(BASE_API_PATH + "/global-terrorism-data", (req, res) => {
     });
 });
 
+//Preguntar al profesor como rescatar todos los objetos de la base de datos nedb /////////////////////////////////////////////////////////////////////////7
+app.get(BASE_API_PATH+"/global-terrorism-data/:country_txt",(req,res)=>{
+    var country = req.params.country_txt;
+    console.log(Date() + " - GET /homicide-reports-data/"+country);
+    
+    res.send(terrorism_data.filter((c)=>{
+        return (c.country_txt == country);
+    })[0]);
+});
+
 app.post(BASE_API_PATH + "/global-terrorism-data", (req, res) => {
     console.log(Date() + " - POST /global-terrorism-data");
     
@@ -100,24 +110,52 @@ app.post(BASE_API_PATH + "/global-terrorism-data", (req, res) => {
             res.sendStatus(500);
             return;
         }
-        
         res.sendStatus(201);
     });
 });
 
-
-app.delete(BASE_API_PATH + "/global-terrorism_data", (req, res) => {
-    console.log(Date() + " - DELETE /global-terrorism_data");
-    //terrorism_data = [];
-    dbTerrorism.remove({});
-    res.sendStatus(200);
+app.post(BASE_API_PATH+"/global-terrorism-data/:country_txt",(req,res)=>{
+    var countryy = req.params.country_txt;
+    console.log(Date() + " - POST /homicide-reports-data/"+countryy);
+    res.sendStatus(405);
 });
 
-app.put(BASE_API_PATH + "/global-terrorism_data/:country_txt", (req, res) => {
+app.delete(BASE_API_PATH + "/global-terrorism-data", (req, res) => {
+    console.log(Date() + " - DELETE /homicide-reports-data");
+    dbTerrorism.remove({}, {multi: true}, (err, terrorism) => {
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+        res.sendStatus(200);
+    });
+});
+
+app.delete(BASE_API_PATH+"/global-terrorism-data/:country_txt",(req,res)=>{
+    var country = req.params.country_txt;
+    console.log(Date() + " - DELETE /global-terrorism-data "+ country);
+    
+     dbTerrorism.remove({country_txt:country}, {multi: true}, (err, terrorism) => {
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+        res.sendStatus(200);
+    });
+});
+
+app.put(BASE_API_PATH+"/global-terrorism-data",(req,res)=>{
+    console.log(Date() + " - PUT /global-terrorism-data");
+    res.sendStatus(405);
+});
+
+app.put(BASE_API_PATH + "/global-terrorism-data/:country_txt", (req, res) => {
     var country = req.params.country_txt;
     var datareq = req.body;
 
-    console.log(Date() + " - PUT /contacts/" + country);
+    console.log(Date() + " - PUT /homicide-reports-data/" + country);
 
     if (country != datareq.country_txt) {
         res.sendStatus(409);
