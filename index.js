@@ -8,8 +8,10 @@ app.use(bodyParser.json());
 app.use("/", express.static(path.join(__dirname, "public")));
 
 
-var BASE_API_PATH_TERRORISM = "/api/v1/global-terrorism-data";
-var BASE_API_PATH_HOMICIDE = "/api/v1";
+//var BASE_API_PATH_TERRORISM = "/api/v1/global-terrorism-data";
+//var BASE_API_PATH_HOMICIDE = "/api/v1";
+
+var BASE_API_PATH = "/api/v1";
 
 var dbGlobalTerrorism = __dirname + "/globalTerrorismData.db";
 var dbHomicideReports = __dirname + "/homicideReportsData.db";
@@ -53,7 +55,7 @@ dbTerrorism.find({}, (err, data) => {
     }
 });
 
-app.get(BASE_API_PATH_TERRORISM + "/global-terrorism-data", (req, res) => {
+app.get(BASE_API_PATH + "/global-terrorism-data", (req, res) => {
     console.log(Date() + " - GET /global-terrorism-data");
 
     dbTerrorism.find({}, (err, data) => {
@@ -66,7 +68,7 @@ app.get(BASE_API_PATH_TERRORISM + "/global-terrorism-data", (req, res) => {
     });
 });
 
-app.post(BASE_API_PATH_TERRORISM + "/global-terrorism_data", (req, res) => {
+app.post(BASE_API_PATH + "/global-terrorism_data", (req, res) => {
     console.log(Date() + " - POST /global-terrorism_data");
     dbTerrorism.insert({}, (err, data) => {
         if (err) {
@@ -81,14 +83,14 @@ app.post(BASE_API_PATH_TERRORISM + "/global-terrorism_data", (req, res) => {
 });
 
 
-app.delete(BASE_API_PATH_TERRORISM + "/global-terrorism_data", (req, res) => {
+app.delete(BASE_API_PATH + "/global-terrorism_data", (req, res) => {
     console.log(Date() + " - DELETE /global-terrorism_data");
     //terrorism_data = [];
     dbTerrorism.remove({});
     res.sendStatus(200);
 });
 
-app.put(BASE_API_PATH_TERRORISM + "/global-terrorism_data/:country_txt", (req, res) => {
+app.put(BASE_API_PATH + "/global-terrorism_data/:country_txt", (req, res) => {
     var country = req.params.country_txt;
     var datareq = req.body;
 
@@ -132,7 +134,7 @@ dbHomicide.find({}, (err, data) => {
     }
 });
 
-app.get(BASE_API_PATH_HOMICIDE + "/homicide-reports-data", (req, res) => {
+app.get(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
     console.log(Date() + " - GET /homicide-reports-data");
 
     dbHomicide.find({}, (err, data) => {
@@ -145,7 +147,7 @@ app.get(BASE_API_PATH_HOMICIDE + "/homicide-reports-data", (req, res) => {
     });
 });
 
-app.get(BASE_API_PATH_HOMICIDE+"/homicide-reports-data/:year",(req,res)=>{
+app.get(BASE_API_PATH+"/homicide-reports-data/:year",(req,res)=>{
     var year = req.params.year;
     console.log(Date() + " - GET /homicide-reports-data/"+year);
     
@@ -155,28 +157,23 @@ app.get(BASE_API_PATH_HOMICIDE+"/homicide-reports-data/:year",(req,res)=>{
 });
 
 
-app.post(BASE_API_PATH_HOMICIDE + "/homicide-reports-data", (req, res) => {
+app.post(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
     console.log(Date() + " - POST /homicide-reports-data");
-    dbHomicide.insert({}, (err, data) => {
-        if (err) {
-            console.error("Error accesing DB");
-            res.sendStatus(500);
-            return;
-        }
+       
         var datareq = req.body;
         homicide_data.push(datareq);
         res.sendStatus(201);
-    });
+    
 });
 
-app.delete(BASE_API_PATH_HOMICIDE + "/homicide-reports-data", (req, res) => {
+app.delete(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
     console.log(Date() + " - DELETE /homicide-reports-data");
     //terrorism_data = [];
     dbHomicide.remove({});
     res.sendStatus(200);
 });
 
-app.delete(BASE_API_PATH_HOMICIDE+"/homicide-reports-data/:city",(req,res)=>{
+app.delete(BASE_API_PATH+"/homicide-reports-data/:city",(req,res)=>{
     var city = req.params.city;
     console.log(Date() + " - DELETE /homicide-reports-data/"+city);
     
@@ -187,7 +184,7 @@ app.delete(BASE_API_PATH_HOMICIDE+"/homicide-reports-data/:city",(req,res)=>{
     res.sendStatus(200);
 });
 
-app.put(BASE_API_PATH_HOMICIDE + "/homicide-reports-data/:state", (req, res) => {
+app.put(BASE_API_PATH + "/homicide-reports-data/:state", (req, res) => {
     var state = req.params.state;
     var datareq = req.body;
 
@@ -210,13 +207,13 @@ app.put(BASE_API_PATH_HOMICIDE + "/homicide-reports-data/:state", (req, res) => 
     res.sendStatus(200);
 });
 
-app.post(BASE_API_PATH_HOMICIDE+"/homicide-reports-data/:city",(req,res)=>{
+app.post(BASE_API_PATH+"/homicide-reports-data/:city",(req,res)=>{
     var city = req.params.city;
     console.log(Date() + " - POST /homicide-reports-data/"+city);
     res.sendStatus(405);
 });
 
-app.put(BASE_API_PATH_HOMICIDE+"/homicide-reports-data",(req,res)=>{
+app.put(BASE_API_PATH+"/homicide-reports-data",(req,res)=>{
     console.log(Date() + " - PUT /homicide-reports-data");
     res.sendStatus(405);
 });
