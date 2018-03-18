@@ -21,18 +21,10 @@ var terrorism_data = [
 
 var homicide_data = [
     { 
-        "country": "spain",
-    "date": 2004-03-11,
-    "city": "Madrid", 
-    "killed": 201, 
-    "injured": 1841
+     "year": 1980, "month": "May", "state": "Alaska", "city": "Anchorage", "crime-type": "Murder or Manslaughter", "weapon": "Rifle", "victim count": 0
     },
     { 
-     "country": "france",
-    "date": 2015-11-13,
-    "city": "Paris", 
-    "killed": 89, 
-    "injured": 322
+     "year": 1980, "month": "August", "state": "Alaska", "North Slope": "Anchorage", "crime-type": "Murder or Manslaughter", "weapon": "Rifle", "victim count": 0
     }
 ];
 
