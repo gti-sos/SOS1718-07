@@ -20,12 +20,20 @@ var dbHomicideReports = __dirname + "/homicideReportsData.db";
 var terrorism_data = [
     { "iyear": 1970, "imonth": 7, "iday": 2, "country_txt": "Dominican Republic", "city": "Santo Domingo", "attacktype_txt": "Assassination", "weaptype_txt": "Unknown Explosive Type", "nkill": 1 },
     { "iyear": 1970, "imonth": 2, "iday": 17, "country_txt": "United States", "city": "Oackland", "attacktype_txt": "Bombing/Explosion", "weaptype_txt": "Explosives/Bombs/Dynamite", "nkill": 0 }
-]
+];
 
 var homicide_data = [
     { "year": 1980, "month": "May", "state": "Alaska", "city": "Anchorage", "crime-type": "Murder or Manslaughter", "victim-count": 0},
-    { "year": 1980, "month": "August", "state": "Alaska", "city": "North Slope", "crime-type": "Murder or Manslaughter", "victim-count": 0}
-]
+    { 
+        "year": 1980, 
+    "month": "August", 
+    "state": "Alaska", 
+    "city": "North Slope", 
+    "crime-type": "Murder or Manslaughter", 
+    "victim-count": 0
+        
+    }
+];
 
 
 app.get("/hello", (req, res) => {
@@ -41,17 +49,17 @@ var dbTerrorism = new DataStore({
     autoload: true
 });
 
-dbTerrorism.find({}, (err, data) => {
+dbTerrorism.find({}, (err, terrorism) => {
     if (err) {
         console.error("Error accesing DB");
         process.exit(1);
     }
-    if (data.length == 0) {
+    if (terrorism.length == 0) {
         console.log("Empty DB");
         dbTerrorism.insert(terrorism_data);
     }
     else {
-        console.log("DB initialized with " + data.length + " data")
+        console.log("DB initialized with " + terrorism.length + " data");
     }
 });
 
@@ -137,13 +145,13 @@ dbHomicide.find({}, (err, terrorism) => {
 app.get(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
     console.log(Date() + " - GET /homicide-reports-data");
 
-    dbHomicide.find({}, (err, data) => {
+    dbHomicide.find({}, (err, terrorism) => {
         if (err) {
             console.error("Error accesing DB");
             res.sendStatus(500);
             return;
         }
-        res.send(data);
+        res.send(terrorism);
     });
 });
 
@@ -156,15 +164,20 @@ app.get(BASE_API_PATH+"/homicide-reports-data/:year",(req,res)=>{
     })[0]);
 });
 
-
 app.post(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
     console.log(Date() + " - POST /homicide-reports-data");
-       
-        var datareq = req.body;
-        terrorism.push(datareq);
-        res.sendStatus(201);
     
+    dbHomicide.insert(req.body, (err, terrorism) => {
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+        
+        res.sendStatus(201);
+    });
 });
+
 
 app.delete(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
     console.log(Date() + " - DELETE /homicide-reports-data");
