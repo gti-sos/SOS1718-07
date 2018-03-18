@@ -1,7 +1,1 @@
-{"year":2000,"month":"June","state":"Michigan","city":"lalala","crime-type":"Murder or Manslaughter","victim-count":0,"_id":"3VE7VTO2PdAOcY8d"}
-{"year":1980,"month":"May","state":"Alaska","city":"Anchorage","crime-type":"Murder or Manslaughter","victim-count":0,"_id":"5yAfDq150nLmoUeH"}
-{"year":1980,"month":"August","state":"Alaska","city":"North Slope","crime-type":"Murder or Manslaughter","victim-count":0,"_id":"67EOgaGo1ZHQmgL9"}
-{"year":1905,"month":"May","state":"Alaska","city":"Anchorage","crime-type":"Murder or Manslaughter","victim-count":0,"_id":"DKibNagqzbqJb603"}
-{"year":2000,"month":"May","state":"Alaska","city":"Anchorage","crime-type":"Murder or Manslaughter","victim-count":0,"_id":"PWbyzc6ojONPpArC"}
-{"_id":"fBvPDaUus4KQgzfy"}
-{"year":22,"month":"sdf","state":"sd","city":"lalala","crime-type":"Murder or Manslaughter","victim-count":0,"_id":"pjwmWXj77gPEPxrm"}
+{"country":"spain","date":1991,"city":"Paris","killed":89,"injured":322,"_id":"Zee9AtuD3OD4dZSs"}

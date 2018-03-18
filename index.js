@@ -8,14 +8,11 @@ app.use(bodyParser.json());
 app.use("/", express.static(path.join(__dirname, "public")));
 
 
-//var BASE_API_PATH_TERRORISM = "/api/v1/global-terrorism-data";
-//var BASE_API_PATH_HOMICIDE = "/api/v1";
-
 var BASE_API_PATH = "/api/v1";
 
 var dbGlobalTerrorism = __dirname + "/globalTerrorismData.db";
 var dbHomicideReports = __dirname + "/homicideReportsData.db";
-
+var dbAttacksData = __dirname + "/attacksData.db";
 
 var terrorism_data = [
     { "iyear": 1970, "imonth": 7, "iday": 2, "country_txt": "Dominican Republic", "city": "Santo Domingo", "attacktype_txt": "Assassination", "weaptype_txt": "Unknown Explosive Type", "nkill": 1 },
@@ -23,17 +20,39 @@ var terrorism_data = [
 ];
 
 var homicide_data = [
-    { "year": 1980, "month": "May", "state": "Alaska", "city": "Anchorage", "crime-type": "Murder or Manslaughter", "victim-count": 0},
     { 
-        "year": 1980, 
-    "month": "August", 
-    "state": "Alaska", 
-    "city": "North Slope", 
-    "crime-type": "Murder or Manslaughter", 
-    "victim-count": 0
-        
+        "country": "spain",
+    "date": 2004-03-11,
+    "city": "Madrid", 
+    "killed": 201, 
+    "injured": 1841
+    },
+    { 
+     "country": "france",
+    "date": 2015-11-13,
+    "city": "Paris", 
+    "killed": 89, 
+    "injured": 322
     }
 ];
+
+var attacks_data = [
+      { 
+        "country": "spain", 
+    "date": 2004-03-11, 
+    "city": "Madrid", 
+    "killed": 201, 
+    "injured": 1841
+    },
+      { 
+        "country": "france", 
+    "date": 2015-11-13,
+    "city": "Paris", 
+    "killed": 89, 
+    "injured": 322
+    }
+];
+
 
 
 app.get("/hello", (req, res) => {
@@ -49,19 +68,23 @@ var dbTerrorism = new DataStore({
     autoload: true
 });
 
-dbTerrorism.find({}, (err, terrorism) => {
-    if (err) {
-        console.error("Error accesing DB");
-        process.exit(1);
-    }
-    if (terrorism.length == 0) {
-        console.log("Empty DB");
-        dbTerrorism.insert(terrorism_data);
-    }
-    else {
-        console.log("DB initialized with " + terrorism.length + " data");
-    }
+app.get("/loadInitialData", (req, res) => {
+        dbTerrorism.find({}, (err, terrorism) => {
+        if (err) {
+            console.error("Error accesing DB");
+            process.exit(1);
+        }
+        if (terrorism.length == 0) {
+            console.log("Empty DB");
+            dbTerrorism.insert(terrorism_data);
+        }
+        else {
+            console.log("DB initialized with " + terrorism.length + " data");
+        }
+    });
 });
+
+
 
 app.get(BASE_API_PATH + "/global-terrorism-data", (req, res) => {
     console.log(Date() + " - GET /global-terrorism-data");
@@ -76,16 +99,16 @@ app.get(BASE_API_PATH + "/global-terrorism-data", (req, res) => {
     });
 });
 
-app.post(BASE_API_PATH + "/global-terrorism_data", (req, res) => {
-    console.log(Date() + " - POST /global-terrorism_data");
-    dbTerrorism.insert({}, (err, data) => {
+app.post(BASE_API_PATH + "/global-terrorism-data", (req, res) => {
+    console.log(Date() + " - POST /global-terrorism-data");
+    
+    dbTerrorism.insert(req.body, (err, terrorism) => {
         if (err) {
             console.error("Error accesing DB");
             res.sendStatus(500);
             return;
         }
-        var datareq = req.body;
-        terrorism_data.push(datareq);
+        
         res.sendStatus(201);
     });
 });
@@ -128,19 +151,24 @@ var dbHomicide = new DataStore({
     autoload: true
 });
 
-dbHomicide.find({}, (err, terrorism) => {
-    if (err) {
-        console.error("Error accesing DB");
-        process.exit(1);
-    }
-    if (terrorism.length == 0) {
-        console.log("Empty DB");
-        dbHomicide.insert(homicide_data);
-    }
-    else {
-        console.log("DB initialized with " + terrorism.length + " data");
-    }
+
+app.get(BASE_API_PATH + "/homicide-reports-data/loadInitialData", (req, res) => {
+        dbTerrorism.find({}, (err, terrorism) => {
+        if (err) {
+            console.error("Error accesing DB");
+            process.exit(1);
+        }
+        if (terrorism.length == 0) {
+            console.log("Empty DB");
+            dbTerrorism.insert(homicide_data);
+        }
+        else {
+            console.log("DB initialized with " + terrorism.length + " data");
+            return;
+        }
+    });
 });
+
 
 app.get(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
     console.log(Date() + " - GET /homicide-reports-data");
@@ -155,12 +183,12 @@ app.get(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
     });
 });
 
-app.get(BASE_API_PATH+"/homicide-reports-data/:year",(req,res)=>{
-    var year = req.params.year;
-    console.log(Date() + " - GET /homicide-reports-data/"+year);
+app.get(BASE_API_PATH+"/homicide-reports-data/:city",(req,res)=>{
+    var city = req.params.city;
+    console.log(Date() + " - GET /homicide-reports-data/"+city);
     
     res.send(homicide_data.filter((c)=>{
-        return (c.year == year);
+        return (c.city == city);
     })[0]);
 });
 
@@ -178,38 +206,60 @@ app.post(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
     });
 });
 
+app.post(BASE_API_PATH+"/homicide-reports-data/:city",(req,res)=>{
+    var city = req.params.city;
+    console.log(Date() + " - POST /homicide-reports-data/"+city);
+    res.sendStatus(405);
+});
+
 
 app.delete(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
     console.log(Date() + " - DELETE /homicide-reports-data");
-    //terrorism_data = [];
-    dbHomicide.remove({});
-    res.sendStatus(200);
+    
+    dbHomicide.remove({}, {multi: true}, (err, terrorism) => {
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+        
+        res.sendStatus(200);
+    });
 });
 
 app.delete(BASE_API_PATH+"/homicide-reports-data/:city",(req,res)=>{
-    var city = req.params.city;
-    console.log(Date() + " - DELETE /homicide-reports-data/"+city);
+    console.log(Date() + " - DELETE /homicide-reports-data");
+    var city2 = req.params.city;
     
-    homicide_data = homicide_data.filter((c)=>{
-        return (c.city != city);
+     dbHomicide.remove({city:city2}, {multi: true}, (err, terrorism) => {
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+        
+        res.sendStatus(200);
     });
-    
-    res.sendStatus(200);
 });
 
-app.put(BASE_API_PATH + "/homicide-reports-data/:state", (req, res) => {
-    var state = req.params.state;
+app.put(BASE_API_PATH+"/homicide-reports-data",(req,res)=>{
+    console.log(Date() + " - PUT /homicide-reports-data");
+    res.sendStatus(405);
+});
+
+app.put(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => {
+    var city3 = req.params.city;
     var datareq = req.body;
 
-    console.log(Date() + " - PUT /homicide-reports-data/" + state);
+    console.log(Date() + " - PUT /homicide-reports-data/" + city3);
 
-    if (state != datareq.state) {
+    if (city3 != datareq.city) {
         res.sendStatus(409);
         console.warn(Date() + " - Hacking attempt!");
         return;
     }
     
-    dbHomicide.update({"state": datareq.state},datareq,(err,numUpdated)=>{
+    dbHomicide.update({"city": datareq.city},datareq,(err,numUpdated)=>{
         if (err) {
             console.error("Error accesing DB");
             res.sendStatus(500);
@@ -220,13 +270,132 @@ app.put(BASE_API_PATH + "/homicide-reports-data/:state", (req, res) => {
     res.sendStatus(200);
 });
 
-app.post(BASE_API_PATH+"/homicide-reports-data/:city",(req,res)=>{
+
+//API Ismael Álvarez, ATTACKS-DATA
+
+var dbAttacks = new DataStore({
+    filename: dbAttacksData,
+    autoload: true
+});
+
+
+app.get(BASE_API_PATH + "/attacks-data/loadInitialData", (req, res) => {
+        dbAttacks.find({}, (err, terrorism) => {
+        if (err) {
+            console.error("Error accesing DB");
+            process.exit(1);
+        }
+        if (terrorism.length == 0) {
+            console.log("Empty DB");
+            dbAttacks.insert(attacks_data);
+        }
+        else {
+            console.log("DB initialized with " + terrorism.length + " data");
+            return;
+        }
+    });
+});
+
+
+app.get(BASE_API_PATH + "/attacks-data", (req, res) => {
+    console.log(Date() + " - GET /attacks-data");
+
+    dbAttacks.find({}, (err, terrorism) => {
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+        res.send(terrorism);
+    });
+});
+
+app.get(BASE_API_PATH+"/attacks-data/:city",(req,res)=>{
     var city = req.params.city;
-    console.log(Date() + " - POST /homicide-reports-data/"+city);
+    console.log(Date() + " - GET /attacks-data"+city);
+    
+    res.send(attacks_data.filter((c)=>{
+        return (c.city == city);
+    })[0]);
+});
+
+app.post(BASE_API_PATH + "/attacks-data", (req, res) => {
+    console.log(Date() + " - POST /attacks-data");
+    
+    dbAttacks.insert(req.body, (err, terrorism) => {
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+        
+        res.sendStatus(201);
+    });
+});
+
+app.post(BASE_API_PATH+"/attacks-data/:city",(req,res)=>{
+    var city = req.params.city;
+    console.log(Date() + " - POST /attacks-data "+city);
     res.sendStatus(405);
 });
 
-app.put(BASE_API_PATH+"/homicide-reports-data",(req,res)=>{
-    console.log(Date() + " - PUT /homicide-reports-data");
+
+app.delete(BASE_API_PATH + "/attacks-data", (req, res) => {
+    console.log(Date() + " - DELETE /attacks-data");
+    
+    dbAttacks.remove({}, {multi: true}, (err, terrorism) => {
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+        
+        res.sendStatus(200);
+    });
+});
+
+app.delete(BASE_API_PATH+"/attacks-data/:city",(req,res)=>{
+    console.log(Date() + " - DELETE /attacks-data");
+    var city2 = req.params.city;
+    
+     dbAttacks.remove({city:city2}, {multi: true}, (err, terrorism) => {
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+        
+        res.sendStatus(200);
+    });
+});
+
+app.put(BASE_API_PATH+"/attacks-data",(req,res)=>{
+    console.log(Date() + " - PUT /attacks-data");
     res.sendStatus(405);
 });
+
+app.put(BASE_API_PATH + "/attacks-data/:city", (req, res) => {
+    var city3 = req.params.city;
+    var datareq = req.body;
+
+    console.log(Date() + " - PUT /attacks-data " + city3);
+
+    if (city3 != datareq.city) {
+        res.sendStatus(409);
+        console.warn(Date() + " - Hacking attempt!");
+        return;
+    }
+    
+    dbAttacks.update({"city": datareq.city},datareq,(err,numUpdated)=>{
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+        console.log("Updated: " + numUpdated);
+    });
+    res.sendStatus(200);
+});
+
+
+
