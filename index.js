@@ -9,7 +9,7 @@ app.use("/", express.static(path.join(__dirname, "public")));
 
 
 var BASE_API_PATH_TERRORISM = "/api/v1/global-terrorism-data";
-var BASE_API_PATH_HOMICIDE = "/api/v1/homicide-reports-data";
+var BASE_API_PATH_HOMICIDE = "/api/v1";
 
 var dbGlobalTerrorism = __dirname + "/globalTerrorismData.db";
 var dbHomicideReports = __dirname + "/homicideReportsData.db";
@@ -145,6 +145,16 @@ app.get(BASE_API_PATH_HOMICIDE + "/homicide-reports-data", (req, res) => {
     });
 });
 
+app.get(BASE_API_PATH_HOMICIDE+"/homicide-reports-data/:year",(req,res)=>{
+    var year = req.params.year;
+    console.log(Date() + " - GET /homicide-reports-data/"+year);
+    
+    res.send(homicide_data.filter((c)=>{
+        return (c.year == year);
+    })[0]);
+});
+
+
 app.post(BASE_API_PATH_HOMICIDE + "/homicide-reports-data", (req, res) => {
     console.log(Date() + " - POST /homicide-reports-data");
     dbHomicide.insert({}, (err, data) => {
@@ -166,11 +176,22 @@ app.delete(BASE_API_PATH_HOMICIDE + "/homicide-reports-data", (req, res) => {
     res.sendStatus(200);
 });
 
+app.delete(BASE_API_PATH_HOMICIDE+"/homicide-reports-data/:city",(req,res)=>{
+    var city = req.params.city;
+    console.log(Date() + " - DELETE /homicide-reports-data/"+city);
+    
+    homicide_data = homicide_data.filter((c)=>{
+        return (c.city != city);
+    });
+    
+    res.sendStatus(200);
+});
+
 app.put(BASE_API_PATH_HOMICIDE + "/homicide-reports-data/:state", (req, res) => {
     var state = req.params.state;
     var datareq = req.body;
 
-    console.log(Date() + " - PUT /contacts/" + state);
+    console.log(Date() + " - PUT /homicide-reports-data/" + state);
 
     if (state != datareq.state) {
         res.sendStatus(409);
@@ -187,4 +208,15 @@ app.put(BASE_API_PATH_HOMICIDE + "/homicide-reports-data/:state", (req, res) => 
         console.log("Updated: " + numUpdated);
     });
     res.sendStatus(200);
+});
+
+app.post(BASE_API_PATH_HOMICIDE+"/homicide-reports-data/:city",(req,res)=>{
+    var city = req.params.city;
+    console.log(Date() + " - POST /homicide-reports-data/"+city);
+    res.sendStatus(405);
+});
+
+app.put(BASE_API_PATH_HOMICIDE+"/homicide-reports-data",(req,res)=>{
+    console.log(Date() + " - PUT /homicide-reports-data");
+    res.sendStatus(405);
 });
