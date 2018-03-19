@@ -31,14 +31,14 @@ var homicide_data = [
 var attacks_data = [
       { 
         "country": "spain", 
-    "date": 2004-03-11, 
+    "date":"2004-03-11" , 
     "city": "Madrid", 
     "killed": 201, 
     "injured": 1841
     },
       { 
         "country": "france", 
-    "date": 2015-11-13,
+    "date":"2015-11-12",
     "city": "Paris", 
     "killed": 89, 
     "injured": 322
@@ -69,6 +69,7 @@ app.get(BASE_API_PATH +"/global-terrorism-data/loadInitialData", (req, res) => {
         if (terrorism.length == 0) {
             console.log("Empty DB");
             dbTerrorism.insert(terrorism_data);
+            res.sendStatus(201);
         }
         else {
             console.log("DB initialized with " + terrorism.length + " data");
@@ -191,6 +192,7 @@ app.get(BASE_API_PATH + "/homicide-reports-data/loadInitialData", (req, res) => 
         if (terrorism.length == 0) {
             console.log("Empty DB");
             dbHomicide.insert(homicide_data);
+            res.sendStatus(201);
         }
         else {
             console.log("DB initialized with " + terrorism.length + " data");
@@ -318,6 +320,7 @@ app.get(BASE_API_PATH + "/attacks-data/loadInitialData", (req, res) => {
         if (terrorism.length == 0) {
             console.log("Empty DB");
             dbAttacks.insert(attacks_data);
+            res.sendStatus(201);
         }
         else {
             console.log("DB initialized with " + terrorism.length + " data");
