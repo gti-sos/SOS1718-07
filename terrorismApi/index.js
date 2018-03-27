@@ -53,13 +53,26 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
 
     app.post(BASE_API_PATH + "/global-terrorism-data", (req, res) => { //////////////////////////////////MONGO
         console.log(Date() + " - POST /global-terrorism-data");
-
+        
+        var estaContenido = dbTerrorism.find({"country_txt" : req.params.country_txt, "iday" : req.params.iday, "imonth" : req.params.imonth, "iyear" : req.params.iyear}).toArray((err,data)=>{
+            if(err){
+                res.sendStatus(500);
+                return;
+            }
+            return data;
+        });
+        
+        if(req.body == estaContenido){
+            res.sendStatus(409);
+        }
+        
         dbTerrorism.insert(req.body, (err, terrorism) => {
             if (err) {
                 console.error("Error accesing DB");
                 res.sendStatus(500);
                 return;
             }
+            console.log(estaContenido);
             res.sendStatus(201);
         });
     });
