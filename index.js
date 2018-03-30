@@ -6,6 +6,7 @@ var app = express();
 var MongoClient = require("mongodb").MongoClient;
 
 var terrorismApi = require("./terrorismApi");
+var homicideApi = require("./homicideApi");
 
 
 app.use(bodyParser.json());
@@ -15,7 +16,7 @@ app.use("/", express.static(path.join(__dirname, "public")));
 var BASE_API_PATH = "/api/v1";
 
 var dbGlobalTerrorism = "mongodb://miguelillo42:miguelillo42@ds121889.mlab.com:21889/global-terrorism-data";
-var dbHomicideReports = __dirname + "/homicideReportsData.db";
+var dbHomicideReports = "mongodb://fraperzam:fraperzam@ds229909.mlab.com:29909/homicide-reports-data";
 var dbAttacksData = __dirname + "/attacksData.db";
 
 var terrorism_data = [
@@ -95,52 +96,27 @@ MongoClient.connect(dbGlobalTerrorism, { native_parser: true }, (err, mlabs) => 
 
 //API Francisco Jesus, HOMICIDE REPORTS DATA
 
-var dbHomicide = new DataStore({
-    filename: dbHomicideReports,
-    autoload: true
-});
+//var dbHomicide = new DataStore({
+//    filename: dbHomicideReports,
+//    autoload: true
+//});
 
 
-app.get(BASE_API_PATH + "/homicide-reports-data/loadInitialData", (req, res) => {
-    dbHomicide.find({}, (err, terrorism) => {
-        if (err) {
-            console.error("Error accesing DB");
-            process.exit(1);
-        }
-        if (terrorism.length == 0) {
-            console.log("Empty DB");
-            dbHomicide.insert(homicide_data);
-            res.sendStatus(201);
-        }
-        else {
-            console.log("DB initialized with " + terrorism.length + " data");
-            return;
-        }
-    });
-});
+
+MongoClient.connect(dbHomicideReports, { native_parser: true }, (err, mlabs) => {
+    if (err) {
+        console.error("Error accesing DB" + err);
+        process.exit(1);
+    }
+    console.log("Connected to DB in mlabs"); //Comentario para borrar ...............................................
+    var dbHom = mlabs.db("homicide-reports-data");
+    var dbHomicide = dbHom.collection("homicide-reports-data");
+
+    homicideApi.register(app, dbHomicide, homicide_data);
+
+})
 
 
-app.get(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
-    console.log(Date() + " - GET /homicide-reports-data");
-
-    dbHomicide.find({}, (err, terrorism) => {
-        if (err) {
-            console.error("Error accesing DB");
-            res.sendStatus(500);
-            return;
-        }
-        res.send(terrorism);
-    });
-});
-
-app.get(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => {
-    var city = req.params.city;
-    console.log(Date() + " - GET /homicide-reports-data/" + city);
-
-    res.send(homicide_data.filter((c) => {
-        return (c.city == city);
-    })[0]);
-});
 
 app.post(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
     console.log(Date() + " - POST /homicide-reports-data");
