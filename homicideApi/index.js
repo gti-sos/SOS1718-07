@@ -42,7 +42,7 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
         var city = req.params.city;
         console.log(Date() + " - GET /homicide-reports-data/" + city);
 
-        dbTerrorism.find({ "city": city }).toArray((err, data) => {
+        dbHomicide.find({ "city": city }).toArray((err, data) => {
             if (err) {
                 console.error("Error accesing DB");
                 res.sendStatus(500);
