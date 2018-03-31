@@ -5,7 +5,7 @@ module.exports = attacksApi;
 
 attacksApi.register = function(app, dbAttacks, attacks_data) {
 
-    app.get(BASE_API_PATH + "/attacks-data/loadInitialData", (req, res) => {     //MONGO
+    app.get(BASE_API_PATH + "/attacks-data/loadInitialData", (req, res) => { //MONGO
 
         dbAttacks.find({}).toArray((err, terrorism) => {
             if (err) {
@@ -21,10 +21,15 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                 console.log("DB has " + terrorism.length + " data");
                 res.sendStatus(200);
             }
+
         });
     });
 
-    app.get(BASE_API_PATH + "/attacks-data", (req, res) => {   //MONGO
+    app.get(BASE_API_PATH + "/attacks-data/docs", (req, res) => {
+        res.redirect("https://documenter.getpostman.com/view/3894473/collection/RVu1GVsW");
+    });
+
+    app.get(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
         console.log(Date() + " - GET /attacks-data");
 
         dbAttacks.find({}).toArray((err, data) => {
@@ -33,11 +38,14 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                 res.sendStatus(500);
                 return;
             }
-            res.send(data);
+            res.send(attacks_data.map((c) => {
+                delete c._id;
+                return c;
+            }));
         });
     });
 
-    app.get(BASE_API_PATH + "/attacks-data/:country", (req, res) => {   //MONGO
+    app.get(BASE_API_PATH + "/attacks-data/:country", (req, res) => { //MONGO
         var country = req.params.country;
         console.log(Date() + " - GET /attacks-data/" + country);
 
@@ -51,21 +59,21 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
         });
     });
 
-    app.post(BASE_API_PATH + "/attacks-data", (req, res) => {   //MONGO
+    app.post(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
         console.log(Date() + " - POST /attacks-data");
-        
-        var estaContenido = dbAttacks.find({"country" : req.params.country, "date" : req.params.date }).toArray((err,data)=>{
-            if(err){
+
+        var estaContenido = dbAttacks.find({ "country": req.params.country, "date": req.params.date }).toArray((err, data) => {
+            if (err) {
                 res.sendStatus(500);
                 return;
             }
             return data;
         });
-        
-        if(req.body == estaContenido){
+
+        if (req.body == estaContenido) {
             res.sendStatus(409);
         }
-        
+
         dbAttacks.insert(req.body, (err, terrorism) => {
             if (err) {
                 console.error("Error accesing DB");
@@ -77,20 +85,20 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
         });
     });
 
-    app.post(BASE_API_PATH + "/attacks-data/:country", (req, res) => {  //MONGO
+    app.post(BASE_API_PATH + "/attacks-data/:country", (req, res) => { //MONGO
         var countryy = req.params.country;
         console.log(Date() + " - POST /attacks-data/" + countryy);
         res.sendStatus(405);
     });
 
-    app.delete(BASE_API_PATH + "/attacks-data", (req, res) => {     //MONGO
+    app.delete(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
         console.log(Date() + " - DELETE /attacks-data");
         dbAttacks.remove({});
         res.sendStatus(200);
 
     });
 
-    app.delete(BASE_API_PATH + "attacks-data/:country", (req, res) => {     //MONGO
+    app.delete(BASE_API_PATH + "attacks-data/:country", (req, res) => { //MONGO
         var country = req.params.country;
         console.log(Date() + " - DELETE /attacks-data " + country);
 
@@ -104,12 +112,12 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
         });
     });
 
-    app.put(BASE_API_PATH + "/attacks-data", (req, res) => {    //MONGO
+    app.put(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
         console.log(Date() + " - PUT /attacks-data");
         res.sendStatus(405);
     });
 
-    app.put(BASE_API_PATH + "/attacks-data/:country", (req, res) => {   //MONGO
+    app.put(BASE_API_PATH + "/attacks-data/:country", (req, res) => { //MONGO
         var country = req.params.country;
         var datareq = req.body;
 
