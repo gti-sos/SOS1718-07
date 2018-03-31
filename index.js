@@ -7,6 +7,7 @@ var MongoClient = require("mongodb").MongoClient;
 
 var terrorismApi = require("./terrorismApi");
 var homicideApi = require("./homicideApi");
+var attacksApi = require("./attacksApi");
 
 
 app.use(bodyParser.json());
@@ -17,7 +18,7 @@ var BASE_API_PATH = "/api/v1";
 
 var dbGlobalTerrorism = "mongodb://miguelillo42:miguelillo42@ds121889.mlab.com:21889/global-terrorism-data";
 var dbHomicideReports = "mongodb://fraperzam:fraperzam@ds229909.mlab.com:29909/homicide-reports-data";
-var dbAttacksData = __dirname + "/attacksData.db";
+var dbAttacksData = "mongodb://ismalvgue:ismalvgue@ds229909.mlab.com:29909/attacks-data";
 
 var terrorism_data = [
     { "iyear": 1970, "imonth": 7, "iday": 2, "country_txt": "Dominican Republic", "city": "Santo Domingo", "attacktype_txt": "Assassination", "weaptype_txt": "Unknown Explosive Type", "nkill": 1 },
@@ -47,22 +48,13 @@ var homicide_data = [{
     }
 ];
 
-var attacks_data = [{
-        "country": "spain",
-        "date": "2004-03-11",
-        "city": "Madrid",
-        "killed": 201,
-        "injured": 1841
-    },
-    {
-        "country": "france",
-        "date": "2015-11-12",
-        "city": "Paris",
-        "killed": 89,
-        "injured": 322
-    }
+var attacks_data = 
+[{      "country": "spain","date": "2004-03-11","city": "Madrid","killed": 201,"injured": 1841 },
+    {   "country": "france","date": "2015-11-12","city": "Paris","killed": 89,"injured": 322 },
+    {   "country": "germany","date": "2016-07-18","city": "Wuerzburg","killed": 0,"injured": 5 },
+    {   "country": "france","date": "2016-07-14","city": "Nice","killed": 84,"injured": 202 },
+    {   "country": "syria","date": "2012-06-06","city": "Qubair","killed": 78,"injured": 0 }
 ];
-
 
 
 app.get("/hello", (req, res) => {
@@ -199,12 +191,26 @@ app.put(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => {
 
 //API Ismael Álvarez, ATTACKS-DATA
 
-var dbAttacks = new DataStore({
+/*var dbAttacks = new DataStore({
     filename: dbAttacksData,
     autoload: true
+});*/
+
+MongoClient.connect(dbAttacksData, { native_parser: true }, (err, mlabs) => {
+    if (err) {
+        console.error("Error accesing DB" + err);
+        process.exit(1);
+    }
+    console.log("Connected to DB in mlabs"); 
+    var dbAtta = mlabs.db("attacks-data");
+    var dbAttacks = dbAtta.collection("attacks-data");
+
+    attacksApi.register(app, dbAttacks, attacks_data);
+
 });
 
 
+/*
 app.get(BASE_API_PATH + "/attacks-data/loadInitialData", (req, res) => {
     dbAttacks.find({}, (err, terrorism) => {
         if (err) {
@@ -323,3 +329,4 @@ app.put(BASE_API_PATH + "/attacks-data/:city", (req, res) => {
     });
     res.sendStatus(200);
 });
+*/
