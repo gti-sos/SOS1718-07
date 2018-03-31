@@ -55,7 +55,11 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                 res.sendStatus(500);
                 return;
             }
-            res.send(data[0]);
+
+            res.send(attacks_data.filter((c) => {
+                return (c.country == country);
+            }));
+
         });
     });
 
