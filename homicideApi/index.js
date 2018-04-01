@@ -83,7 +83,7 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
             return data;
         });
 
-        if (Object.keys(campos).length !== 5) {
+        if (Object.keys(campos).length !== 7) {
             console.warn("Stat does not have the expected fields");
             res.sendStatus(400);
         }
@@ -158,7 +158,7 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
         console.log(Date() + " - PUT /homicide-reports-data/" + city3);
 
         if (city3 != datareq.city) {
-            res.sendStatus(409);
+            res.sendStatus(400);
             console.warn(Date() + " - Hacking attempt!");
             return;
         }
