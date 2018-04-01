@@ -1,9 +1,9 @@
 var attacksApi = {};
-var BASE_API_PATH = "/api/v1/secure";
+var BASE_API_PATH = "/api/v1";
 
 module.exports = attacksApi;
 
-attacksApi.register = function(app, dbAttacks, attacks_data, checkApiKey) {
+attacksApi.register = function(app, dbAttacks, attacks_data) {
 
     app.get(BASE_API_PATH + "/attacks-data/docs", (req, res) => {
         res.redirect("https://documenter.getpostman.com/view/3894473/collection/RVu1GVsW");
@@ -33,7 +33,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data, checkApiKey) {
     //////////////////////////////////////////////////////
 
     app.get(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
-        if (!checkApiKey(req, res)) return;
+       // if (!checkApiKey(req, res)) return;
         console.log(Date() + " - GET /attacks-data");
 
         dbAttacks.find({}).toArray((err, terrorism) => {
@@ -192,95 +192,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data, checkApiKey) {
         });
         res.sendStatus(200);
     });
-
-  ////*******************************************************************************************************************************////////////////////
-    //BUSQUEDA****************************************************************************************
-    // GET 
-    app.get(BASE_API_PATH + "/attacks-data", function(request, response) {
-
-        console.log("INFO: New GET request to /attacks-data");
-
-        var limit = parseInt(request.query.limit);
-        var offset = parseInt(request.query.offset);
-        var from = request.query.from;
-        var to = request.query.to;
-        var autCommunity = request.query.autCommunity;
-        var year = request.query.year;
-        var enrolledNumber = request.query.enrolledNumber;
-        var degree = request.query.degree;
-        var master = request.query.master;
-        var firstSecondCycle = request.query.firstSecondCycle;
-
-        var aux = [];
-        var aux2 = [];
-        var aux_empty = [];
-
-
-        if (limit || offset >= 0) {
-            dbAttacks.find({}).skip(offset).limit(limit).toArray(function(err, stats) {
-                if (err) {
-                    console.error('WARNING: Error getting data from DB');
-                    response.sendStatus(500);
-                    return;
-                }
-                else {
-                    if (stats.length === 0) {
-                        response.sendStatus(404);
-                        return;
-                    }
-
-                    if (from || to || autCommunity || year || enrolledNumber || degree || master || firstSecondCycle) {
-
-                        aux = finder(stats, aux, from, to, autCommunity, year, enrolledNumber, degree, master, firstSecondCycle);
-
-                        if (aux.length > 0) {
-
-                            aux2 = aux.slice(offset, offset + limit);
-                            response.send(aux2);
-                        }
-                        else {
-
-                            response.send(aux_empty);
-                            return;
-                        }
-                    }
-                    else {
-                        response.send(stats);
-                    }
-                }
-            });
-
-        }
-        else {
-
-            SpanUNivStatsdb.find({}).toArray(function(err, stats) {
-                if (err) {
-                    console.error('ERROR from database');
-                    response.sendStatus(500);
-                }
-                else {
-                    if (stats.length === 0) {
-
-                        response.send(stats);
-                        return;
-                    }
-
-                    if (from || to || autCommunity || year || enrolledNumber || degree || master || firstSecondCycle) {
-                        aux = finder(stats, aux, from, to, autCommunity, year, enrolledNumber, degree, master, firstSecondCycle);
-                        if (aux.length > 0) {
-                            response.send(aux);
-                        }
-                        else {
-                            response.sendStatus(404);
-                            return;
-                        }
-                    }
-                    else {
-                        response.send(stats);
-                    }
-                }
-            });
-        }
-
-    }); 
+    
+    
+    
 }; 

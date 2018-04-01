@@ -9,8 +9,8 @@ var terrorismApi = require("./terrorismApi");
 var homicideApi = require("./homicideApi");
 var attacksApi = require("./attacksApi");
 
-var secureAttacksApi = require("./secureAttacksApi");
-var apikey = require("./apikey");
+//var secureAttacksApi = require("./secureAttacksApi");
+//var apikey = require("./apikey");
 
 
 app.use(bodyParser.json());
@@ -199,7 +199,7 @@ MongoClient.connect(dbAttacksData, { native_parser: true }, (err, mlabs) => {
     var dbAttacks = dbAtta.collection("attacks-data");
     
     attacksApi.register(app, dbAttacks, attacks_data);
-    secureAttacksApi.register(app, dbAttacks, attacks_data, apikey.checkApiKey);
+   // secureAttacksApi.register(app, dbAttacks, attacks_data, apikey.checkApiKey);
     
 });
 
