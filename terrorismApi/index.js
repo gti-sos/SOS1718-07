@@ -64,7 +64,7 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                 return;
             }
             res.send(terrorism_data.filter((c) => {
-                return (c.country == country);
+                return (c.country_txt == country);
             })[0]);
         });
     });
@@ -83,10 +83,12 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
         if (Object.keys(campos).length !== 8) {
             console.warn("Stat does not have the expected fields");
             res.sendStatus(400);
+            return;
         }
 
         if (req.body == estaContenido) {
             res.sendStatus(409);
+            return;
         }
 
         dbTerrorism.insert(req.body, (err, terrorism) => {
@@ -136,6 +138,7 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
             }
             if (terrorism.length == 0) {
                 res.sendStatus(404);
+                return;
             }
             res.sendStatus(200);
         });
