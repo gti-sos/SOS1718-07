@@ -28,24 +28,12 @@ var terrorism_data = [
     { "iyear": 1970, "imonth": 2, "iday": 16, "country_txt": "United States", "city": "San Francisco", "attacktype_txt": "Armed Assault", "weaptype_txt": "Firearms", "nkill": 0 }
 ];
 
-var homicide_data = [{
-        "year": 1980,
-        "month": "May",
-        "state": "Alaska",
-        "city": "Anchorage",
-        "crime-type": "Murder or Manslaughter",
-        "weapon": "Rifle",
-        "victim count": 0
-    },
-    {
-        "year": 1980,
-        "month": "August",
-        "state": "Alaska",
-        "city": "North Slope",
-        "crime-type": "Murder or Manslaughter",
-        "weapon": "Rifle",
-        "victim count": 0
-    }
+var homicide_data = [
+    { "year": 1980, "month": "May", "state": "Alaska", "city": "Anchorage", "crime-type": "Murder or Manslaughter", "weapon": "Rifle", "victim count": 0},
+    { "year": 1980, "month": "August", "state": "Alaska", "city": "North Slope", "crime-type": "Murder or Manslaughter", "weapon": "Rifle", "victim count": 0},
+    { "year": 1980, "month": "July", "state": "Alaska", "city": "Juneau", "crime-type": "Murder or Manslaughter", "weapon": "Firearm", "victim count": 0},
+    { "year": 1980, "month": "March", "state": "Alabama", "city": "Jefferson", "crime-type": "Murder or Manslaughter", "weapon": "Knife", "victim count": 0},
+    { "year": 1994, "month": "April", "state": "New York", "city": "Monroe", "crime-type": "Murder or Manslaughter", "weapon": "Rifle", "victim count": 1}
 ];
 
 var attacks_data = 
@@ -109,7 +97,7 @@ MongoClient.connect(dbHomicideReports, { native_parser: true }, (err, mlabs) => 
 })
 
 
-
+/*
 app.post(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
     console.log(Date() + " - POST /homicide-reports-data");
 
@@ -187,6 +175,7 @@ app.put(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => {
     });
     res.sendStatus(200);
 });
+*/
 
 
 //API Ismael Álvarez, ATTACKS-DATA
