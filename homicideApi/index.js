@@ -6,7 +6,7 @@ module.exports = homicideApi;
 
 homicideApi.register = function(app, dbHomicide, homicide_data) {
 
-    app.get(BASE_API_PATH + "/homicide-reports-data/loadInitialData", (req, res) => {
+    app.get(BASE_API_PATH + "/homicide-reports-data/loadInitialData", (req, res) => {  //MONGODB
 
         dbHomicide.find({}).toArray((err, terrorism) => {
             if (err) {
@@ -21,11 +21,12 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
             else {
                 console.log("DB initialized with " + terrorism.length + " data");
                 res.sendStatus(200);
+                return;
             }
         });
     });
 
-    app.get(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
+    app.get(BASE_API_PATH + "/homicide-reports-data", (req, res) => {   //MONGODB
         console.log(Date() + " - GET /homicide-reports-data");
 
         dbHomicide.find({}).toArray((err, terrorism) => {
@@ -38,7 +39,7 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
         });
     });
 
-    app.get(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => {
+    app.get(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => {   //MONGODB
         var city = req.params.city;
         console.log(Date() + " - GET /homicide-reports-data/" + city);
 
@@ -52,7 +53,7 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
         });
     });
 
-    app.post(BASE_API_PATH + "/homicide-reports-data", (req, res) => { //////////////////////////////////MONGO
+    app.post(BASE_API_PATH + "/homicide-reports-data", (req, res) => {    //MONGODB
         console.log(Date() + " - POST /homicide-reports-data");
 
         var estaContenido = dbHomicide.find({ "city": req.params.city, "year": req.params.year, "month": req.params.month }).toArray((err, data) => {
@@ -79,20 +80,20 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
     });
 
 
-    app.post(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => {
+    app.post(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => {  //MONGODB
         var cityy = req.params.city;
         console.log(Date() + " - POST /homicide-reports-data/" + cityy);
         res.sendStatus(405);
     });
 
 
-    app.delete(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
+    app.delete(BASE_API_PATH + "/homicide-reports-data", (req, res) => {  //MONGODB
         console.log(Date() + " - DELETE /homicide-reports-data");
         dbHomicide.remove({});
         res.sendStatus(200);
     });
 
-    app.delete(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => {
+    app.delete(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => {   //MONGODB
         console.log(Date() + " - DELETE /homicide-reports-data");
         var city2 = req.params.city;
 
@@ -107,12 +108,12 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
         });
     });
 
-    app.put(BASE_API_PATH + "/homicide-reports-data", (req, res) => {
+    app.put(BASE_API_PATH + "/homicide-reports-data", (req, res) => {    //MONGODB
         console.log(Date() + " - PUT /homicide-reports-data");
         res.sendStatus(405);
     });
 
-    app.put(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => {
+    app.put(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => {  //MONGODB
         var city3 = req.params.city;
         var datareq = req.body;
 
