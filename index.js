@@ -1,6 +1,6 @@
 var express = require("express");
 var path = require("path");
-var DataStore = require("nedb");
+//var DataStore = require("nedb");
 var bodyParser = require("body-parser");
 var app = express();
 var MongoClient = require("mongodb").MongoClient;
@@ -9,12 +9,15 @@ var terrorismApi = require("./terrorismApi");
 var homicideApi = require("./homicideApi");
 var attacksApi = require("./attacksApi");
 
+var secureAttacksApi = require("./secureAttacksApi");
+var apikey = require("./apikey");
+
 
 app.use(bodyParser.json());
 app.use("/", express.static(path.join(__dirname, "public")));
 
 
-var BASE_API_PATH = "/api/v1";
+//var BASE_API_PATH = "/api/v1";
 
 var dbGlobalTerrorism = "mongodb://miguelillo42:miguelillo42@ds121889.mlab.com:21889/global-terrorism-data";
 var dbHomicideReports = "mongodb://fraperzam:fraperzam@ds229909.mlab.com:29909/homicide-reports-data";
@@ -94,7 +97,7 @@ MongoClient.connect(dbHomicideReports, { native_parser: true }, (err, mlabs) => 
 
     homicideApi.register(app, dbHomicide, homicide_data);
 
-})
+});
 
 
 /*
@@ -191,11 +194,13 @@ MongoClient.connect(dbAttacksData, { native_parser: true }, (err, mlabs) => {
         process.exit(1);
     }
     console.log("Connected to DB in mlabs"); 
+    
     var dbAtta = mlabs.db("attacks-data");
     var dbAttacks = dbAtta.collection("attacks-data");
-
+    
     attacksApi.register(app, dbAttacks, attacks_data);
-
+    secureAttacksApi.register(app, dbAttacks, attacks_data, apikey.checkApiKey);
+    
 });
 
 
