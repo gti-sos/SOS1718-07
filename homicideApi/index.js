@@ -75,33 +75,31 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
         console.log(Date() + " - POST /homicide-reports-data");
         var campos = req.body;
 
-        var estaContenido = dbHomicide.find({ "city": req.params.city, "year": req.params.year, "month": req.params.month }).toArray((err, data) => {
+        dbHomicide.find({ "city": req.body.city, "year": req.body.year, "month": req.body.month }).toArray((err, data) => {
             if (err) {
                 res.sendStatus(500);
                 return;
             }
-            return data;
-        });
-
-        if (Object.keys(campos).length !== 7) {
-            console.warn("Stat does not have the expected fields");
-            res.sendStatus(400);
-            return;
-        }
-
-        if (req.body == estaContenido) {
-            res.sendStatus(409);
-            return;
-        }
-
-        dbHomicide.insert(req.body, (err, terrorism) => {
-            if (err) {
-                console.error("Error accesing DB");
-                res.sendStatus(500);
+            if (Object.keys(campos).length !== 7) {
+                console.warn("Stat does not have the expected fields");
+                res.sendStatus(400);
                 return;
             }
-            console.log(estaContenido);
-            res.sendStatus(201);
+
+            if (data.length > 0) {
+                res.sendStatus(409);
+                return;
+            }
+            else {
+                dbHomicide.insert(req.body, (err, terrorism) => {
+                    if (err) {
+                        console.error("Error accesing DB");
+                        res.sendStatus(500);
+                        return;
+                    }
+                    res.sendStatus(201);
+                });
+            }
         });
     });
 
@@ -140,7 +138,7 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                 res.sendStatus(500);
                 return;
             }
-             if (terrorism.length == 0) {
+            if (terrorism.length == 0) {
                 res.sendStatus(404);
                 return;
             }
