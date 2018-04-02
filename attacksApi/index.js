@@ -6,7 +6,7 @@ module.exports = attacksApi;
 attacksApi.register = function(app, dbAttacks, attacks_data) {
 
     app.get(BASE_API_PATH + "/attacks-data/docs", (req, res) => {
-        res.redirect("https://documenter.getpostman.com/view/3894473/collection/RVu1GVsW");
+        res.redirect("https://documenter.getpostman.com/view/3894473/f06/RVu1HAui");
     });
 
     app.get(BASE_API_PATH + "/attacks-data/loadInitialData", (req, res) => { //MONGO
