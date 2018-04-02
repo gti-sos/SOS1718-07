@@ -7,7 +7,7 @@ module.exports = homicideApi;
 homicideApi.register = function(app, dbHomicide, homicide_data) {
 
     app.get(BASE_API_PATH + "/homicide-reports-data/docs", (req, res) => {
-        res.redirect("https://documenter.getpostman.com/view/3879097/collection/RVu1HAqH");
+        res.redirect("https://documenter.getpostman.com/view/3879097/collection/RVu1HAuk");
     });
 
     app.get(BASE_API_PATH + "/homicide-reports-data/loadInitialData", (req, res) => { //MONGODB
@@ -86,10 +86,12 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
         if (Object.keys(campos).length !== 7) {
             console.warn("Stat does not have the expected fields");
             res.sendStatus(400);
+            return;
         }
 
         if (req.body == estaContenido) {
             res.sendStatus(409);
+            return;
         }
 
         dbHomicide.insert(req.body, (err, terrorism) => {
@@ -140,6 +142,7 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
             }
              if (terrorism.length == 0) {
                 res.sendStatus(404);
+                return;
             }
 
             res.sendStatus(200);

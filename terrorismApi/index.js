@@ -5,8 +5,8 @@ module.exports = terrorismApi;
 
 terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
 
-    app.get(BASE_API_PATH + "/attacks-data/docs", (req, res) => {
-        res.redirect("");
+    app.get(BASE_API_PATH + "/global-terrorism-data/docs", (req, res) => {
+        res.redirect("https://documenter.getpostman.com/view/3873871/collection/RVu1HAuj");
     });
 
     app.get(BASE_API_PATH + "/global-terrorism-data/loadInitialData", (req, res) => { //////////////////////////////////MONGO
@@ -64,7 +64,7 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                 return;
             }
             res.send(terrorism_data.filter((c) => {
-                return (c.country == country);
+                return (c.country_txt == country);
             })[0]);
         });
     });
@@ -72,32 +72,38 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
     app.post(BASE_API_PATH + "/global-terrorism-data", (req, res) => { //////////////////////////////////MONGO
         console.log(Date() + " - POST /global-terrorism-data");
 
-        var estaContenido = dbTerrorism.find({ "country_txt": req.params.country_txt, "iday": req.params.iday, "imonth": req.params.imonth, "iyear": req.params.iyear }).toArray((err, data) => {
+        dbTerrorism.find({ "country_txt": req.params.country_txt, "iday": req.params.iday, "imonth": req.params.imonth, "iyear": req.params.iyear }).toArray((err, data) => {
             if (err) {
+                console.error(" Error accesing DB");
                 res.sendStatus(500);
                 return;
             }
-            return data;
-        });
-        var campos = req.body;
-        if (Object.keys(campos).length !== 8) {
-            console.warn("Stat does not have the expected fields");
-            res.sendStatus(400);
-        }
-
-        if (req.body == estaContenido) {
-            res.sendStatus(409);
-        }
-
-        dbTerrorism.insert(req.body, (err, terrorism) => {
-            if (err) {
-                console.error("Error accesing DB");
-                res.sendStatus(500);
+            var campos = req.body;
+            if (Object.keys(campos).length !== 8) {
+                console.warn("Stat does not have the expected fields");
+                res.sendStatus(400);
                 return;
             }
-            console.log(estaContenido);
-            res.sendStatus(201);
+
+            if (data.length > 0) {
+
+                res.sendStatus(409);
+
+            }
+            else {
+                dbTerrorism.insert(req.body, (err, terrorism) => {
+                    if (err) {
+                        console.error("Error accesing DB");
+                        res.sendStatus(500);
+                        return;
+                    }
+                    res.sendStatus(201);
+                });
+            }
+
+
         });
+
     });
 
     app.post(BASE_API_PATH + "/global-terrorism-data/:country_txt", (req, res) => { //////////////////////////////////MONGO
@@ -136,6 +142,7 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
             }
             if (terrorism.length == 0) {
                 res.sendStatus(404);
+                return;
             }
             res.sendStatus(200);
         });

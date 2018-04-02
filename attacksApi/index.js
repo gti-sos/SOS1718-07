@@ -6,7 +6,7 @@ module.exports = attacksApi;
 attacksApi.register = function(app, dbAttacks, attacks_data) {
 
     app.get(BASE_API_PATH + "/attacks-data/docs", (req, res) => {
-        res.redirect("https://documenter.getpostman.com/view/3894473/collection/RVu1GVsW");
+        res.redirect("https://documenter.getpostman.com/view/3894473/f06/RVu1HAui");
     });
 
     app.get(BASE_API_PATH + "/attacks-data/loadInitialData", (req, res) => { //MONGO
@@ -95,10 +95,12 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
         if (Object.keys(campos).length !== 5) {
             console.warn("Stat does not have the expected fields");
             res.sendStatus(400);
+            return;
         }
 
         if (req.body == estaContenido) {
             res.sendStatus(409);
+            return;
         }
 
         dbAttacks.insert(req.body, (err, terrorism) => {
@@ -155,6 +157,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
             }
             if (terrorism.length == 0) {
                 res.sendStatus(404);
+                return;
             }
 
             res.sendStatus(200);
