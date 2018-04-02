@@ -33,7 +33,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
     //////////////////////////////////////////////////////
 
     app.get(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
-       // if (!checkApiKey(req, res)) return;
+        // if (!checkApiKey(req, res)) return;
         console.log(Date() + " - GET /attacks-data");
 
         dbAttacks.find({}).toArray((err, terrorism) => {
@@ -80,42 +80,42 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
     });
 
     app.post(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
-       // if (!checkApiKey(req, res)) return;
+        // if (!checkApiKey(req, res)) return;
         console.log(Date() + " - POST /attacks-data");
         var campos = req.body;
 
-        var estaContenido = dbAttacks.find({ "country": req.params.country, "date": req.params.date }).toArray((err, terrorism) => {
+        dbAttacks.find({ "country": req.body.country, "date": req.body.date }).toArray((err, terrorism) => {
             if (err) {
                 res.sendStatus(500);
                 return;
             }
-            return terrorism;
-        });
-
-        if (Object.keys(campos).length !== 5) {
-            console.warn("Stat does not have the expected fields");
-            res.sendStatus(400);
-            return;
-        }
-
-        if (req.body == estaContenido) {
-            res.sendStatus(409);
-            return;
-        }
-
-        dbAttacks.insert(req.body, (err, terrorism) => {
-            if (err) {
-                console.error("Error accesing DB");
-                res.sendStatus(500);
+            if (Object.keys(campos).length !== 5) {
+                console.warn("Stat does not have the expected fields");
+                res.sendStatus(400);
                 return;
             }
-            console.log(estaContenido);
-            res.sendStatus(201);
+
+            if (terrorism.length > 0) {
+                res.sendStatus(409);
+                return;
+            }
+            else {
+                dbAttacks.insert(req.body, (err, terrorism) => {
+                    if (err) {
+                        console.error("Error accesing DB");
+                        res.sendStatus(500);
+                        return;
+                    }
+                    res.sendStatus(201);
+                });
+            }
         });
+
+
     });
 
     app.post(BASE_API_PATH + "/attacks-data/:country", (req, res) => { //MONGO
-       // if (!checkApiKey(req, res)) return;
+        // if (!checkApiKey(req, res)) return;
         var countryy = req.params.country;
         console.log(Date() + " - POST /attacks-data/" + countryy);
         res.sendStatus(405);
@@ -124,7 +124,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
 
 
     app.delete(BASE_API_PATH + "/attacks-data", (req, res) => {
-       // if (!checkApiKey(req, res)) return;
+        // if (!checkApiKey(req, res)) return;
         console.log(Date() + " - DELETE /attacks-data");
 
         dbAttacks.remove({}, { multi: true }, (err, terrorism) => {
@@ -144,7 +144,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
 
 
     app.delete(BASE_API_PATH + "/attacks-data/:country", (req, res) => { //MONGO
-       // if (!checkApiKey(req, res)) return;
+        // if (!checkApiKey(req, res)) return;
         var country = req.params.country;
 
         console.log(Date() + " - DELETE /attacks-data " + country);
@@ -167,13 +167,13 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
 
 
     app.put(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
-       // if (!checkApiKey(req, res)) return;
+        // if (!checkApiKey(req, res)) return;
         console.log(Date() + " - PUT /attacks-data");
         res.sendStatus(405);
     });
 
     app.put(BASE_API_PATH + "/attacks-data/:country", (req, res) => { //MONGO
-       // if (!checkApiKey(req, res)) return;
+        // if (!checkApiKey(req, res)) return;
         var country = req.params.country;
         var datareq = req.body;
 
@@ -195,7 +195,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
         });
         res.sendStatus(200);
     });
-    
-    
-    
-}; 
+
+
+
+};
