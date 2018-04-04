@@ -44,18 +44,18 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                 res.sendStatus(404);
                 return;
             }
-            res.send(terrorism.map((c) => {
+            res.send(terrorism.filter((c) => {
                 delete c._id;
                 return c;
             }));
         });
     });
+    
+     app.get(BASE_API_PATH + "/homicide-reports-data/:state", (req, res) => { //MONGODB
+        var state = req.params.state;
+        console.log(Date() + " - GET /homicide-reports-data/" + state);
 
-    app.get(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => { //MONGODB
-        var city = req.params.city;
-        console.log(Date() + " - GET /homicide-reports-data/" + city);
-
-        dbHomicide.find({ "city": city }).toArray((err, terrorism) => {
+        dbHomicide.find({ "state" : state }).toArray((err, terrorism) => {
             if (err) {
                 console.error("Error accesing DB");
                 res.sendStatus(500);
@@ -65,9 +65,40 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                 res.sendStatus(404);
                 return;
             }
-            res.send(homicide_data.filter((c) => {
-                return (c.city == city);
-            })[0]);
+             else {
+
+                res.send(terrorism.filter((c) => {
+                    delete c._id;
+                    return c;
+                }));
+             }
+        });
+    });
+
+    app.get(BASE_API_PATH + "/homicide-reports-data/:state/:city/:year/:month", (req, res) => { //MONGODB
+        var state = req.params.state;
+        var city = req.params.city;
+        var year = Number(req.params.year);
+        var month = req.params.month;
+        console.log(Date() + " - GET /homicide-reports-data/" + state +"/"+ city +"/"+ year + "/"+ month);
+
+        dbHomicide.find({ "state": state, "city":city, "year": year , "month": month }).toArray((err, terrorism) => {
+            if (err) {
+                console.error("Error accesing DB");
+                res.sendStatus(500);
+                return;
+            }
+            if (terrorism.length == 0) {
+                res.sendStatus(404);
+                return;
+            }
+             else {
+
+                res.send(terrorism.filter((c) => {
+                    delete c._id;
+                    return c;
+                })[0]);
+             }
         });
     });
 
@@ -75,7 +106,7 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
         console.log(Date() + " - POST /homicide-reports-data");
         var campos = req.body;
 
-        dbHomicide.find({ "city": req.body.city, "year": req.body.year, "month": req.body.month }).toArray((err, data) => {
+        dbHomicide.find({"state":req.body.state, "city": req.body.city, "year": req.body.year, "month": req.body.month }).toArray((err, data) => {
             if (err) {
                 res.sendStatus(500);
                 return;
@@ -103,13 +134,28 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
         });
     });
 
-
-    app.post(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => { //MONGODB
-        var cityy = req.params.city;
-        console.log(Date() + " - POST /homicide-reports-data/" + cityy);
+    //Post no permitido estado
+    app.post(BASE_API_PATH + "/homicide-reports-data/:state", (req, res) => { //MONGODB
+       
         res.sendStatus(405);
     });
-
+    
+    //Post no permitido estado y ciudad
+     app.post(BASE_API_PATH + "/homicide-reports-data/:state/:city", (req, res) => { //MONGODB
+       
+        res.sendStatus(405);
+    });
+    //Post no permitido estado, ciudad y año
+     app.post(BASE_API_PATH + "/homicide-reports-data/:state/:city/:year", (req, res) => { //MONGODB
+       
+        res.sendStatus(405);
+    });
+    //Post no permitido estado, ciudad, año y mes
+     app.post(BASE_API_PATH + "/homicide-reports-data/:state/:city/:year/:month", (req, res) => { //MONGODB
+       
+        res.sendStatus(405);
+    });
+    
 
     app.delete(BASE_API_PATH + "/homicide-reports-data", (req, res) => { //MONGODB
         console.log(Date() + " - DELETE /homicide-reports-data");
@@ -128,11 +174,34 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
         });
     });
 
-    app.delete(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => { //MONGODB
+    app.delete(BASE_API_PATH + "/homicide-reports-data/:state", (req, res) => { //MONGODB
         console.log(Date() + " - DELETE /homicide-reports-data");
-        var city2 = req.params.city;
+        var state = req.params.state;
 
-        dbHomicide.remove({ city: city2 }, { multi: true }, (err, terrorism) => {
+        dbHomicide.remove({ state: state}, { multi: true }, (err, terrorism) => {
+            if (err) {
+                console.error("Error accesing DB");
+                res.sendStatus(500);
+                return;
+            }
+            if (terrorism.length == 0) {
+                res.sendStatus(404);
+                return;
+            }
+
+            res.sendStatus(200);
+        });
+    });
+    
+     app.delete(BASE_API_PATH + "/homicide-reports-data/:state/:city/:year/:month", (req, res) => { //MONGODB
+       
+        var state = req.params.state;
+        var year = Number(req.params.year);
+        var month = req.params.month;
+        var city = req.params.city;
+        
+         console.log(Date() + " - DELETE /homicide-reports-data");
+        dbHomicide.remove({ state: state, city:city, year:year,month:month}, (err, terrorism) => {
             if (err) {
                 console.error("Error accesing DB");
                 res.sendStatus(500);
@@ -152,19 +221,23 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
         res.sendStatus(405);
     });
 
-    app.put(BASE_API_PATH + "/homicide-reports-data/:city", (req, res) => { //MONGODB
-        var city3 = req.params.city;
+    app.put(BASE_API_PATH + "/homicide-reports-data/:state/:city/:year/:month", (req, res) => { //MONGODB
+        var city = req.params.city;
+        var state = req.params.state;
+        var year = Number(req.params.year);
+        var month = req.params.month;
+       
         var datareq = req.body;
 
-        console.log(Date() + " - PUT /homicide-reports-data/" + city3);
+        console.log(Date() + " - PUT /homicide-reports-data/" + city);
 
-        if (city3 != datareq.city) {
+        if (state != datareq.state && city != datareq.city && year != datareq.year && month != datareq.month) {
             res.sendStatus(400);
             console.warn(Date() + " - Hacking attempt!");
             return;
         }
 
-        dbHomicide.update({ "city": datareq.city }, datareq, (err, numUpdated) => {
+        dbHomicide.update({ "state": datareq.state, "city": datareq.city, "year": datareq.year, "month" : datareq.month }, datareq, (err, numUpdated) => {
             if (err) {
                 console.error("Error accesing DB");
                 res.sendStatus(500);

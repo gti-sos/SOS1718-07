@@ -32,7 +32,7 @@ var terrorism_data = [
 ];
 
 var homicide_data = [
-    { "year": 1980, "month": "May", "state": "Alaska", "city": "Anchorage", "crime-type": "Murder or Manslaughter", "weapon": "Rifle", "victim count": 0},
+    { "year": 1980,"month": "May", "state": "Alaska", "city": "Anchorage", "crime-type": "Murder or Manslaughter", "weapon": "Rifle", "victim count": 0},
     { "year": 1980, "month": "August", "state": "Alaska", "city": "North Slope", "crime-type": "Murder or Manslaughter", "weapon": "Rifle", "victim count": 0},
     { "year": 1980, "month": "July", "state": "Alaska", "city": "Juneau", "crime-type": "Murder or Manslaughter", "weapon": "Firearm", "victim count": 0},
     { "year": 1980, "month": "March", "state": "Alabama", "city": "Jefferson", "crime-type": "Murder or Manslaughter", "weapon": "Knife", "victim count": 0},
