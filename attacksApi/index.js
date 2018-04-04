@@ -10,7 +10,6 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
     });
 
     app.get(BASE_API_PATH + "/attacks-data/loadInitialData", (req, res) => { //MONGO
-        //if (!checkApiKey(req, res)) return;
 
         dbAttacks.find({}).toArray((err, terrorism) => {
             if (err) {
@@ -30,11 +29,13 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
         });
     });
 
+
+    //////////////////////////////////////////////////////
+    // GET 
     //////////////////////////////////////////////////////
 
+
     app.get(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
-       //  if (!checkApiKey(req, res)) return;
-         
         console.log(Date() + " - GET /attacks-data");
 
         dbAttacks.find({}).toArray((err, terrorism) => {
@@ -57,7 +58,6 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
     });
 
     app.get(BASE_API_PATH + "/attacks-data/:country", (req, res) => { //MONGO
-        // if (!checkApiKey(req, res)) return;
         var country = req.params.country;
         console.log(Date() + " - GET /attacks-data/" + country);
 
@@ -73,19 +73,49 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                 return;
             }
 
-            res.send(attacks_data.filter((c) => {
-                return (c.country == country);
-            })[0]);
-
+            res.send(terrorism.filter((c) => {
+                delete c._id;
+                return c;
+            }));
         });
     });
 
+    app.get(BASE_API_PATH + "/attacks-data/:country/:city/:date", (req, res) => { //MONGO
+        var country = req.params.country;
+        var city = req.params.city;
+        var date = req.params.date;
+        console.log(Date() + " - GET /attacks-data/" + country + "/" + city + "/" + date);
+
+        dbAttacks.find({ "country": country, "city": city, "date": date }).toArray((err, terrorism) => {
+            if (err) {
+                console.error("Error accesing DB");
+                res.sendStatus(500);
+                return;
+            }
+
+            if (terrorism.length == 0) {
+                res.sendStatus(404);
+                return;
+            }
+
+            res.send(terrorism.filter((c) => {
+                delete c._id;
+                return c;
+            })[0]);
+        });
+    });
+
+
+    //////////////////////////////////////////////////////
+    // POST 
+    //////////////////////////////////////////////////////
+
+
     app.post(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
-        // if (!checkApiKey(req, res)) return;
         console.log(Date() + " - POST /attacks-data");
         var campos = req.body;
 
-        dbAttacks.find({ "country": req.body.country, "date": req.body.date }).toArray((err, terrorism) => {
+        dbAttacks.find({ "country": req.body.country, "city": req.body.city, "date": req.body.date }).toArray((err, terrorism) => {
             if (err) {
                 res.sendStatus(500);
                 return;
@@ -111,21 +141,25 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                 });
             }
         });
-
-
     });
 
     app.post(BASE_API_PATH + "/attacks-data/:country", (req, res) => { //MONGO
-        // if (!checkApiKey(req, res)) return;
-        var countryy = req.params.country;
-        console.log(Date() + " - POST /attacks-data/" + countryy);
         res.sendStatus(405);
     });
 
+    app.post(BASE_API_PATH + "/attacks-data/:country/:city", (req, res) => { //MONGO
+        res.sendStatus(405);
+    });
 
+    app.post(BASE_API_PATH + "/attacks-data/:country/:city/:date", (req, res) => { //MONGO
+        res.sendStatus(405);
+    });
+
+    //////////////////////////////////////////////////////
+    // DELETE 
+    //////////////////////////////////////////////////////
 
     app.delete(BASE_API_PATH + "/attacks-data", (req, res) => {
-        // if (!checkApiKey(req, res)) return;
         console.log(Date() + " - DELETE /attacks-data");
 
         dbAttacks.remove({}, { multi: true }, (err, terrorism) => {
@@ -138,19 +172,35 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                 res.sendStatus(404);
                 return;
             }
-
             res.sendStatus(200);
         });
     });
 
-
     app.delete(BASE_API_PATH + "/attacks-data/:country", (req, res) => { //MONGO
-        // if (!checkApiKey(req, res)) return;
         var country = req.params.country;
-
         console.log(Date() + " - DELETE /attacks-data " + country);
 
         dbAttacks.remove({ "country": country }, { multi: true }, (err, terrorism) => {
+            if (err) {
+                console.error("Error accesing DB");
+                res.sendStatus(500);
+                return;
+            }
+            if (terrorism.length == 0) {
+                res.sendStatus(404);
+                return;
+            }
+            res.sendStatus(200);
+        });
+    });
+
+    app.delete(BASE_API_PATH + "/attacks-data/:country/:city/:date", (req, res) => { //MONGO
+        var country = req.params.country;
+        var city = req.params.city;
+        var date = req.params.date;
+        console.log(Date() + " - DELETE /attacks-data " + country + "/" + city + "/" + date);
+
+        dbAttacks.remove({ "country": country, "city": city, "date": date }, { multi: true }, (err, terrorism) => {
             if (err) {
                 console.error("Error accesing DB");
                 res.sendStatus(500);
@@ -166,21 +216,31 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
     });
 
 
+    //////////////////////////////////////////////////////
+    // PUT 
+    //////////////////////////////////////////////////////
+
 
     app.put(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
-        // if (!checkApiKey(req, res)) return;
-        console.log(Date() + " - PUT /attacks-data");
+        res.sendStatus(405);
+    });
+    app.put(BASE_API_PATH + "/attacks-data/:country", (req, res) => { //MONGO
+        res.sendStatus(405);
+    });
+    app.put(BASE_API_PATH + "/attacks-data/:country/:city", (req, res) => { //MONGO
         res.sendStatus(405);
     });
 
-    app.put(BASE_API_PATH + "/attacks-data/:country", (req, res) => { //MONGO
-        // if (!checkApiKey(req, res)) return;
+
+    app.put(BASE_API_PATH + "/attacks-data/:country/:city/:date", (req, res) => { //MONGO
         var country = req.params.country;
+        var city = req.params.city;
+        var date = req.params.date;
         var datareq = req.body;
 
-        console.log(Date() + " - PUT /attacks-data/" + country);
+        console.log(Date() + " - PUT /attacks-data/" + country + "/" + city + "/" + date);
 
-        if (country != datareq.country) {
+        if (country != datareq.country || city != datareq.city || date != datareq.date) {
             res.sendStatus(400);
             console.warn(Date() + " - Hacking attempt!");
             return;
