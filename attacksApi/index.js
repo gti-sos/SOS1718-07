@@ -33,7 +33,8 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
     //////////////////////////////////////////////////////
 
     app.get(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
-        // if (!checkApiKey(req, res)) return;
+       //  if (!checkApiKey(req, res)) return;
+         
         console.log(Date() + " - GET /attacks-data");
 
         dbAttacks.find({}).toArray((err, terrorism) => {

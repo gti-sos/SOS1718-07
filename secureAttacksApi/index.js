@@ -3,14 +3,14 @@ var BASE_API_PATH = "/api/v1/secure";
 
 module.exports = attacksApi;
 
-attacksApi.register = function(app, dbAttacks, attacks_data, checkApiKeyFunction) {
+attacksApi.register = function(app, dbAttacks, attacks_data, checkApiKey) {
 
     app.get(BASE_API_PATH + "/attacks-data/docs", (req, res) => {
         res.redirect("https://documenter.getpostman.com/view/3894473/collection/RVu1GVsW");
     });
 
     app.get(BASE_API_PATH + "/attacks-data/loadInitialData", (req, res) => { //MONGO
-        if (!checkApiKeyFunction(req, res)) return;
+        //if (!checkApiKeyFunction(req, res)) return;
         dbAttacks.find({}).toArray((err, terrorism) => {
             if (err) {
                 console.error("Error accesing DB");
@@ -32,7 +32,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data, checkApiKeyFunction
     //////////////////////////////////////////////////////
 
     app.get(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
-        if (!checkApiKeyFunction(req, res)) return;
+        if (!checkApiKey(req, res)) return;
         console.log(Date() + " - GET /attacks-data");
 
         dbAttacks.find({}).toArray((err, terrorism) => {
@@ -55,7 +55,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data, checkApiKeyFunction
     });
 
     app.get(BASE_API_PATH + "/attacks-data/:country", (req, res) => { //MONGO
-        if (!checkApiKeyFunction(req, res)) return;
+       // if (!checkApiKeyFunction(req, res)) return;
         var country = req.params.country;
         console.log(Date() + " - GET /attacks-data/" + country);
 
@@ -79,7 +79,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data, checkApiKeyFunction
     });
 
     app.post(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
-        if (!checkApiKeyFunction(req, res)) return;
+        //if (!checkApiKeyFunction(req, res)) return;
         console.log(Date() + " - POST /attacks-data");
         var campos = req.body;
 
@@ -112,7 +112,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data, checkApiKeyFunction
     });
 
     app.post(BASE_API_PATH + "/attacks-data/:country", (req, res) => { //MONGO
-        if (!checkApiKeyFunction(req, res)) return;
+        //if (!checkApiKeyFunction(req, res)) return;
         var countryy = req.params.country;
         console.log(Date() + " - POST /attacks-data/" + countryy);
         res.sendStatus(405);
@@ -121,7 +121,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data, checkApiKeyFunction
 
 
     app.delete(BASE_API_PATH + "/attacks-data", (req, res) => {
-        if (!checkApiKeyFunction(req, res)) return;
+       // if (!checkApiKeyFunction(req, res)) return;
         console.log(Date() + " - DELETE /attacks-data");
 
         dbAttacks.remove({}, { multi: true }, (err, terrorism) => {
@@ -141,7 +141,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data, checkApiKeyFunction
 
 
     app.delete(BASE_API_PATH + "/attacks-data/:country", (req, res) => { //MONGO
-        if (!checkApiKeyFunction(req, res)) return;
+       // if (!checkApiKeyFunction(req, res)) return;
         var country = req.params.country;
 
         console.log(Date() + " - DELETE /attacks-data " + country);
@@ -163,13 +163,13 @@ attacksApi.register = function(app, dbAttacks, attacks_data, checkApiKeyFunction
 
 
     app.put(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
-        if (!checkApiKeyFunction(req, res)) return;
+      //  if (!checkApiKeyFunction(req, res)) return;
         console.log(Date() + " - PUT /attacks-data");
         res.sendStatus(405);
     });
 
     app.put(BASE_API_PATH + "/attacks-data/:country", (req, res) => { //MONGO
-        if (!checkApiKeyFunction(req, res)) return;
+      //  if (!checkApiKeyFunction(req, res)) return;
         var country = req.params.country;
         var datareq = req.body;
 
