@@ -277,6 +277,11 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                     if (city == ciudad && year == anyo)
                         conjuntoauxiliar.push(bd[j]);
                 }
+                
+                 if (estado, anyo) {
+                    if (state == estado && year == anyo)
+                        conjuntoauxiliar.push(bd[j]);
+                }
 
 
                 else if (desde == undefined && hasta == undefined && ciudad) {
