@@ -27,7 +27,7 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
             }
         });
     });
-
+    /*
     app.get(BASE_API_PATH + "/global-terrorism-data", (req, res) => { //////////////////////////////////MONGO
         console.log(Date() + " - GET /global-terrorism-data");
 
@@ -70,6 +70,7 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
             }));
         });
     });
+    */
 
     //Get a un recurso concreto específico
     app.get(BASE_API_PATH + "/global-terrorism-data/:country_txt/:city/:iyear/:imonth/:iday", (req, res) => { //////////////////////////////////MONGO
@@ -244,7 +245,7 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
             return;
         }
 
-        dbTerrorism.update({ "country_txt": datareq.country_txt, "city":city, "iyear":year, "imonth":month, "iday": day }, datareq, (err, numUpdated) => {
+        dbTerrorism.update({ "country_txt": datareq.country_txt, "city": city, "iyear": year, "imonth": month, "iday": day }, datareq, (err, numUpdated) => {
             if (err) {
                 console.error("Error accesing DB");
                 res.sendStatus(500);
@@ -254,4 +255,275 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
         });
         res.sendStatus(200);
     });
+
+    //-----------------------------------BUSQUEDAS--------------------------------
+
+    ///////////*********************************FUNCION PARA LAS BUSQUEDAS************************************************************////////////////
+    var busqueda = function(dato, conjuntoauxiliar, desde, hasta, iyear, imonth, iday, country_txt, city) {
+
+        console.log("Búsqueda con parametros: from = " + desde + " ,to = " + hasta + ", autCommunity = " + iyear + ", yearFund = " + imonth + ", headquarters = " + iday + ", type = " + country_txt +
+            ", nameUniversity = " + city + ".");
+
+        var from = parseInt(desde);
+        var to = parseInt(hasta);
+        //parametros para mis propiedades
+
+
+        if (desde != undefined || hasta != undefined || iyear != undefined || imonth != undefined || iday != undefined || country_txt != undefined || city != undefined) {
+
+
+            for (var j = 0; j < dato.length; j++) {
+                var anyo = dato[j].iyear;
+                var mes = dato[j].imonth;
+                var dia = dato[j].iday;
+                var pais = dato[j].country_txt;
+                var ciudad = dato[j].city;
+
+                /*
+                if (iyear, country_txt) {
+                    if (anyo == iyear && pais == country_txt)
+                        conjuntoauxiliar.push(dato[j]);
+                }
+
+
+                else if (desde == undefined && hasta == undefined && country_txt) {
+                    if (pais == country_txt) {
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+
+
+                else if (desde && hasta && country_txt == undefined) {
+
+                    if (to >= anyo && from <= anyo) {
+
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+                */
+                if(iyear){
+                    if(anyo == iyear){
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+                else if (hasta) {
+
+                    if (to >= anyo) {
+
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+                else if (desde) {
+
+                    if (from <= anyo) {
+
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+                else if (country_txt) { //Falla
+
+                    if (pais == country_txt) {
+
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+                else if (iday) {
+
+                    if (dia == iday) {
+
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+                else if (imonth) {
+
+                    if (mes == imonth) {
+
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+                else if (city) {
+
+                    if (ciudad == city) {
+
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+
+            }
+        } // llave de cierre de la condicional de los undefined
+        return conjuntoauxiliar;
+
+    };
+
+    //BUSQUEDA****************************************************************************************
+    // GET Collection (WITH SEARCH)
+    app.get(BASE_API_PATH + "/global-terrorism-data", function(request, response) {
+
+        console.log("INFO: New GET request to /spanish-universities ");
+
+        /*PRUEBA DE BUSQUEDA */
+        var limit = parseInt(request.query.limit);
+        var offset = parseInt(request.query.offset);
+        var from = request.query.from;
+        var to = request.query.to;
+        var anyo = request.query.iyear;
+        var mes = request.query.imonth;
+        var dia = request.query.iday;
+        var pais = request.query.country_txt;
+        var ciudad = request.query.city;
+
+        var aux = [];
+        var aux2 = [];
+        var aux3 = [];
+
+
+        if (limit || offset >= 0) {
+            dbTerrorism.find({}).skip(offset).limit(limit).toArray(function(err, data) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500);
+                    return;
+                }
+                else {
+                    if (data.length === 0) {
+                        response.sendStatus(404); //No content
+                        return;
+                    }
+                    console.log("INFO: Sending autCommunities:: " + JSON.stringify(data, 2, null));
+                    if (from || to || anyo || mes || dia || pais || ciudad) {
+
+                        aux = busqueda(data, aux, from, to, anyo, mes, dia, pais, ciudad);
+                        if (aux.length > 0) {
+                            aux2 = aux.slice(offset, offset + limit);
+
+                            response.send(aux2);
+                        }
+                        else {
+
+                            response.send(aux3);
+                            return;
+                        }
+                    }
+                    else {
+                        response.send(data);
+                    }
+                }
+            });
+
+        }
+        else {
+
+            dbTerrorism.find({}).toArray(function(err, data) {
+                if (err) {
+                    console.error('ERROR from database');
+                    response.sendStatus(500);
+                }
+                else {
+                    if (data.length === 0) {
+
+                        response.send(data);
+                        return;
+                    }
+                    if (from || to || anyo || mes || dia || pais || ciudad) {
+                        aux = busqueda(data, aux, from, to, anyo, mes, dia, pais, ciudad);
+                        if (aux.length > 0) {
+                            response.send(aux);
+                        }
+                        else {
+                            response.sendStatus(404);
+                            return;
+                        }
+                    }
+                    else {
+                        response.send(data);
+                    }
+                }
+            });
+        }
+
+    });
+
+    /////******************************************************GET PARA PAGINACION SIN BUSQUEDA**************************************////////////////////
+
+    app.get(BASE_API_PATH + "/global-terrorism-data/:dato", (req, res) => {
+        //if (!checkApiKey(req, res)) return;
+        var limit = parseInt(req.query.limit);
+        var offset = parseInt(req.query.offset);
+        var from = req.query.yearFund;
+        var to = req.query.yearFund;
+        var anyo = req.query.iyear;
+        var mes = req.query.imonth;
+        var dia = req.query.iday;
+        var pais = req.query.country_txt;
+        var ciudad = req.query.city;
+
+
+        var aux = [];
+        var aux2 = [];
+        var dato = req.params.dato;
+
+        if (limit || offset >= 0) {
+            dbTerrorism.find({ $or: [{ "iyear": dato }, { "imonth": dato }, { "iday": dato }, { "country_txt": dato }, { "city": dato }] }).skip(offset).limit(limit).toArray(function(err, data) {
+
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    res.sendStatus(500);
+                }
+                else {
+                    if (data.length === 0) {
+                        res.sendStatus(404);
+                    }
+
+                    if (from || to || anyo || mes || dia || pais || ciudad) {
+
+                        aux = busqueda(data, aux, from, to, anyo, mes, dia, pais, ciudad);
+                        if (aux.length > 0) {
+                            aux2 = aux.slice(offset, offset + limit);
+                            res.send(aux2);
+
+                        }
+                        else {
+                            res.sendStatus(404);
+                        }
+                    }
+                    else {
+                        res.send(data);
+                    }
+                }
+            });
+
+        }
+        else {
+            //SEGUDA PARTE QUE ES CON OPERADOR OR DE LA BUSQUEDA
+            dbTerrorism.find({ $or: [{ "iyear": dato }, { "imonth": dato }, { "iday": dato }, { "country_txt": dato }, { "city": dato }] }).toArray((err, data) => {
+                if (err) {
+                    console.error("Error accesing DB");
+                    res.sendStatus(500);
+
+                }
+                else {
+                    if (data.length == 0) {
+                        res.sendStatus(404);
+                        return;
+                    }
+                    if (from || to || anyo || mes || dia || pais || ciudad) {
+                        aux = busqueda(data, aux, from, to, anyo, mes, dia, pais, ciudad);
+                        if (aux.length > 0) {
+                            res.send(aux);
+                        }
+                        else {
+                            res.sendStatus(404);
+                        }
+                    }
+                    else {
+                        console.log(Date() + " - GET /spanish-universities/" + dato);
+                        res.send(data);
+                    }
+                }
+            });
+
+        }
+    });
+
+
 };
