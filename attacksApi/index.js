@@ -35,7 +35,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
     //////////////////////////////////////////////////////
 
 
-    app.get(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
+    /*  app.get(BASE_API_PATH + "/attacks-data", (req, res) => { //MONGO
         console.log(Date() + " - GET /attacks-data");
 
         dbAttacks.find({}).toArray((err, terrorism) => {
@@ -79,6 +79,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
             }));
         });
     });
+*/
 
     app.get(BASE_API_PATH + "/attacks-data/:country/:city/:date", (req, res) => { //MONGO
         var country = req.params.country;
@@ -257,6 +258,290 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
         res.sendStatus(200);
     });
 
+
+    //////////////////////////////////////////////////////
+    // FUNCIÓN PARA BÚSQUEDAS 
+    //////////////////////////////////////////////////////
+    //---------------------------FUNCION PARA BUSQUEDAS------------------------------------//
+    var busquedas = function(bd, conjuntoauxiliar, desde, hasta, pais, fecha, ciudad, muertos, heridos) {
+
+        console.log("Búsqueda con parametros: from = " + desde + ", to = " + hasta + ", country = " + pais +
+            ", date = " + fecha + ", city = " + ciudad + ", killed = " + muertos + ", injured = " + heridos + ".");
+
+        var from = new Date(desde);
+        var to = new Date(hasta);
+        //parametros 
+
+        if (desde != undefined || hasta != undefined || pais != undefined || fecha != undefined ||
+            ciudad != undefined || muertos != undefined || heridos != undefined) {
+
+            for (var j = 0; j < bd.length; j++) {
+                var country = bd[j].country;
+                var date = new Date(bd[j].date);
+                var city = bd[j].city;
+                var killed = bd[j].killed;
+                var injured = bd[j].injured;
+
+
+
+                /* if (country, city) {
+                     if (country == pais && city == ciudad)
+                         conjuntoauxiliar.push(bd[j]);
+                 }
+
+                else if (country, date) {
+                     if (country == country && date == date)
+                         conjuntoauxiliar.push(bd[j]);
+                 }
+
+                 else if (desde == undefined && hasta == undefined && ciudad) {
+                     if (city == ciudad) {
+                         conjuntoauxiliar.push(bd[j]);
+                     }
+                 }
+
+                 else if (desde && hasta && ciudad == undefined) {
+                     if (to >= date && from <= date) {
+                         conjuntoauxiliar.push(bd[j]);
+                     }
+                 }*/
+                // FROM + TO
+                if (desde != undefined && hasta != undefined && pais == undefined && fecha == undefined && ciudad == undefined && muertos == undefined && heridos == undefined) {
+                    if (from <= date && to >= date) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+                // ROM
+                else if (desde != undefined && hasta == undefined && pais == undefined && fecha == undefined && ciudad == undefined && muertos == undefined && heridos == undefined) {
+                    if (from <= date) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+                // TO
+                else if (desde == undefined && hasta != undefined && pais == undefined && fecha == undefined && ciudad == undefined && muertos == undefined && heridos == undefined) {
+                    if (to >= date) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+
+                else if (pais) {
+                    if (country == pais) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+
+                else if (fecha) {
+                    if (date == fecha) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+
+                else if (ciudad) {
+                    if (city == ciudad) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+
+                else if (muertos) {
+                    if (killed == muertos) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+
+                else if (heridos) {
+                    if (injured == heridos) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+                // PAIS + CIUDAD
+                else if (desde == undefined && hasta == undefined && pais != undefined && fecha == undefined && ciudad != undefined && muertos == undefined && heridos == undefined) {
+                    if (country==pais && city==ciudad) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+
+
+            }
+        } // llave de cierre de la condicional de los undefined
+        return conjuntoauxiliar;
+    };
+
+    //----------------------------BUSQUEDA-----------------------------
+
+    app.get(BASE_API_PATH + "/attacks-data", function(request, response) {
+
+        console.log("INFO: New GET request to /attacks-data ");
+
+        /*PRUEBA DE BUSQUEDA */
+        var limit = parseInt(request.query.limit);
+        var offset = parseInt(request.query.offset);
+        var from = request.query.from;
+        var to = request.query.to;
+        var country = request.query.country;
+        var date = request.query.date;
+        var city = request.query.city;
+        var killed = request.query.killed;
+        var injured = request.query.injured;
+
+        var aux = [];
+        var aux2 = [];
+        var aux3 = [];
+
+
+        if (limit || offset >= 0) {
+            dbAttacks.find({}).skip(offset).limit(limit).toArray(function(err, terrorism) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500);
+                    return;
+                }
+                else {
+                    if (terrorism.length === 0) {
+                        response.sendStatus(404); //No content
+                        return;
+                    }
+                    console.log("INFO: Sending terrorism:: " + JSON.stringify(terrorism, 2, null));
+                    if (from || to || country || date || city || killed || injured) {
+
+                        aux = busquedas(terrorism, aux, from, to, country, date, city, killed, injured);
+                        if (aux.length > 0) {
+                            aux2 = aux.slice(offset, offset + limit);
+
+                            response.send(aux2);
+                        }
+                        else {
+
+                            response.send(aux3);
+                            return;
+                        }
+                    }
+                    else {
+                        response.send(terrorism);
+                    }
+                }
+            });
+
+        }
+        else {
+
+            dbAttacks.find({}).toArray(function(err, terrorism) {
+                if (err) {
+                    console.error('ERROR from database');
+                    response.sendStatus(500);
+                }
+                else {
+                    if (terrorism.length === 0) {
+                        response.send(terrorism);
+                        return;
+                    }
+                    if (from || to || country || date || city || killed || injured) {
+                        aux = busquedas(terrorism, aux, from, to, country, date, city, killed, injured);
+                        if (aux.length > 0) {
+                            response.send(aux);
+                        }
+                        else {
+                            response.sendStatus(404);
+                            return;
+                        }
+                    }
+                    else {
+                        response.send(terrorism);
+                    }
+                }
+            });
+        }
+
+    });
+
+    /////****************************************GET PARA PAGINACION SIN BUSQUEDA**************************************//
+
+    app.get(BASE_API_PATH + "/attacks-data/:dato", (req, res) => {
+        var limit = parseInt(req.query.limit);
+        var offset = parseInt(req.query.offset);
+        var from = req.query.yearFund;
+        var to = req.query.yearFund;
+        var country = req.query.country;
+        var date = req.query.date;
+        var city = req.query.city;
+        var killed = req.query.killed;
+        var injured = req.query.injured;
+
+        var aux = [];
+        var aux2 = [];
+        var dato = req.params.dato;
+
+        if (limit || offset >= 0) {
+            dbAttacks.find({
+                $or: [{ "country": dato }, { "date": dato }, { "city": dato }, { "killed": dato },
+                    { "injured": dato }
+                ]
+            }).skip(offset).limit(limit).toArray(function(err, terrorism) {
+
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    res.sendStatus(500);
+                }
+                else {
+                    if (terrorism.length === 0) {
+                        res.sendStatus(404);
+                    }
+
+                    if (from || to || country || date || city || killed || injured) {
+
+                        aux = busquedas(terrorism, aux, from, to, country, date, city, killed, injured);
+                        if (aux.length > 0) {
+                            aux2 = aux.slice(offset, offset + limit);
+                            res.send(aux2);
+
+                        }
+                        else {
+                            res.sendStatus(404);
+                        }
+                    }
+                    else {
+                        res.send(terrorism);
+                    }
+                }
+            });
+
+        }
+        else {
+
+            //SEGUDA PARTE QUE ES CON OPERADOR OR DE LA BUSQUEDA
+            dbAttacks.find({
+                $or: [{ "country": dato }, { "date": dato }, { "city": dato }, { "killed": dato },
+                    { "injured": dato }
+                ]
+            }).toArray((err, terrorism) => {
+                if (err) {
+                    console.error("Error accesing DB");
+                    res.sendStatus(500);
+
+                }
+                else {
+                    if (terrorism.length == 0) {
+                        res.sendStatus(404);
+                        return;
+                    }
+                    if (from || to || country || date || city || killed || injured) {
+
+                        aux = busquedas(terrorism, aux, from, to, country, date, city, killed, injured);
+                        if (aux.length > 0) {
+                            res.send(aux);
+                        }
+                        else {
+                            res.sendStatus(404);
+                        }
+                    }
+                    else {
+                        console.log(Date() + " - GET /attacks-data/" + dato);
+                        res.send(terrorism);
+                    }
+                }
+            });
+
+        }
+    });
 
 
 };
