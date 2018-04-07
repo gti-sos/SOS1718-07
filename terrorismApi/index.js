@@ -258,18 +258,18 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
 
     //-----------------------------------BUSQUEDAS--------------------------------
 
-    ///////////*********************************FUNCION PARA LAS BUSQUEDAS************************************************************////////////////
-    var busqueda = function(dato, conjuntoauxiliar, desde, hasta, iyear, imonth, iday, country_txt, city) {
+    ///////////////////////// Función para buscar ///////////////////////////////
+    var busqueda = function(dato, conjuntoauxiliar, desde, hasta, iyear, imonth, iday, country_txt, city, attacktype_txt, weaptype_txt, nkill) {
 
-        console.log("Búsqueda con parametros: from = " + desde + " ,to = " + hasta + ", autCommunity = " + iyear + ", yearFund = " + imonth + ", headquarters = " + iday + ", type = " + country_txt +
-            ", nameUniversity = " + city + ".");
+        console.log("Búsqueda con parametros: from = " + desde + " ,to = " + hasta + ", iyear = " + iyear + ", imonth = " + imonth + ", iday = " + iday + ", country_txt = " + country_txt +
+            ", city = " + city + ", attacktype_txt = " + attacktype_txt + ", weaptype_txt = " + weaptype_txt + ", nkill = " + nkill + ".");
 
         var from = parseInt(desde);
         var to = parseInt(hasta);
-        //parametros para mis propiedades
 
 
-        if (desde != undefined || hasta != undefined || iyear != undefined || imonth != undefined || iday != undefined || country_txt != undefined || city != undefined) {
+        if (desde != undefined || hasta != undefined || iyear != undefined || imonth != undefined || iday != undefined ||
+            country_txt != undefined || city != undefined || attacktype_txt != undefined || weaptype_txt != undefined || nkill != undefined) {
 
 
             for (var j = 0; j < dato.length; j++) {
@@ -278,99 +278,127 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                 var dia = dato[j].iday;
                 var pais = dato[j].country_txt;
                 var ciudad = dato[j].city;
-
-                /*
-                if (iyear, country_txt) {
-                    if (anyo == iyear && pais == country_txt)
-                        conjuntoauxiliar.push(dato[j]);
-                }
+                var tipoAtaque = dato[j].attacktype_txt;
+                var tipoArma = dato[j].weaptype_txt;
+                var nMuertos = dato[j].nkill;
 
 
-                else if (desde == undefined && hasta == undefined && country_txt) {
-                    if (pais == country_txt) {
-                        conjuntoauxiliar.push(dato[j]);
-                    }
-                }
 
-
-                else if (desde && hasta && country_txt == undefined) {
-
-                    if (to >= anyo && from <= anyo) {
-
+                // from y to
+                if (desde != undefined && hasta != undefined && country_txt == undefined && iyear == undefined && imonth == undefined && iday == undefined
+                && city == undefined && attacktype_txt == undefined && weaptype_txt == undefined && nkill == undefined) {
+                    if (from <= anyo && to >= anyo) {
                         conjuntoauxiliar.push(dato[j]);
                     }
                 }
-                */
-                if(iyear){
+                
+                //País y año
+                else if (desde == undefined && hasta == undefined && country_txt != undefined && iyear != undefined && imonth == undefined && iday == undefined
+                && city == undefined && attacktype_txt == undefined && weaptype_txt == undefined && nkill == undefined) {
+                    if (pais == country_txt && anyo == iyear) {
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+                
+                //País y ciudad
+                else if (desde == undefined && hasta == undefined && country_txt != undefined && iyear == undefined && imonth == undefined && iday == undefined
+                && city != undefined && attacktype_txt == undefined && weaptype_txt == undefined && nkill == undefined) {
+                    if (pais == country_txt && ciudad == city) {
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+                
+                //Recurso específico concreto
+                else if (desde == undefined && hasta == undefined && country_txt != undefined && iyear != undefined && imonth != undefined && iday != undefined
+                && city != undefined && attacktype_txt == undefined && weaptype_txt == undefined && nkill == undefined) {
+                    if (pais == country_txt && ciudad == city && anyo == iyear && mes == imonth && dia == iday) {
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+                
+                else if (iyear){
                     if(anyo == iyear){
                         conjuntoauxiliar.push(dato[j]);
                     }
                 }
-                else if (hasta) {
 
-                    if (to >= anyo) {
-
-                        conjuntoauxiliar.push(dato[j]);
-                    }
-                }
-                else if (desde) {
-
-                    if (from <= anyo) {
-
-                        conjuntoauxiliar.push(dato[j]);
-                    }
-                }
-                else if (country_txt) { //Falla
-
-                    if (pais == country_txt) {
-
-                        conjuntoauxiliar.push(dato[j]);
-                    }
-                }
-                else if (iday) {
-
-                    if (dia == iday) {
-
-                        conjuntoauxiliar.push(dato[j]);
-                    }
-                }
                 else if (imonth) {
-
                     if (mes == imonth) {
-
                         conjuntoauxiliar.push(dato[j]);
                     }
                 }
+
+                else if (iday) {
+                    if (dia == iday) {
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+
+                else if (country_txt) {
+                    if (pais == country_txt) {
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+
                 else if (city) {
-
                     if (ciudad == city) {
-
                         conjuntoauxiliar.push(dato[j]);
                     }
                 }
 
+                else if (attacktype_txt) {
+                    if (tipoAtaque == attacktype_txt) {
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+
+                else if (weaptype_txt) {
+                    if (tipoArma == weaptype_txt) {
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+
+                else if (nkill) {
+                    if (nMuertos == nkill) {
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+
+                else if (hasta) {
+                    if (to >= anyo) {
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
+
+                else if (desde) {
+                    if (from <= anyo) {
+                        conjuntoauxiliar.push(dato[j]);
+                    }
+                }
             }
-        } // llave de cierre de la condicional de los undefined
+        }
         return conjuntoauxiliar;
 
     };
 
-    //BUSQUEDA****************************************************************************************
-    // GET Collection (WITH SEARCH)
-    app.get(BASE_API_PATH + "/global-terrorism-data", function(request, response) {
+    //GET para las busquedas
 
-        console.log("INFO: New GET request to /spanish-universities ");
+    app.get(BASE_API_PATH + "/global-terrorism-data", function(req, res) {
 
-        /*PRUEBA DE BUSQUEDA */
-        var limit = parseInt(request.query.limit);
-        var offset = parseInt(request.query.offset);
-        var from = request.query.from;
-        var to = request.query.to;
-        var anyo = request.query.iyear;
-        var mes = request.query.imonth;
-        var dia = request.query.iday;
-        var pais = request.query.country_txt;
-        var ciudad = request.query.city;
+        console.log("GET req to /global-terrorism-data ");
+
+        var limit = parseInt(req.query.limit);
+        var offset = parseInt(req.query.offset);
+        var from = req.query.from;
+        var to = req.query.to;
+        var anyo = req.query.iyear;
+        var mes = req.query.imonth;
+        var dia = req.query.iday;
+        var pais = req.query.country_txt;
+        var ciudad = req.query.city;
+        var tipoAtaque = req.query.attacktype_txt;
+        var tipoArma = req.query.weaptype_txt;
+        var nMuertos = req.query.nkill;
 
         var aux = [];
         var aux2 = [];
@@ -381,31 +409,29 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
             dbTerrorism.find({}).skip(offset).limit(limit).toArray(function(err, data) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
-                    response.sendStatus(500);
+                    res.sendStatus(500);
                     return;
                 }
                 else {
                     if (data.length === 0) {
-                        response.sendStatus(404); //No content
+                        res.sendStatus(404);
                         return;
                     }
-                    console.log("INFO: Sending autCommunities:: " + JSON.stringify(data, 2, null));
-                    if (from || to || anyo || mes || dia || pais || ciudad) {
+                    console.log("Sending data: " + JSON.stringify(data, 2, null));
+                    if (from || to || anyo || mes || dia || pais || ciudad || tipoAtaque || tipoArma || nMuertos) {
 
-                        aux = busqueda(data, aux, from, to, anyo, mes, dia, pais, ciudad);
+                        aux = busqueda(data, aux, from, to, anyo, mes, dia, pais, ciudad, tipoAtaque, tipoArma, nMuertos);
                         if (aux.length > 0) {
                             aux2 = aux.slice(offset, offset + limit);
-
-                            response.send(aux2);
+                            res.send(aux2);
                         }
                         else {
-
-                            response.send(aux3);
+                            res.send(aux3);
                             return;
                         }
                     }
                     else {
-                        response.send(data);
+                        res.send(data);
                     }
                 }
             });
@@ -416,26 +442,25 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
             dbTerrorism.find({}).toArray(function(err, data) {
                 if (err) {
                     console.error('ERROR from database');
-                    response.sendStatus(500);
+                    res.sendStatus(500);
                 }
                 else {
                     if (data.length === 0) {
-
-                        response.send(data);
+                        res.send(data);
                         return;
                     }
-                    if (from || to || anyo || mes || dia || pais || ciudad) {
-                        aux = busqueda(data, aux, from, to, anyo, mes, dia, pais, ciudad);
+                    if (from || to || anyo || mes || dia || pais || ciudad || tipoAtaque || tipoArma || nMuertos) {
+                        aux = busqueda(data, aux, from, to, anyo, mes, dia, pais, ciudad, tipoAtaque, tipoArma, nMuertos);
                         if (aux.length > 0) {
-                            response.send(aux);
+                            res.send(aux);
                         }
                         else {
-                            response.sendStatus(404);
+                            res.sendStatus(404);
                             return;
                         }
                     }
                     else {
-                        response.send(data);
+                        res.send(data);
                     }
                 }
             });
@@ -473,14 +498,11 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                     if (data.length === 0) {
                         res.sendStatus(404);
                     }
-
                     if (from || to || anyo || mes || dia || pais || ciudad) {
-
                         aux = busqueda(data, aux, from, to, anyo, mes, dia, pais, ciudad);
                         if (aux.length > 0) {
                             aux2 = aux.slice(offset, offset + limit);
                             res.send(aux2);
-
                         }
                         else {
                             res.sendStatus(404);
@@ -499,7 +521,6 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                 if (err) {
                     console.error("Error accesing DB");
                     res.sendStatus(500);
-
                 }
                 else {
                     if (data.length == 0) {
@@ -516,12 +537,11 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                         }
                     }
                     else {
-                        console.log(Date() + " - GET /spanish-universities/" + dato);
+                        console.log(Date() + " - GET /global-terrorism-data/" + dato);
                         res.send(data);
                     }
                 }
             });
-
         }
     });
 
