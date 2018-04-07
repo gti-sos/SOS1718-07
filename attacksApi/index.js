@@ -282,36 +282,13 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                 var killed = bd[j].killed;
                 var injured = bd[j].injured;
 
-
-
-                /* if (country, city) {
-                     if (country == pais && city == ciudad)
-                         conjuntoauxiliar.push(bd[j]);
-                 }
-
-                else if (country, date) {
-                     if (country == country && date == date)
-                         conjuntoauxiliar.push(bd[j]);
-                 }
-
-                 else if (desde == undefined && hasta == undefined && ciudad) {
-                     if (city == ciudad) {
-                         conjuntoauxiliar.push(bd[j]);
-                     }
-                 }
-
-                 else if (desde && hasta && ciudad == undefined) {
-                     if (to >= date && from <= date) {
-                         conjuntoauxiliar.push(bd[j]);
-                     }
-                 }*/
                 // FROM + TO
                 if (desde != undefined && hasta != undefined && pais == undefined && fecha == undefined && ciudad == undefined && muertos == undefined && heridos == undefined) {
                     if (from <= date && to >= date) {
                         conjuntoauxiliar.push(bd[j]);
                     }
                 }
-                // ROM
+                // FROM
                 else if (desde != undefined && hasta == undefined && pais == undefined && fecha == undefined && ciudad == undefined && muertos == undefined && heridos == undefined) {
                     if (from <= date) {
                         conjuntoauxiliar.push(bd[j]);
@@ -320,6 +297,12 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                 // TO
                 else if (desde == undefined && hasta != undefined && pais == undefined && fecha == undefined && ciudad == undefined && muertos == undefined && heridos == undefined) {
                     if (to >= date) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+                // PAIS + CIUDAD
+                else if (desde == undefined && hasta == undefined && pais != undefined && fecha == undefined && ciudad != undefined && muertos == undefined && heridos == undefined) {
+                    if (pais == country && ciudad == city) {
                         conjuntoauxiliar.push(bd[j]);
                     }
                 }
@@ -353,12 +336,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                         conjuntoauxiliar.push(bd[j]);
                     }
                 }
-                // PAIS + CIUDAD
-                else if (desde == undefined && hasta == undefined && pais != undefined && fecha == undefined && ciudad != undefined && muertos == undefined && heridos == undefined) {
-                    if (country==pais && city==ciudad) {
-                        conjuntoauxiliar.push(bd[j]);
-                    }
-                }
+
 
 
             }
