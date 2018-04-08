@@ -276,7 +276,7 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                 // from y to
                 if (desde != undefined && hasta != undefined && estado == undefined && anyo == undefined && mes == undefined && ciudad == undefined &&
                     tipoCrimen== undefined && arma == undefined && numeroVictimas == undefined ) {
-                    if (from <= anyo && to >= anyo) {
+                    if (from <= year && to >= year) {
                         conjuntoauxiliar.push(bd[j]);
                     }
                 }
@@ -305,6 +305,16 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
 
                     if (state == estado && city == ciudad && year == anyo && month == mes) {
 
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+                 else if (hasta) {
+                    if (to >= year) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+                 else if (desde) {
+                    if (from <= year) {
                         conjuntoauxiliar.push(bd[j]);
                     }
                 }
