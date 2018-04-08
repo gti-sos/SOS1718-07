@@ -6,7 +6,7 @@ module.exports = terrorismApi;
 terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
 
     app.get(BASE_API_PATH + "/global-terrorism-data/docs", (req, res) => {
-        res.redirect("https://documenter.getpostman.com/view/3873871/collection/RVu1HAuj");
+        res.redirect("https://documenter.getpostman.com/view/3873871/f06-copy/RVu5i8Ti");
     });
 
     app.get(BASE_API_PATH + "/global-terrorism-data/loadInitialData", (req, res) => { //////////////////////////////////MONGO
