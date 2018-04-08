@@ -414,13 +414,15 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                             response.send(aux2);
                         }
                         else {
-
-                            response.send(aux3);
+                            response.sendStatus(404);
                             return;
                         }
                     }
                     else {
-                        response.send(terrorism);
+                        response.send(terrorism.filter((c) => {
+                            delete c._id;
+                            return c;
+                        }));
                     }
                 }
             });
@@ -435,7 +437,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                 }
                 else {
                     if (terrorism.length === 0) {
-                        response.send(terrorism);
+                        response.send(404);
                         return;
                     }
                     if (from || to || country || date || city || killed || injured) {
@@ -449,7 +451,10 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                         }
                     }
                     else {
-                        response.send(terrorism);
+                        response.send(terrorism.filter((c) => {
+                            delete c._id;
+                            return c;
+                        }));
                     }
                 }
             });
@@ -500,10 +505,14 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                         }
                         else {
                             res.sendStatus(404);
+                            return;
                         }
                     }
                     else {
-                        res.send(terrorism);
+                        res.send(terrorism.filter((c) => {
+                            delete c._id;
+                            return c;
+                        }));
                     }
                 }
             });
@@ -533,11 +542,15 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                         }
                         else {
                             res.sendStatus(404);
+                            return;
                         }
                     }
                     else {
                         console.log(Date() + " - GET /attacks-data/" + dato);
-                        res.send(terrorism);
+                        res.send(terrorism.filter((c) => {
+                            delete c._id;
+                            return c;
+                        }));
                     }
                 }
             });
