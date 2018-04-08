@@ -282,8 +282,22 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                 var killed = bd[j].killed;
                 var injured = bd[j].injured;
 
+                // FROM + TO + PAIS + CIUDAD 
+                if (desde != undefined && hasta != undefined && pais != undefined && fecha == undefined && ciudad != undefined && muertos == undefined && heridos == undefined) {
+                    if (from <= date && to >= date && pais == country && ciudad == city) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+
+                // FROM + TO + PAIS
+                else if (desde != undefined && hasta != undefined && pais != undefined && fecha == undefined && ciudad == undefined && muertos == undefined && heridos == undefined) {
+                    if (from <= date && to >= date && pais == country) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+
                 // FROM + TO
-                if (desde != undefined && hasta != undefined && pais == undefined && fecha == undefined && ciudad == undefined && muertos == undefined && heridos == undefined) {
+                else if (desde != undefined && hasta != undefined && pais == undefined && fecha == undefined && ciudad == undefined && muertos == undefined && heridos == undefined) {
                     if (from <= date && to >= date) {
                         conjuntoauxiliar.push(bd[j]);
                     }
@@ -300,6 +314,13 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                         conjuntoauxiliar.push(bd[j]);
                     }
                 }
+                // PAIS + CIUDAD + FECHA
+                else if (desde == undefined && hasta == undefined && pais != undefined && fecha != undefined && ciudad != undefined && muertos == undefined && heridos == undefined) {
+                    if (pais == country && ciudad == city && fecha == bd[j].date) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+
                 // PAIS + CIUDAD
                 else if (desde == undefined && hasta == undefined && pais != undefined && fecha == undefined && ciudad != undefined && muertos == undefined && heridos == undefined) {
                     if (pais == country && ciudad == city) {
@@ -307,37 +328,42 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                     }
                 }
 
+                // PAIS + FECHA
+                else if (desde == undefined && hasta == undefined && pais != undefined && fecha != undefined && ciudad == undefined && muertos == undefined && heridos == undefined) {
+                    if (pais == country && fecha == bd[j].date) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+
                 else if (pais) {
-                    if (country == pais) {
+                    if (pais == country) {
                         conjuntoauxiliar.push(bd[j]);
                     }
                 }
 
                 else if (fecha) {
-                    if (date == fecha) {
+                    if (fecha == bd[j].date) {
                         conjuntoauxiliar.push(bd[j]);
                     }
                 }
 
                 else if (ciudad) {
-                    if (city == ciudad) {
+                    if (ciudad == city) {
                         conjuntoauxiliar.push(bd[j]);
                     }
                 }
 
                 else if (muertos) {
-                    if (killed == muertos) {
+                    if (muertos == killed) {
                         conjuntoauxiliar.push(bd[j]);
                     }
                 }
 
                 else if (heridos) {
-                    if (injured == heridos) {
+                    if (heridos == injured) {
                         conjuntoauxiliar.push(bd[j]);
                     }
                 }
-
-
 
             }
         } // llave de cierre de la condicional de los undefined
@@ -487,9 +513,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
 
             //SEGUDA PARTE QUE ES CON OPERADOR OR DE LA BUSQUEDA
             dbAttacks.find({
-                $or: [{ "country": dato }, { "date": dato }, { "city": dato }, { "killed": dato },
-                    { "injured": dato }
-                ]
+                $or: [{ "country": dato }, { "date": dato }, { "city": dato }, { "killed": dato }, { "injured": dato }]
             }).toArray((err, terrorism) => {
                 if (err) {
                     console.error("Error accesing DB");
