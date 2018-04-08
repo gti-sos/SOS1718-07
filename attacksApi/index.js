@@ -389,7 +389,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
 
         var aux = [];
         var aux2 = [];
-        var aux3 = [];
+        //var aux3 = [];
 
 
         if (limit || offset >= 0) {
