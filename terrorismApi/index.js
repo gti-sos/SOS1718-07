@@ -541,7 +541,10 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                     }
                     else {
                         console.log(Date() + " - GET /global-terrorism-data/" + dato);
-                        res.send(data);
+                        res.send(data.filter((c) => {
+                            delete c._id;
+                            return c;
+                        }));
                     }
                 }
             });
