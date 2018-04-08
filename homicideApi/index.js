@@ -380,9 +380,9 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
         var month = request.query.month;
         var state = request.query.state;
         var city = request.query.city;
-        var typeCrime = request.query.typeCrime;
+        var typeCrime = request.query.crime_type;
         var weapon = request.query.weapon;
-        var victimCount = request.query.victimCount;
+        var victimCount = request.query.victim_count;
 
 
         var aux = [];
