@@ -7,7 +7,7 @@ module.exports = homicideApi;
 homicideApi.register = function(app, dbHomicide, homicide_data) {
 
     app.get(BASE_API_PATH + "/homicide-reports-data/docs", (req, res) => {
-        res.redirect("https://documenter.getpostman.com/view/3879097/collection/RVu1HAuk");
+        res.redirect("https://documenter.getpostman.com/view/3879097/collection/RVu5i8Tr");
     });
 
     app.get(BASE_API_PATH + "/homicide-reports-data/loadInitialData", (req, res) => { //MONGODB
