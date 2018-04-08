@@ -426,12 +426,15 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                             res.send(aux2);
                         }
                         else {
-                            res.send(aux3);
+                            res.sendStatus(404);
                             return;
                         }
                     }
                     else {
-                        res.send(data);
+                        res.send(data.filter((c) => {
+                            delete c._id;
+                            return c;
+                        }));
                     }
                 }
             });
@@ -509,10 +512,14 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                         }
                         else {
                             res.sendStatus(404);
+                            return;
                         }
                     }
                     else {
-                        res.send(data);
+                        res.send(data.filter((c) => {
+                            delete c._id;
+                            return c;
+                        }));
                     }
                 }
             });
@@ -537,6 +544,7 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                         }
                         else {
                             res.sendStatus(404);
+                            return;
                         }
                     }
                     else {

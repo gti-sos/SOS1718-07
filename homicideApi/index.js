@@ -29,52 +29,52 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
             }
         });
     });
-/*
-    app.get(BASE_API_PATH + "/homicide-reports-data", (req, res) => { //MONGODB
-        console.log(Date() + " - GET /homicide-reports-data");
+    /*
+        app.get(BASE_API_PATH + "/homicide-reports-data", (req, res) => { //MONGODB
+            console.log(Date() + " - GET /homicide-reports-data");
 
-        dbHomicide.find({}).toArray((err, terrorism) => {
-            if (err) {
-                console.error("Error accesing DB");
-                res.sendStatus(500);
-                return;
-            }
+            dbHomicide.find({}).toArray((err, terrorism) => {
+                if (err) {
+                    console.error("Error accesing DB");
+                    res.sendStatus(500);
+                    return;
+                }
 
-            if (terrorism.length == 0) {
-                res.sendStatus(404);
-                return;
-            }
-            res.send(terrorism.filter((c) => {
-                delete c._id;
-                return c;
-            }));
-        });
-    });
-
-    app.get(BASE_API_PATH + "/homicide-reports-data/:state", (req, res) => { //MONGODB
-        var state = req.params.state;
-        console.log(Date() + " - GET /homicide-reports-data/" + state);
-
-        dbHomicide.find({ "state": state }).toArray((err, terrorism) => {
-            if (err) {
-                console.error("Error accesing DB");
-                res.sendStatus(500);
-                return;
-            }
-            if (terrorism.length == 0) {
-                res.sendStatus(404);
-                return;
-            }
-            else {
-
+                if (terrorism.length == 0) {
+                    res.sendStatus(404);
+                    return;
+                }
                 res.send(terrorism.filter((c) => {
                     delete c._id;
                     return c;
                 }));
-            }
+            });
         });
-    });
-*/
+
+        app.get(BASE_API_PATH + "/homicide-reports-data/:state", (req, res) => { //MONGODB
+            var state = req.params.state;
+            console.log(Date() + " - GET /homicide-reports-data/" + state);
+
+            dbHomicide.find({ "state": state }).toArray((err, terrorism) => {
+                if (err) {
+                    console.error("Error accesing DB");
+                    res.sendStatus(500);
+                    return;
+                }
+                if (terrorism.length == 0) {
+                    res.sendStatus(404);
+                    return;
+                }
+                else {
+
+                    res.send(terrorism.filter((c) => {
+                        delete c._id;
+                        return c;
+                    }));
+                }
+            });
+        });
+    */
     app.get(BASE_API_PATH + "/homicide-reports-data/:state/:city/:year/:month", (req, res) => { //MONGODB
         var state = req.params.state;
         var city = req.params.city;
@@ -259,8 +259,8 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
         //parametros 
 
 
-        if (desde != undefined || hasta != undefined || anyo != undefined || mes != undefined || estado != undefined || ciudad != undefined || tipoCrimen != undefined
-                        ||    arma != undefined || numeroVictimas != undefined) {
+        if (desde != undefined || hasta != undefined || anyo != undefined || mes != undefined || estado != undefined || ciudad != undefined || tipoCrimen != undefined ||
+            arma != undefined || numeroVictimas != undefined) {
 
 
             for (var j = 0; j < bd.length; j++) {
@@ -268,48 +268,42 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                 var month = bd[j].month;
                 var state = bd[j].state;
                 var city = bd[j].city;
-                var crimeType = bd[j].crime_type; 
+                var crimeType = bd[j].crime_type;
                 var weapon = bd[j].weapon;
                 var victimCount = bd[j].victim_count;
-
-
-                if (ciudad, anyo) {
+                
+                
+                // from y to
+                if (desde != undefined && hasta != undefined && estado == undefined && anyo == undefined && mes == undefined && ciudad == undefined &&
+                    tipoCrimen== undefined && arma == undefined && numeroVictimas == undefined ) {
+                    if (from <= anyo && to >= anyo) {
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+                //Ciudad y año
+               else if (desde == undefined && hasta == undefined && estado == undefined && anyo != undefined && mes == undefined && ciudad != undefined &&
+                    tipoCrimen == undefined && arma == undefined && numeroVictimas == undefined ) {
                     if (city == ciudad && year == anyo)
                         conjuntoauxiliar.push(bd[j]);
                 }
-                
-                 if (estado, anyo) {
+                //Estado y año
+                else if (desde == undefined && hasta == undefined && estado != undefined && anyo != undefined && mes == undefined && ciudad == undefined &&
+                    tipoCrimen == undefined && arma == undefined && numeroVictimas == undefined ) {
                     if (state == estado && year == anyo)
                         conjuntoauxiliar.push(bd[j]);
                 }
-
-
-                else if (desde == undefined && hasta == undefined && ciudad) {
-                    if (city == ciudad) {
+                //Ciudad y estado
+                else if (desde == undefined && hasta == undefined && estado != undefined && anyo == undefined && mes == undefined && ciudad != undefined &&
+                    tipoCrimen == undefined && arma == undefined && numeroVictimas == undefined ) {
+                    if (city == ciudad && state == estado) {
                         conjuntoauxiliar.push(bd[j]);
                     }
                 }
+                //Recurso especifico
+                 else if (desde == undefined && hasta == undefined && estado != undefined && anyo != undefined && mes != undefined && ciudad != undefined &&
+                    tipoCrimen == undefined && arma == undefined && numeroVictimas == undefined ) {
 
-
-                else if (desde && hasta && ciudad == undefined) {
-
-                    if (to >= year && from <= year) {
-
-                        conjuntoauxiliar.push(bd[j]);
-                    }
-                }
-                
-                
-                else if (hasta) {
-
-                    if (to >= year) {
-
-                        conjuntoauxiliar.push(bd[j]);
-                    }
-                }
-                else if (desde) {
-
-                    if (from <= year) {
+                    if (state == estado && city == ciudad && year == anyo && month == mes) {
 
                         conjuntoauxiliar.push(bd[j]);
                     }
@@ -317,6 +311,20 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                 else if (estado) {
 
                     if (state == estado) {
+
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+                else if (ciudad) {
+
+                    if (city == ciudad) {
+
+                        conjuntoauxiliar.push(bd[j]);
+                    }
+                }
+                else if (anyo) {
+
+                    if (year == anyo) {
 
                         conjuntoauxiliar.push(bd[j]);
                     }
@@ -358,7 +366,7 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
 
     };
     //----------------------------BUSQUEDA-----------------------------
-    
+
     app.get(BASE_API_PATH + "/homicide-reports-data", function(request, response) {
 
         console.log("INFO: New GET request to /homicide-reports-data ");
@@ -372,10 +380,10 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
         var month = request.query.month;
         var state = request.query.state;
         var city = request.query.city;
-        var typeCrime= request.query.typeCrime;
+        var typeCrime = request.query.typeCrime;
         var weapon = request.query.weapon;
         var victimCount = request.query.victimCount;
-        
+
 
         var aux = [];
         var aux2 = [];
@@ -405,12 +413,15 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                         }
                         else {
 
-                            response.send(aux3);
+                            response.sendStatus(404);
                             return;
                         }
                     }
                     else {
-                        response.send(terrorism);
+                        response.send(terrorism.filter((c) => {
+                            delete c._id;
+                            return c;
+                        }));
                     }
                 }
             });
@@ -425,8 +436,7 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                 }
                 else {
                     if (terrorism.length === 0) {
-
-                        response.send(terrorism);
+                        response.sendStatus(404);
                         return;
                     }
                     if (from || to || year || month || state || city || typeCrime || weapon || victimCount) {
@@ -440,14 +450,17 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                         }
                     }
                     else {
-                        response.send(terrorism);
+                        response.send(terrorism.filter((c) => {
+                            delete c._id;
+                            return c;
+                        }));
                     }
                 }
             });
         }
 
     });
-    
+
     /////******************************************************GET PARA PAGINACION SIN BUSQUEDA**************************************////////////////////
 
     app.get(BASE_API_PATH + "/homicide-reports-data/:dato", (req, res) => {
@@ -478,7 +491,7 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                         res.sendStatus(404);
                     }
 
-                    if (from || to || year || month || state || city ) {
+                    if (from || to || year || month || state || city) {
 
                         aux = busquedas(terrorism, aux, from, to, state, year, city, month);
                         if (aux.length > 0) {
@@ -488,10 +501,14 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                         }
                         else {
                             res.sendStatus(404);
+                            return;
                         }
                     }
                     else {
-                        res.send(terrorism);
+                        res.send(terrorism.filter((c) => {
+                            delete c._id;
+                            return c;
+                        }));
                     }
                 }
             });
@@ -517,11 +534,15 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                         }
                         else {
                             res.sendStatus(404);
+                            return;
                         }
                     }
                     else {
                         console.log(Date() + " - GET /spanish-universities/" + dato);
-                        res.send(terrorism);
+                        res.send(terrorism.filter((c) => {
+                            delete c._id;
+                            return c;
+                        }));
                     }
                 }
             });
