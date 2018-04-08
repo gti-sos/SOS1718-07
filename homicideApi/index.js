@@ -268,9 +268,9 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                 var month = bd[j].month;
                 var state = bd[j].state;
                 var city = bd[j].city;
-                var crimeType = bd[j].crimeType;
+                var crimeType = bd[j].crime_type; 
                 var weapon = bd[j].weapon;
-                var victimCount = bd[j].victimCount;
+                var victimCount = bd[j].victim_count;
 
 
                 if (ciudad, anyo) {
@@ -478,7 +478,7 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                         res.sendStatus(404);
                     }
 
-                    if (from || to || state || city || year || month) {
+                    if (from || to || year || month || state || city ) {
 
                         aux = busquedas(terrorism, aux, from, to, state, year, city, month);
                         if (aux.length > 0) {
