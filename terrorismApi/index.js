@@ -285,39 +285,39 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
 
 
                 // from y to
-                if (desde != undefined && hasta != undefined && country_txt == undefined && iyear == undefined && imonth == undefined && iday == undefined
-                && city == undefined && attacktype_txt == undefined && weaptype_txt == undefined && nkill == undefined) {
+                if (desde != undefined && hasta != undefined && country_txt == undefined && iyear == undefined && imonth == undefined && iday == undefined &&
+                    city == undefined && attacktype_txt == undefined && weaptype_txt == undefined && nkill == undefined) {
                     if (from <= anyo && to >= anyo) {
                         conjuntoauxiliar.push(dato[j]);
                     }
                 }
-                
+
                 //País y año
-                else if (desde == undefined && hasta == undefined && country_txt != undefined && iyear != undefined && imonth == undefined && iday == undefined
-                && city == undefined && attacktype_txt == undefined && weaptype_txt == undefined && nkill == undefined) {
+                else if (desde == undefined && hasta == undefined && country_txt != undefined && iyear != undefined && imonth == undefined && iday == undefined &&
+                    city == undefined && attacktype_txt == undefined && weaptype_txt == undefined && nkill == undefined) {
                     if (pais == country_txt && anyo == iyear) {
                         conjuntoauxiliar.push(dato[j]);
                     }
                 }
-                
+
                 //País y ciudad
-                else if (desde == undefined && hasta == undefined && country_txt != undefined && iyear == undefined && imonth == undefined && iday == undefined
-                && city != undefined && attacktype_txt == undefined && weaptype_txt == undefined && nkill == undefined) {
+                else if (desde == undefined && hasta == undefined && country_txt != undefined && iyear == undefined && imonth == undefined && iday == undefined &&
+                    city != undefined && attacktype_txt == undefined && weaptype_txt == undefined && nkill == undefined) {
                     if (pais == country_txt && ciudad == city) {
                         conjuntoauxiliar.push(dato[j]);
                     }
                 }
-                
+
                 //Recurso específico concreto
-                else if (desde == undefined && hasta == undefined && country_txt != undefined && iyear != undefined && imonth != undefined && iday != undefined
-                && city != undefined && attacktype_txt == undefined && weaptype_txt == undefined && nkill == undefined) {
+                else if (desde == undefined && hasta == undefined && country_txt != undefined && iyear != undefined && imonth != undefined && iday != undefined &&
+                    city != undefined && attacktype_txt == undefined && weaptype_txt == undefined && nkill == undefined) {
                     if (pais == country_txt && ciudad == city && anyo == iyear && mes == imonth && dia == iday) {
                         conjuntoauxiliar.push(dato[j]);
                     }
                 }
-                
-                else if (iyear){
-                    if(anyo == iyear){
+
+                else if (iyear) {
+                    if (anyo == iyear) {
                         conjuntoauxiliar.push(dato[j]);
                     }
                 }
@@ -446,7 +446,7 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                 }
                 else {
                     if (data.length === 0) {
-                        res.send(data);
+                        res.sendStatus(404);
                         return;
                     }
                     if (from || to || anyo || mes || dia || pais || ciudad || tipoAtaque || tipoArma || nMuertos) {
@@ -460,7 +460,10 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                         }
                     }
                     else {
-                        res.send(data);
+                        res.send(data.filter((c) => {
+                            delete c._id;
+                            return c;
+                        }));
                     }
                 }
             });
@@ -538,7 +541,10 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                     }
                     else {
                         console.log(Date() + " - GET /global-terrorism-data/" + dato);
-                        res.send(data);
+                        res.send(data.filter((c) => {
+                            delete c._id;
+                            return c;
+                        }));
                     }
                 }
             });
