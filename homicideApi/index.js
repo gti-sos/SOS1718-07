@@ -231,7 +231,7 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
 
         console.log(Date() + " - PUT /homicide-reports-data/" + city);
 
-        if (state != datareq.state && city != datareq.city && year != datareq.year && month != datareq.month) {
+        if (state != datareq.state || city != datareq.city || year != datareq.year || month != datareq.month) {
             res.sendStatus(400);
             console.warn(Date() + " - Hacking attempt!");
             return;
