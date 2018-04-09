@@ -239,7 +239,7 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
 
         console.log(Date() + " - PUT /homicide-reports-data/" + country);
 
-        if (country != datareq.country_txt && city != datareq.city && year != datareq.iyear && month != datareq.imonth && day != datareq.iday) {
+        if (country != datareq.country_txt || city != datareq.city || year != datareq.iyear || month != datareq.imonth || day != datareq.iday) {
             res.sendStatus(400);
             console.warn(Date() + " - Hacking attempt!");
             return;
