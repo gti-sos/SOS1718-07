@@ -6,5 +6,8 @@ angular
             .when("/", {
                 templateUrl: "globalTerrorismList.html",
                 controller: "globalTerrorismListCtrl"
+            }).when("/global-terrorism-data/:country_txt/:city/:iyear/:imonth/:iday",{
+                templateUrl: "globalTerrorismEdit.html",
+                controller: "globalTerrorismEditCtrl"
             });
     });

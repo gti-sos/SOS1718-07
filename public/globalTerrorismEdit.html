@@ -1,0 +1,33 @@
+<h1>Edit Data</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Month</th>
+            <th>Day</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>Attack Type</th>
+            <th>Weap Type</th>
+            <th>Number of Killed</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{updatedData.iyear}}</td>
+            <td>{{updatedData.imonth}}</td>
+            <td>{{updatedData.iday}}</td>
+            <td>{{updatedData.country_txt}}</td>
+            <td>{{updatedData.city}}</td>
+            <td><input class="form-control" ng-model="updatedData.attacktype_txt" /></td>
+            <td><input class="form-control" ng-model="updatedData.weaptype_txt" /></td>
+            <td><input class="form-control" type="number" ng-model="updatedData.nkill" /></td>
+            <td><button class="button btn-primary" ng-click="updateData()">
+                Update
+            </button></td>
+        </tr>
+    </tbody>
+</table>
+<hr/>
+<h8><i>{{status}}</i></h8>
