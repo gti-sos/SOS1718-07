@@ -1,7 +1,7 @@
 /* global angular */
 
 angular
-    .module("TerrorismManagerApp")
+    .module("AttackManagerApp")
     .controller("EditCtrl", ["$scope", "$http", "$routeParams", "$location", function($scope, $http, $routeParams, $location) {
         console.log("Edit Ctrl initialized!");
         var contactUrl = "/api/v1/attacks-data/" + $routeParams.name;

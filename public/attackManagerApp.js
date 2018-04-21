@@ -1,6 +1,6 @@
  /* global angular */
 
- angular.module("indexTerrorism", ["ngRoute"]) 
+ angular.module("AttackManagerApp", ["ngRoute"]) 
      .config(function($routeProvider) { 
          $routeProvider
              .when("/", {

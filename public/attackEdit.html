@@ -1,18 +1,25 @@
-<h1>Edit Contacts</h1>
+<h1>Edit Attacks</h1>
 <table class="table">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Actions</th>
+            <th>Country</th>
+            <th>Date</th>
+            <th>City</th>
+            <th>Killed</th>
+            <th>Injured</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>{{updatedContact.name}}</td>
-            <td><input class="form-control" ng-model="updatedContact.phone" /></td>
-            <td><button class="button btn-primary" ng-click="updateContact()"> Update
-                </button></td>
+            <td>{{updateAttack.country}}</td>
+            <td>{{updateAttack.date}}</td>
+            <td>{{updateAttack.city}}</td>
+            <td><input type="number" class="form-control" ng-model="newAttack.killed" /></td>
+            <td><input type="number" class="form-control" ng-model="newAttack.injured" /></td>
+
+            <td><button class="button btn-primary" ng-click="updateAttack()" /> Update
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>
