@@ -27,7 +27,7 @@
             <td>{{attack.city}}</td>
             <td>{{attack.killed}}</td>
             <td>{{attack.injured}}</td>
-            <td><button class="button btn-danger" ng-click="deleteAttack(country, date, city)">Delete</button></td>
+            <td><button class="button btn-danger" ng-click="deleteAttack(attack.country, attack.city, attack.date)">Delete</button></td>
         </tr>
         <tr>
             <td><button class="button btn-danger" ng-click="deleteAttacks()">Delete All</button></td>

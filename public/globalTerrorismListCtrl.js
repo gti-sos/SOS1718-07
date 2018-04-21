@@ -6,21 +6,29 @@ angular.module("globalTerrorismApp").controller("globalTerrorismListCtrl", ["$sc
 
     $scope.addData = function() {
         $http.post(api, $scope.newData).then(function(response) {
+            console.log(response.data);
+            
             $scope.globalTerrorismData = response.data;
             $scope.status = "Status: " + response.status;
+            if (response.status === 201) {
+                window.alert("El dato se ha introducido correctamente");
+            }
+            else if(response.status === 209) {
+                window.alert("El dato no se ha introducido correctamente");
+            }
             getGlobalTerrorismData();
         });
     };
 
-    $scope.deleteData = function(country,city,year,month,day) {
+    $scope.deleteData = function(country, city, year, month, day) {
         $http.delete(api + "/" + country + "/" + city + "/" + year + "/" + month + "/" + day).then(function(response) {
             $scope.status = "Status: " + response.status;
             getGlobalTerrorismData();
         });
     };
-    
-    $scope.deleteAllData = function(){
-        $http.delete(api).then(function(response){
+
+    $scope.deleteAllData = function() {
+        $http.delete(api).then(function(response) {
             $scope.status = "Status: " + response.status;
             getGlobalTerrorismData();
         });

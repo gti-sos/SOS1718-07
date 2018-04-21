@@ -22,21 +22,20 @@ angular
                             }*/
             );
         };
-        
+
         $scope.deleteAttacks = function() {
             $http.delete(api + "/").then(function(response) {
                 $scope.status = "Status: " + response.status;
                 getAttack();
             });
         };
-        
-        $scope.deleteAttack = function(country, date, city) {
+
+        $scope.deleteAttack = function(country, city, date) {
             //console.log("attack to be delete :" + country, date, city);
-            $http.delete(api + "/" + country + "/" + date + "/" + city).then(function(response) {
+            $http.delete(api + "/" + country + "/" + city + "/" + date).then(function(response) {
                 $scope.status = "Status: " + response.status;
                 getAttack();
             });
-            getAttack();
         };
 
 
