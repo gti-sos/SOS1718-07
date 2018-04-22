@@ -10,9 +10,13 @@ angular.module("globalTerrorismApp").controller("globalTerrorismEditCtrl", ["$sc
     });
     
     $scope.updateData = function() {
-        $http.put(dataUrl, $scope.updatedData).then(function(response) {
+        $http.put(dataUrl, $scope.updatedData).then(function doneFilter(response) {
             $scope.status = "Status: " + response.status;
             $location.path("/");
+        }, function failFilter(response){
+            if (response.status == 400){
+                window.alert("Debes respetar los campos obligatorios, país, ciudad y fecha, gracias! ;)");
+            }
         });
     };
     
