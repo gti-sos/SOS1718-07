@@ -8,11 +8,11 @@ angular
 
 
         $http.get(attackUrl).then(function(response) {
-            $scope.updateAttack = response.data;
+            $scope.updatedAttack = response.data;
         });
 
         $scope.updateAttack = function() {
-            $http.put(attackUrl, $scope.updateAttack()).then(function doneFilter(response) {
+            $http.put(attackUrl, $scope.updatedAttack).then(function doneFilter(response) {
                 $scope.status = "Status: " + response.status;
                 $location.path("/");
                 window.alert("El recurso se ha editado con exito, gracias!");

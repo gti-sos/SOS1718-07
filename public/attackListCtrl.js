@@ -51,7 +51,6 @@ angular
         function getAttack() {
             $http.get(api).then(function(response) {
                 $scope.attacks = response.data;
-                getAttack();
             });
         }
 
