@@ -1,4 +1,4 @@
-
+<h1>Homicide List</h1>
 
 <table class="table">
     <thead>
@@ -23,7 +23,7 @@
             <td><input class="form control" ng-model="newHomicide.crime_type" ></td>
             <td><input class="form control" ng-model="newHomicide.weapon" ></td>
             <td><input class="form control" type="number" ng-model="newHomicide.victim_count" ></td>
-            <td><button class="button btn-primary" ng-click="addHomicide()">Add</button></td>
+            <td><button class="button btn-primary" ng-click="addHomicide()">   Add  </button></td>
         </tr>
         <tr ng-repeat="homicide in homicides"> 
             <td>{{homicide.year}}</td>
@@ -38,7 +38,7 @@
     </tbody>
 </table>
 <center>
-<button class= "button btn-primary" ng-click="deleteAllHomicide()">Delete All</button>
+<button class= "button btn-danger" ng-click="deleteAllHomicide()">Delete All</button>
 </center>
 <hr/>
 <h8><i>{{status}}</i></h8>

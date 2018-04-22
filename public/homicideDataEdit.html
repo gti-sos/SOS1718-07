@@ -1,0 +1,33 @@
+<h1>Edit Homicide</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Month</th>
+            <th>State</th>
+            <th>City</th>
+            <th>Crime</th>
+            <th>Weapon</th>
+            <th>Victim</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        <tr>
+            <td>{{updatedHomicide.state}}</td>
+            <td>{{updatedHomicide.city}}</td>
+            <td>{{updatedHomicide.year}}</td>
+            <td>{{updatedHomicide.month}}</td>
+            <td><input class="form-control" ng-model="updatedHomicide.crime_type" /></td>
+            <td><input class="form-control" ng-model="updatedHomicide.weapon" /></td>
+            <td><input class="form-control" type="number" ng-model="updatedHomicide.victim_count" /></td>
+            <td><button class="button btn-primary" ng-click="updateHomicide()">
+                Update
+            </button></td>
+        </tr>
+    </tbody>
+</table>
+<hr/>
+<h8><i>{{status}}</i></h8>
