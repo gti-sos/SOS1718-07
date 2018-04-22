@@ -5,7 +5,7 @@
           $routeProvider
                 .when("/",{
                     templateUrl : "homicideDataList.html",
-                    controller : "ListCtrl"
+                    controller : "homicideDataListCtrl"
                 });
       });
   

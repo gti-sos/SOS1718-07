@@ -3,7 +3,7 @@
 
   angular
       .module("homicideDataApp")
-      .controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
+      .controller("homicideDataListCtrl", ["$scope", "$http", function($scope, $http) {
           console.log("List Ctrl initialized!");
           var api = "/api/v1/homicide-reports-data";
 
@@ -13,15 +13,14 @@
                   $scope.status = "Status: " + response.status;
                   getHomicide();
               });
-          }
+          };
 
           $scope.deleteHomicide = function(state, city, year, month) {
               $http.delete(api + "/" + state + "/" + city + "/" + year + "/" + month).then(function(response) {
                   $scope.status = "Status: " + response.status;
                   getHomicide();
-
               });
-          }
+          };
           
           $scope.deleteAllHomicide = function() {
               $http.delete(api).then(function(response) {
