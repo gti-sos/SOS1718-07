@@ -1,0 +1,41 @@
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Month</th>
+            <th>State</th>
+            <th>City</th>
+            <th>Crime</th>
+            <th>Weapon</th>
+            <th>Victim</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        <tr>
+            <td><input class="form control" ng-model="newHomicide.year" ></td>
+            <td><input class="form control" ng-model="newHomicide.month" ></td>
+            <td><input class="form control" ng-model="newHomicide.state" ></td>
+            <td><input class="form control" ng-model="newHomicide.city" ></td>
+            <td><input class="form control" ng-model="newHomicide.crime_type" ></td>
+            <td><input class="form control" ng-model="newHomicide.weapon" ></td>
+            <td><input class="form control" ng-model="newHomicide.victim_count" ></td>
+            <td><button class="button btn-primary" ng-click="addHomicide()">Add</button></td>
+        </tr>
+        <tr ng-repeat="homicide in homicides"> 
+            <td>{{homicide.year}}</td>
+            <td>{{homicide.month}}</td>
+            <td>{{homicide.state}}</td>
+            <td>{{homicide.city}}</td>
+            <td>{{homicide.crime_type}}</td>
+            <td>{{homicide.weapon}}</td>
+            <td>{{homicide.victim_count}}</td>
+            <td><button class="button btn-danger"  ng-click="deleteHomicide(homicide.year)">Delete</button></td>
+        </tr>
+    </tbody>
+</table>
+<hr/>
+<h8><i>{{status}}</i></h8>
