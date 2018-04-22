@@ -14,8 +14,8 @@
             <td><input class="form-control" ng-model="newAttack.country" /></td>
             <td><input class="form-control" ng-model="newAttack.date" /></td>
             <td><input class="form-control" ng-model="newAttack.city" /></td>
-            <td><input class="form-control" type="number" ng-model="newAttack.killed" /></td>
-            <td><input class="form-control" type="number" ng-model="newAttack.injured" /></td>
+            <td><input class="form-control" type="number"  min="0" ng-model="newAttack.killed" /></td>
+            <td><input class="form-control" type="number" min="0" ng-model="newAttack.injured" /></td>
 
             <td><button class="button btn-primary" ng-click="addAttack()"> Add
                 </button>
