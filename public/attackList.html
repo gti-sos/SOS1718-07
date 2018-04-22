@@ -22,7 +22,7 @@
             </td>
         </tr>
         <tr align="center" ng-repeat="attack in attacks">
-            <td><a href="/#!/attack/{{attack.country}}">{{attack.country}}</a></td>
+            <td><a href="/indexAttack.html#!/attack-data/{{attack.country}}/{{attack.city}}/{{attack.date}}">{{attack.country}}</a></td>
             <td>{{attack.date}}</td>
             <td>{{attack.city}}</td>
             <td>{{attack.killed}}</td>
@@ -30,7 +30,7 @@
             <td><button class="button btn-danger" ng-click="deleteAttack(attack.country, attack.city, attack.date)">Delete</button></td>
         </tr>
         <tr>
-            <td><button class="button btn-danger" ng-click="deleteAttacks()">Delete All</button></td>
+            <td><button class="button btn-danger" ng-click="deleteAllAttacks()">Delete All</button></td>
         </tr>
     </tbody>
 </table>

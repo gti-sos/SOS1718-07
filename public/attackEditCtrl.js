@@ -4,17 +4,22 @@ angular
     .module("AttackManagerApp")
     .controller("EditCtrl", ["$scope", "$http", "$routeParams", "$location", function($scope, $http, $routeParams, $location) {
         console.log("Edit Ctrl initialized!");
-        var contactUrl = "/api/v1/attacks-data/" + $routeParams.name;
+        var attackUrl = "/api/v1/attacks-data/" + $routeParams.country + "/" + $routeParams.city + "/" + $routeParams.date;
 
 
-        $http.get(contactUrl).then(function(response) {
-            $scope.updatedContact = response.data;
+        $http.get(attackUrl).then(function(response) {
+            $scope.updateAttack = response.data;
         });
 
-        $scope.updateContact = function() {
-            $http.put(contactUrl, $scope.updatedContact).then(function(response) {
+        $scope.updateAttack = function() {
+            $http.put(attackUrl, $scope.updateAttack()).then(function doneFilter(response) {
                 $scope.status = "Status: " + response.status;
                 $location.path("/");
+                window.alert("El recurso se ha editado con exito, gracias!");
+            }, function failFilter(response) {
+                if (response.status == 400) {
+                    window.alert("Debes respetar los campos obligatorios, país, ciudad y fecha, gracias!");
+                }
             });
         };
     }]);

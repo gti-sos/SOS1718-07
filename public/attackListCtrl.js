@@ -1,4 +1,5 @@
 /* global angular */
+/* global location */
 
 angular
     .module("AttackManagerApp")
@@ -8,37 +9,44 @@ angular
 
 
         $scope.addAttack = function() {
-            $http.post(api, $scope.newAttack).then(function(response) {
+            $http.post(api, $scope.newAttack).then(function doneFilter(response) {
+                    $scope.attacks = response.data;
                     $scope.status = "Status: " + response.status;
+
+                   /* if (response.status === 201) {
+                        window.alert("El dato se ha insertado con exito, gracias!");
+                    }*/
                     getAttack();
+                }, function failFilter(response){
+                $scope.status = "Status: " + response.status;
+                if(response.status == 400){
+                    window.alert("Debes introducir todos los campos requeridos, gracias!");
+                    location.reload();
                 }
-                /*, function() {
-                                if ($scope.length != 5) {
-                                    $scope.status = "Error 400: debe completar todos los campos";
-                                }
-                                else {
-                                    $scope.status = "Error 409: el ataque ya existe";
-                                }
-                            }*/
-            );
+                else if(response.status == 409){
+                    window.alert("El recurso ya existe, gracias!");
+                    location.reload();
+                }
+                else{
+                    window.alert("Ha ocurrido un error inesperado, lo siento!");
+                }
+                 
+            });
         };
 
-        $scope.deleteAttacks = function() {
-            $http.delete(api + "/").then(function(response) {
+        $scope.deleteAllAttacks = function() {
+            $http.delete(api).then(function(response) {
                 $scope.status = "Status: " + response.status;
                 getAttack();
             });
         };
 
         $scope.deleteAttack = function(country, city, date) {
-            //console.log("attack to be delete :" + country, date, city);
             $http.delete(api + "/" + country + "/" + city + "/" + date).then(function(response) {
                 $scope.status = "Status: " + response.status;
                 getAttack();
             });
         };
-
-
 
         function getAttack() {
             $http.get(api).then(function(response) {

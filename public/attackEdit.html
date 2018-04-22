@@ -1,7 +1,7 @@
 <h1>Edit Attacks</h1>
 <table class="table">
     <thead>
-        <tr>
+        <tr align="center">
             <th>Country</th>
             <th>Date</th>
             <th>City</th>
@@ -10,12 +10,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr align="center" >
             <td>{{updateAttack.country}}</td>
             <td>{{updateAttack.date}}</td>
             <td>{{updateAttack.city}}</td>
-            <td><input type="number" class="form-control" ng-model="newAttack.killed" /></td>
-            <td><input type="number" class="form-control" ng-model="newAttack.injured" /></td>
+            <td><input type="number" class="form-control" ng-model="updateAttack.killed" /></td>
+            <td><input type="number" class="form-control" ng-model="updateAttack.injured" /></td>
 
             <td><button class="button btn-primary" ng-click="updateAttack()" /> Update
                 </button>

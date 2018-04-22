@@ -7,7 +7,7 @@
                  templateUrl: "attackList.html",
                  controller: "ListCtrl"
              })
-             .when("/attacks-data/:country", {
+             .when("/attacks-data/:country/:city/:date", {
                  templateUrl: "attackEdit.html",
                  controller: "EditCtrl"
              });

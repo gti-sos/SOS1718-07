@@ -412,6 +412,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                             aux2 = aux.slice(offset, offset + limit);
 
                             response.send(aux2);
+                            
                         }
                         else {
                             response.sendStatus(404);
@@ -434,6 +435,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                 if (err) {
                     console.error('ERROR from database');
                     response.sendStatus(500);
+                    return;
                 }
                 else {
                     if (terrorism.length === 0) {
@@ -444,6 +446,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                         aux = busquedas(terrorism, aux, from, to, country, date, city, killed, injured);
                         if (aux.length > 0) {
                             response.send(aux);
+                        
                         }
                         else {
                             response.sendStatus(404);
@@ -459,7 +462,6 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                 }
             });
         }
-
     });
 
     /////****************************************GET PARA PAGINACION SIN BUSQUEDA**************************************//
