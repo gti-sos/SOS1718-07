@@ -400,10 +400,11 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                     return;
                 }
                 else {
-                    if (terrorism.length === 0) {
+                   /* if (terrorism.length === 0) {
                         response.sendStatus(404); //No content
                         return;
-                    }
+                    }*/
+                    
                     console.log("INFO: Sending terrorism:: " + JSON.stringify(terrorism, 2, null));
                     if (from || to || country || date || city || killed || injured) {
 
@@ -414,10 +415,10 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                             response.send(aux2);
                             
                         }
-                        else {
+                       /* else {
                             response.sendStatus(404);
                             return;
-                        }
+                        }*/
                     }
                     else {
                         response.send(terrorism.filter((c) => {
@@ -438,20 +439,20 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                     return;
                 }
                 else {
-                    if (terrorism.length === 0) {
+                   /* if (terrorism.length === 0) {
                         response.send(404);
                         return;
-                    }
+                    }*/
                     if (from || to || country || date || city || killed || injured) {
                         aux = busquedas(terrorism, aux, from, to, country, date, city, killed, injured);
                         if (aux.length > 0) {
                             response.send(aux);
                         
                         }
-                        else {
+                       /* else {
                             response.sendStatus(404);
                             return;
-                        }
+                        }*/
                     }
                     else {
                         response.send(terrorism.filter((c) => {
@@ -493,9 +494,9 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                     res.sendStatus(500);
                 }
                 else {
-                    if (terrorism.length === 0) {
+                   /* if (terrorism.length === 0) {
                         res.sendStatus(404);
-                    }
+                    }*/
 
                     if (from || to || country || date || city || killed || injured) {
 
@@ -505,10 +506,10 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                             res.send(aux2);
 
                         }
-                        else {
+                       /* else {
                             res.sendStatus(404);
                             return;
-                        }
+                        }*/
                     }
                     else {
                         res.send(terrorism.filter((c) => {
@@ -532,20 +533,20 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
 
                 }
                 else {
-                    if (terrorism.length == 0) {
+                   /* if (terrorism.length == 0) {
                         res.sendStatus(404);
                         return;
-                    }
+                    }*/
                     if (from || to || country || date || city || killed || injured) {
 
                         aux = busquedas(terrorism, aux, from, to, country, date, city, killed, injured);
                         if (aux.length > 0) {
                             res.send(aux);
                         }
-                        else {
+                       /* else {
                             res.sendStatus(404);
                             return;
-                        }
+                        }*/
                     }
                     else {
                         console.log(Date() + " - GET /attacks-data/" + dato);
