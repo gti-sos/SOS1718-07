@@ -408,10 +408,10 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                     return;
                 }
                 else {
-                    if (terrorism.length === 0) {
-                        response.sendStatus(404); //No content
-                        return;
-                    }
+                //    if (terrorism.length === 0) {
+                 //       response.sendStatus(404); //No content
+                //        return;
+                //    }
                     console.log("INFO: Sending terrorism:: " + JSON.stringify(terrorism, 2, null));
                     if (from || to || year || month || state || city || typeCrime || weapon || victimCount) {
 
@@ -421,11 +421,11 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
 
                             response.send(aux2);
                         }
-                        else {
+                     //   else {
 
-                            response.sendStatus(404);
-                            return;
-                        }
+                     //       response.sendStatus(404);
+                     //       return;
+                    //    }
                     }
                     else {
                         response.send(terrorism.filter((c) => {
@@ -445,19 +445,19 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                     response.sendStatus(500);
                 }
                 else {
-                    if (terrorism.length === 0) {
-                        response.sendStatus(404);
-                        return;
-                    }
+                 //   if (terrorism.length === 0) {
+                  //      response.sendStatus(404);
+                  //      return;
+                 //   }
                     if (from || to || year || month || state || city || typeCrime || weapon || victimCount) {
                         aux = busquedas(terrorism, aux, from, to, year, month, state, city, typeCrime, weapon, victimCount);
                         if (aux.length > 0) {
                             response.send(aux);
                         }
-                        else {
-                            response.sendStatus(404);
-                            return;
-                        }
+                      //  else {
+                     //       response.sendStatus(404);
+                     //       return;
+                     //   }
                     }
                     else {
                         response.send(terrorism.filter((c) => {
@@ -497,9 +497,9 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                     res.sendStatus(500);
                 }
                 else {
-                    if (terrorism.length === 0) {
-                        res.sendStatus(404);
-                    }
+              //      if (terrorism.length === 0) {
+                 //       res.sendStatus(404);
+              //      }
 
                     if (from || to || year || month || state || city) {
 
@@ -509,10 +509,10 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
                             res.send(aux2);
 
                         }
-                        else {
-                            res.sendStatus(404);
-                            return;
-                        }
+                      //  else {
+                       //     res.sendStatus(404);
+                      //      return;
+                     //   }
                     }
                     else {
                         res.send(terrorism.filter((c) => {
@@ -533,19 +533,19 @@ homicideApi.register = function(app, dbHomicide, homicide_data) {
 
                 }
                 else {
-                    if (terrorism.length == 0) {
-                        res.sendStatus(404);
-                        return;
-                    }
+                  //  if (terrorism.length == 0) {
+                     //   res.sendStatus(404);
+                    //    return;
+                 //   }
                     if (from || to || state || city || year || month) {
                         aux = busquedas(terrorism, aux, from, to, state, city, year, month);
                         if (aux.length > 0) {
                             res.send(aux);
                         }
-                        else {
-                            res.sendStatus(404);
-                            return;
-                        }
+                      //  else {
+                       //     res.sendStatus(404);
+                       //     return;
+                      //  }
                     }
                     else {
                         console.log(Date() + " - GET /spanish-universities/" + dato);
