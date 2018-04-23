@@ -13,9 +13,9 @@ angular
                     $scope.attacks = response.data;
                     $scope.status = "Status: " + response.status;
 
-                   /* if (response.status === 201) {
+                    if (response.status === 201) {
                         window.alert("El dato se ha insertado con exito, gracias!");
-                    }*/
+                    }
                     getAttack();
                 }, function failFilter(response){
                 $scope.status = "Status: " + response.status;

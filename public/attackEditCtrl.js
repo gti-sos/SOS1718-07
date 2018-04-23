@@ -15,7 +15,7 @@ angular
             $http.put(attackUrl, $scope.updatedAttack).then(function doneFilter(response) {
                 $scope.status = "Status: " + response.status;
                 $location.path("/");
-               // window.alert("El recurso se ha editado con exito, gracias!");
+                window.alert("El recurso se ha editado con exito, gracias!");
             }, function failFilter(response) {
                 if (response.status == 400) {
                     window.alert("Debes respetar los campos obligatorios, país, ciudad y fecha, gracias!");
