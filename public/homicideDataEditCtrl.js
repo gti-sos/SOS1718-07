@@ -8,7 +8,7 @@ angular
 
 
         $http.get(dataUrl).then(function(response) {
-            $scope.updatedHomicide = response.homicide;
+            $scope.updatedHomicide = response.data;
         });
 
         $scope.updateHomicide = function() {
