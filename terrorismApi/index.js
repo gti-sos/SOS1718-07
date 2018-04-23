@@ -413,10 +413,10 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                     return;
                 }
                 else {
-                    if (data.length === 0) {
-                        res.sendStatus(404);
-                        return;
-                    }
+                    //if (data.length === 0) {
+                        //res.sendStatus(404); //comentar
+                    //    return;
+                    //}
                     console.log("Sending data: " + JSON.stringify(data, 2, null));
                     if (from || to || anyo || mes || dia || pais || ciudad || tipoAtaque || tipoArma || nMuertos) {
 
@@ -425,10 +425,10 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                             aux2 = aux.slice(offset, offset + limit);
                             res.send(aux2);
                         }
-                        else {
-                            res.sendStatus(404);
-                            return;
-                        }
+                        //else {
+                            //res.sendStatus(404);
+                        //    return;
+                    //    }
                     }
                     else {
                         res.send(data.filter((c) => {
@@ -448,19 +448,19 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                     res.sendStatus(500);
                 }
                 else {
-                    if (data.length === 0) {
-                        res.sendStatus(404);
-                        return;
-                    }
+                   // if (data.length === 0) {
+                        //res.sendStatus(404);
+                     //   return;
+                //    }
                     if (from || to || anyo || mes || dia || pais || ciudad || tipoAtaque || tipoArma || nMuertos) {
                         aux = busqueda(data, aux, from, to, anyo, mes, dia, pais, ciudad, tipoAtaque, tipoArma, nMuertos);
                         if (aux.length > 0) {
                             res.send(aux);
                         }
-                        else {
-                            res.sendStatus(404);
-                            return;
-                        }
+                      //  else {
+                            //res.sendStatus(404);
+                     //       return;
+                   //     }
                     }
                     else {
                         res.send(data.filter((c) => {
@@ -501,19 +501,20 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                     res.sendStatus(500);
                 }
                 else {
-                    if (data.length === 0) {
-                        res.sendStatus(404);
-                    }
+                 //   if (data.length === 0) {
+                        //res.sendStatus(404);
+                 //       return;
+                 //   }
                     if (from || to || anyo || mes || dia || pais || ciudad) {
                         aux = busqueda(data, aux, from, to, anyo, mes, dia, pais, ciudad);
                         if (aux.length > 0) {
                             aux2 = aux.slice(offset, offset + limit);
                             res.send(aux2);
                         }
-                        else {
-                            res.sendStatus(404);
-                            return;
-                        }
+                      //  else {
+                            //res.sendStatus(404);
+                     //       return;
+                     //   }
                     }
                     else {
                         res.send(data.filter((c) => {
@@ -533,19 +534,19 @@ terrorismApi.register = function(app, dbTerrorism, terrorism_data) {
                     res.sendStatus(500);
                 }
                 else {
-                    if (data.length == 0) {
-                        res.sendStatus(404);
-                        return;
-                    }
+                   // if (data.length == 0) {
+                        //res.sendStatus(404);
+                   //     return;
+                   // }
                     if (from || to || anyo || mes || dia || pais || ciudad) {
                         aux = busqueda(data, aux, from, to, anyo, mes, dia, pais, ciudad);
                         if (aux.length > 0) {
                             res.send(aux);
                         }
-                        else {
-                            res.sendStatus(404);
-                            return;
-                        }
+                     //   else {
+                            //res.sendStatus(404);
+                       //     return;
+                    //    }
                     }
                     else {
                         console.log(Date() + " - GET /global-terrorism-data/" + dato);
