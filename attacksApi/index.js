@@ -1,6 +1,7 @@
 var attacksApi = {};
 var BASE_API_PATH = "/api/v1";
 
+
 module.exports = attacksApi;
 
 attacksApi.register = function(app, dbAttacks, attacks_data) {
@@ -392,7 +393,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
         //var aux3 = [];
 
 
-        if (limit || offset >= 0) {
+        if (limit > 0 || offset >= 0) {
             dbAttacks.find({}).skip(offset).limit(limit).toArray(function(err, terrorism) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
@@ -400,11 +401,11 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                     return;
                 }
                 else {
-                   /* if (terrorism.length === 0) {
-                        response.sendStatus(404); //No content
-                        return;
-                    }*/
-                    
+                    /* if (terrorism.length === 0) {
+                         response.sendStatus(404); //No content
+                         return;
+                     }*/
+
                     console.log("INFO: Sending terrorism:: " + JSON.stringify(terrorism, 2, null));
                     if (from || to || country || date || city || killed || injured) {
 
@@ -413,12 +414,12 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                             aux2 = aux.slice(offset, offset + limit);
 
                             response.send(aux2);
-                            
+
                         }
-                       /* else {
-                            response.sendStatus(404);
-                            return;
-                        }*/
+                        /* else {
+                             response.sendStatus(404);
+                             return;
+                         }*/
                     }
                     else {
                         response.send(terrorism.filter((c) => {
@@ -439,20 +440,20 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                     return;
                 }
                 else {
-                   /* if (terrorism.length === 0) {
-                        response.send(404);
-                        return;
-                    }*/
+                    /* if (terrorism.length === 0) {
+                         response.send(404);
+                         return;
+                     }*/
                     if (from || to || country || date || city || killed || injured) {
                         aux = busquedas(terrorism, aux, from, to, country, date, city, killed, injured);
                         if (aux.length > 0) {
                             response.send(aux);
-                        
+
                         }
-                       /* else {
-                            response.sendStatus(404);
-                            return;
-                        }*/
+                        /* else {
+                             response.sendStatus(404);
+                             return;
+                         }*/
                     }
                     else {
                         response.send(terrorism.filter((c) => {
@@ -482,7 +483,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
         var aux2 = [];
         var dato = req.params.dato;
 
-        if (limit || offset >= 0) {
+        if (limit > 0 || offset >= 0) {
             dbAttacks.find({
                 $or: [{ "country": dato }, { "date": dato }, { "city": dato }, { "killed": dato },
                     { "injured": dato }
@@ -494,9 +495,9 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                     res.sendStatus(500);
                 }
                 else {
-                   /* if (terrorism.length === 0) {
-                        res.sendStatus(404);
-                    }*/
+                    /* if (terrorism.length === 0) {
+                         res.sendStatus(404);
+                     }*/
 
                     if (from || to || country || date || city || killed || injured) {
 
@@ -506,10 +507,10 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
                             res.send(aux2);
 
                         }
-                       /* else {
-                            res.sendStatus(404);
-                            return;
-                        }*/
+                        /* else {
+                             res.sendStatus(404);
+                             return;
+                         }*/
                     }
                     else {
                         res.send(terrorism.filter((c) => {
@@ -533,20 +534,20 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
 
                 }
                 else {
-                   /* if (terrorism.length == 0) {
-                        res.sendStatus(404);
-                        return;
-                    }*/
+                    /* if (terrorism.length == 0) {
+                         res.sendStatus(404);
+                         return;
+                     }*/
                     if (from || to || country || date || city || killed || injured) {
 
                         aux = busquedas(terrorism, aux, from, to, country, date, city, killed, injured);
                         if (aux.length > 0) {
                             res.send(aux);
                         }
-                       /* else {
-                            res.sendStatus(404);
-                            return;
-                        }*/
+                        /* else {
+                             res.sendStatus(404);
+                             return;
+                         }*/
                     }
                     else {
                         console.log(Date() + " - GET /attacks-data/" + dato);

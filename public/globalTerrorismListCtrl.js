@@ -3,7 +3,7 @@
 //import 'rxjs/add/operator/catch';
 
 
-angular.module("globalTerrorismApp").controller("globalTerrorismListCtrl", ["$scope", "$http", function($scope, $http) {
+angular.module("TerrorismManagerApp").controller("globalTerrorismListCtrl", ["$scope", "$http", function($scope, $http) {
     console.log("list Ctrl inicialized!");
     var api = "api/v1/global-Terrorism-Data";
 

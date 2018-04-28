@@ -1,6 +1,6 @@
 /* global angular */
 
-angular.module("globalTerrorismApp").controller("globalTerrorismEditCtrl", ["$scope", "$http", "$routeParams", "$location", function($scope, $http, $routeParams, $location) {
+angular.module("TerrorismManagerApp").controller("globalTerrorismEditCtrl", ["$scope", "$http", "$routeParams", "$location", function($scope, $http, $routeParams, $location) {
     console.log("edit Ctrl inicialized!");
     var dataUrl = "api/v1/global-Terrorism-Data/" + $routeParams.country_txt + "/" + $routeParams.city + "/" + $routeParams.iyear + "/" + $routeParams.imonth + "/" +
         $routeParams.iday;

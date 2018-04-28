@@ -3,7 +3,7 @@
 
 
   angular
-    .module("homicideDataApp")
+    .module("TerrorismManagerApp")
     .controller("homicideDataListCtrl", ["$scope", "$http", function($scope, $http) {
       console.log("List Ctrl initialized!");
       var api = "/api/v1/homicide-reports-data";

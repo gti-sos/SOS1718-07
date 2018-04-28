@@ -1,7 +1,7 @@
 /* global angular */
 
 angular
-    .module("homicideDataApp")
+    .module("TerrorismManagerApp")
     .controller("homicideDataEditCtrl", ["$scope", "$http", "$routeParams", "$location", function($scope, $http,$routeParams,$location) {
         console.log("edit Ctrl inicialized!");
         var dataUrl = "api/v1/homicide-reports-data/" + $routeParams.state + "/" + $routeParams.city + "/" + $routeParams.year + "/" + $routeParams.month;

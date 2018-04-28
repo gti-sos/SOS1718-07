@@ -2,7 +2,7 @@
 <table class="table">
     <thead>
         <tr align="center">
-            <th >Country</th>
+            <th>Country</th>
             <th>Date</th>
             <th>City</th>
             <th>Killed</th>
@@ -14,7 +14,7 @@
             <td><input class="form-control" ng-model="newAttack.country" /></td>
             <td><input class="form-control" ng-model="newAttack.date" /></td>
             <td><input class="form-control" ng-model="newAttack.city" /></td>
-            <td><input class="form-control" type="number"  min="0" ng-model="newAttack.killed" /></td>
+            <td><input class="form-control" type="number" min="0" ng-model="newAttack.killed" /></td>
             <td><input class="form-control" type="number" min="0" ng-model="newAttack.injured" /></td>
 
             <td><button class="button btn-primary" ng-click="addAttack()"> Add
@@ -22,7 +22,7 @@
             </td>
         </tr>
         <tr align="center" ng-repeat="attack in attacks">
-            <td><a href="/attackApp.html#!/attacks-data/{{attack.country}}/{{attack.city}}/{{attack.date}}">{{attack.country}}</a></td>
+            <td><a href="/terrorismApp.html#!/attacks-data/{{attack.country}}/{{attack.city}}/{{attack.date}}">{{attack.country}}</a></td>
             <td>{{attack.date}}</td>
             <td>{{attack.city}}</td>
             <td>{{attack.killed}}</td>
@@ -31,8 +31,36 @@
         </tr>
         <tr>
             <td><button class="button btn-danger" ng-click="deleteAllAttacks()">Delete All</button></td>
+            <td><button class="button btn-primary" ng-click="loadInitialData()">Fill Table</button></td>
         </tr>
+
     </tbody>
 </table>
+
+<!-- BUSQUEDA -->
+<table class="table">
+    <thead>
+        <tr style="background-color:#EEFCEE" align="center">
+            <th class="success"><input class="form-control" ng-model="newAttack.from" placeholder="From" /></th>
+            <th class="success"><input class="form-control" ng-model="newAttack.to" placeholder="To" /></th>
+            <th class="success"><button class="btn btn-success" ng-click="searchAttack()"> SEARCH </button></th>
+        </tr>
+    </thead>
+</table>
+
+
+
+<!-- PAGINACIÓN -->
+<table class="table">
+    <thead>
+        <tr align="center">
+            <td><button class="button" ng-click="anteriorPag()"> << Pág. Anterior </button></td>
+            <td><button class="button" ng-click="siguientePag()"> Pág. Siguiente >> </button></td>
+        </tr>
+    </thead>
+</table>
+
+
+
 <hr/>
 <h7><i>{{status}}</i></h7>
