@@ -24,6 +24,6 @@ angular
         };
         
         $scope.return = function(){
-            $location.path("/");
+            $location.path("/attacks-data");
         };
     }]);
