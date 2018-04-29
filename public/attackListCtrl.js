@@ -52,6 +52,9 @@ angular
         $scope.deleteAllAttacks = function() {
             $http.delete(api).then(function(response) {
                 $scope.status = "Status: " + response.status;
+                if (response.status === 200) {
+                    window.alert("Acabas de borrar todos los datos de la tabla");
+                }
                 getAttacks();
             });
         };
@@ -59,6 +62,9 @@ angular
         $scope.deleteAttack = function(country, city, date) {
             $http.delete(api + "/" + country + "/" + city + "/" + date).then(function(response) {
                 $scope.status = "Status: " + response.status;
+                if (response.status === 200) {
+                    window.alert("Ha borrado un dato de la tabla");
+                }
                 getAttacks();
             });
         };
@@ -79,7 +85,7 @@ angular
                 $scope.status = "Status: " + response.status;
 
                 if (response.status === 200) {
-                    window.alert("Search successfull");
+                    window.alert("Hemos encontrado datos en tu búsqueda");
                 }
 
             }, function failFilter(response) {
