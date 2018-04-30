@@ -13,8 +13,8 @@ angular
 
         $scope.updateAttack = function() {
             $http.put(attackUrl, $scope.updatedAttack).then(function doneFilter(response) {
-                $scope.status = "Status: " + response.status;
-                $location.path("/");
+               // $scope.status = "Status: " + response.status;
+                $location.path("/attacks-data");
                 window.alert("El recurso se ha editado con exito, gracias!");
             }, function failFilter(response) {
                 if (response.status == 400) {
