@@ -38,9 +38,29 @@
         </tr>
     </tbody>
 </table>
-<center>
+<left>
 <button class= "button btn-danger" ng-click="deleteAllHomicide()">Delete All</button>
 <button class = "button btn-primary" ng-click="loadInitialData()">Fill Table</button>
-</center>
-<hr/>
-<h8><i>{{status}}</i></h8>
+</left>
+
+<!-- BUSQUEDA -->
+<table class="table">
+    <thead>
+        <tr style="background-color:#EEFCEE" align="center">
+            <th class="success"><input class="form-control" ng-model="newHomicide.from" placeholder="From" /></th>
+            <th class="success"><input class="form-control" ng-model="newHomicide.to" placeholder="To" /></th>
+            <th class="success"><button class="btn btn-success" ng-click="searchHomicide()"> SEARCH </button></th>
+        </tr>
+    </thead>
+</table>
+
+<!-- PAGINACIÓN -->
+<table class="table">
+    <thead>
+        <tr align="center">
+            <td><button class="button" ng-click="anteriorPag()"> << Pág. Anterior </button></td>
+            <td><button class="button" ng-click="siguientePag()"> Pág. Siguiente >> </button></td>
+        </tr>
+    </thead>
+</table>
+
