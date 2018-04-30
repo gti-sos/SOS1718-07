@@ -7,6 +7,20 @@
     .controller("homicideDataListCtrl", ["$scope", "$http", function($scope, $http) {
       console.log("List Ctrl initialized!");
       var api = "/api/v1/homicide-reports-data";
+      
+      
+      $scope.loadInitialData = function() {
+            $http.get(api + "/loadInitialData").then(function(response) {
+                $scope.status = "Status: " + response.status;
+                if (response.status === 201) {
+                    window.alert("Datos insertados con exito, gracias!");
+                }
+                else {
+                    window.alert("It is unnecessary to insert data, the database is not empty");
+                }
+                getHomicide();
+            });
+        };
 
 
       $scope.addHomicide = function() {
