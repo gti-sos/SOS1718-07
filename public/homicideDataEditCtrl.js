@@ -14,7 +14,7 @@ angular
         $scope.updateHomicide = function() {
             $http.put(dataUrl, $scope.updatedHomicide).then(function doneFilter(response) {
                 $scope.status = "Status: " + response.status;
-                $location.path("/");
+                $location.path("/homicide-reports-data");
                 window.alert("El recurso se ha editado con exito, gracias! ;)");
             }, function failFilter(response) {
                 if (response.status == 400) {
