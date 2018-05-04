@@ -11,8 +11,8 @@ angular.module("TerrorismManagerApp").controller("globalTerrorismEditCtrl", ["$s
 
     $scope.updateData = function() {
         $http.put(dataUrl, $scope.updatedData).then(function doneFilter(response) {
-            $scope.status = "Status: " + response.status;
-            $location.path("/");
+            //$scope.status = "Status: " + response.status;
+            $location.path("/global-terrorism-data");
             window.alert("El recurso se ha editado con exito, gracias! ;)");
         }, function failFilter(response) {
             if (response.status == 400) {

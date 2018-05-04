@@ -40,7 +40,28 @@
     </tbody>
 </table>
 <center>
-<button class= "button btn-primary" ng-click="deleteAllData()">Delete All</button>
+<button class= "button btn-danger" ng-click="deleteAllData()">Delete All</button>
+<button class = "button btn-primary" ng-click="loadInitialData()">Fill Table</button>
 </center>
-<hr/>
-<h8><i>{{status}}</i></h8>
+
+<!-- BUSQUEDA -->
+<table class="table">
+    <thead>
+        <tr style="background-color:#EEFCEE" align="center">
+            <th class="success"><input class="form-control" ng-model="newGlobalTerrorism.from" placeholder="From" /></th>
+            <th class="success"><input class="form-control" ng-model="newGlobalTerrorism.to" placeholder="To" /></th>
+            <th class="success"><button class="btn btn-success" ng-click="searchGlobalTerrorismData()"> SEARCH </button></th>
+        </tr>
+    </thead>
+</table>
+
+<!-- PAGINACIÓN -->
+<table class="table">
+    <thead>
+        <tr align="center">
+            <td><button class="button" ng-click="anteriorPag()"> << Pág. Anterior </button></td>
+            <td><button class="button" ng-click="siguientePag()"> Pág. Siguiente >> </button></td>
+        </tr>
+    </thead>
+</table>
+
