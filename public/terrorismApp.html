@@ -1,27 +1,44 @@
 <html ng-app="TerrorismManagerApp">
 
-    <head>
-        <title>Terrorism Manager</title>
-        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
-        <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
-        <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+<head>
+    <title>Terrorism Manager</title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
-        <script src="terrorismManagerApp.js"> </script>
-        <script src="attackListCtrl.js"> </script>
-        <script src="attackEditCtrl.js"> </script>
-        
-        <script src="homicideDataListCtrl.js"></script>
-        <script src="homicideDataEditCtrl.js"></script>
-        
-        <script src ="globalTerrorismListCtrl.js"> </script>
-        <script src ="globalTerrorismEditCtrl.js"> </script>
-        
-    </head>
-    
-    <body>
-        <div ng-view> 
-        </div>
-    </body>
+
+
+
+    <script src="terrorismManagerApp.js">
+    </script>
+    <script src="attackListCtrl.js">
+    </script>
+    <script src="attackEditCtrl.js">
+    </script>
+
+    <script src="homicideDataListCtrl.js"></script>
+    <script src="homicideDataEditCtrl.js"></script>
+
+    <script src="globalTerrorismListCtrl.js">
+    </script>
+    <script src="globalTerrorismEditCtrl.js">
+    </script>
+    <script src="vistasMiguelAngelCtrl.js">
+    </script>
+
+</head>
+
+<body>
+    <div ng-view>
+    </div>
+</body>
 
 </html>
