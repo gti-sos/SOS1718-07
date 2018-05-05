@@ -33,6 +33,10 @@
     .when("/global-terrorism-data/analytics", {
      templateUrl: "vistasMiguelAngel.html",
      controller: "vistasMiguelAngelCtrl"
+    })
+    .when("/homicide-reports-data/analytics", {
+     templateUrl: "vistasFranciscoJesus.html",
+     controller: "vistasFranciscoJesusCtrl"
     });
   });
  
