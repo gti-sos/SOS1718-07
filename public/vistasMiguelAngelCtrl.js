@@ -6,7 +6,7 @@ angular.module("TerrorismManagerApp").controller("vistasMiguelAngelCtrl", ["$sco
         Highcharts.chart('analytics', {
 
             title: {
-                text: 'Número de víctimas por el terrorismo por año'
+                text: 'Número de víctimas por el terrorismo en cada ataque, en cada ciudad'
             },
 
 
@@ -17,7 +17,7 @@ angular.module("TerrorismManagerApp").controller("vistasMiguelAngelCtrl", ["$sco
                 categories: response.data.map(function(d) { return d.nkill })
             },
             xAxis: {
-                categories: response.data.map(function(d) { return d.iyear })
+                categories: response.data.map(function(d) { return d.city })
             },
             legend: {
                 layout: 'vertical',
@@ -39,11 +39,8 @@ angular.module("TerrorismManagerApp").controller("vistasMiguelAngelCtrl", ["$sco
             }]
         });
     });
-    
+
     $http.get("api/v1/global-Terrorism-Data").then(function doneFilter(response) {
-        var data = [];
-        data = response.data;
-        console.log(response.data.filter(d=>d.country_txt== "Italy").length);
         google.charts.load('current', {
             'packages': ['geochart'],
             // Note: you will need to get a mapsApiKey for your project.
@@ -65,12 +62,27 @@ angular.module("TerrorismManagerApp").controller("vistasMiguelAngelCtrl", ["$sco
 
             var options = {};
 
-            var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+            var chart = new google.visualization.GeoChart(document.getElementById('segunda'));
 
             chart.draw(data, options);
         }
 
 
+    });
+
+    $http.get("api/v1/global-Terrorism-Data").then(function doneFilter(response) {
+        var defData = [
+            { "team": "d", "cycleTime": 1, "effort": 1, "count": 1, "priority": "low" },
+
+            { "team": "k", "cycleTime": 4, "effort": 6, "count": 8, "priority": "medium" }
+        ];
+        var chart = new tauCharts.Chart({
+            type: 'bar',
+            x: 'country_txt',
+            y: 'nkill',
+            data: response.data
+        });
+        chart.renderTo('#tercera');
     });
 
 }]);
