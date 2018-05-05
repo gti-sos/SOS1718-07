@@ -15,13 +15,13 @@ describe('Add homicide', function(){  //compruebo que se añade un homicidio
                     .then(function(initialHomicides){ //carga todos los homicidios
                        
                         
-                        element(by.model('newHomicide.year')).sendKeys(1996);
+                        element(by.model('newHomicide.year')).sendKeys(Math.random());
                         element(by.model('newHomicide.month')).sendKeys('July');
                         element(by.model('newHomicide.state')).sendKeys('Alaba');
                         element(by.model('newHomicide.city')).sendKeys('Anchorage');
                         element(by.model('newHomicide.crime_type')).sendKeys('Murder');
                         element(by.model('newHomicide.weapon')).sendKeys('Rifle');
-                        element(by.model('newHomicide.victim_count')).sendKeys(200);
+                        element(by.model('newHomicide.victim_count')).sendKeys(Math.random());
                         
                         element(by.buttonText('Add')).click().then(function(){
                             element.all(by.repeater('homicide in homicides')).then(function (homicides){
