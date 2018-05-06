@@ -15,7 +15,7 @@ describe('Add new Data', function() {
                     .then(function(initialData) {
 
                         element(by.model('newAttack.country')).sendKeys('Spain');
-                        element(by.model('newAttack.date')).sendKeys(Math.random());
+                        element(by.model('newAttack.date')).sendKeys('2018-04-07');
                         element(by.model('newAttack.city')).sendKeys('Madrid');
                         element(by.model('newAttack.killed')).sendKeys(Math.random());
                         element(by.model('newAttack.injured')).sendKeys(Math.random());
