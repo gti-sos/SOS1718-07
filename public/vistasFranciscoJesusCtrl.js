@@ -97,7 +97,7 @@ angular.module("TerrorismManagerApp").controller("vistasFranciscoJesusCtrl", ["$
         .addDataset(new Plottable.Dataset(data))
         .x(function(d) { return d.x; }, xScale)
         .y(function(d) { return d.y; }, yScale)
-        .renderTo("#example");
+        .renderTo("svg#example");
 
    
 
