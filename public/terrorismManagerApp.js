@@ -37,6 +37,10 @@
     .when("/homicide-reports-data/analytics", {
      templateUrl: "vistasFranciscoJesus.html",
      controller: "vistasFranciscoJesusCtrl"
-    });
+    })
+   .when("/attacks-data/analytics", {
+    templateUrl: "vistasIsmael.html",
+    controller: "vistasIsmaelCtrl"
+   });
   });
  

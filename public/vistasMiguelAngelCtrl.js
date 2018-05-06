@@ -1,4 +1,4 @@
-angular.module("TerrorismManagerApp").controller("vistasMiguelAngelCtrl", ["$scope", "$http", function($scope, $http) {
+angular.module("terrorismManagerApp").controller("vistasMiguelAngelCtrl", ["$scope", "$http", function($scope, $http) {
 
 
     $http.get("api/v1/global-Terrorism-Data").then(function doneFilter(response) {
@@ -8,8 +8,6 @@ angular.module("TerrorismManagerApp").controller("vistasMiguelAngelCtrl", ["$sco
             title: {
                 text: 'Número de víctimas por el terrorismo en cada ataque, en cada ciudad'
             },
-
-
             yAxis: {
                 title: {
                     text: 'Valores',
