@@ -4,6 +4,9 @@ angular.module("TerrorismManagerApp").controller("vistasIsmaelCtrl", ["$scope", 
 
 
         Highcharts.chart('analytics', {
+            chart: {
+                type: 'spline'
+            },
 
             title: {
                 text: 'Media de los ataques por país al mes'
@@ -28,6 +31,9 @@ angular.module("TerrorismManagerApp").controller("vistasIsmaelCtrl", ["$scope", 
             },
             series: [{
                 name: 'Data',
+                marker: {
+                    symbol: 'square'
+                },
                 data: response.data.map(function(d) { return d.killed })
 
             }]
@@ -68,23 +74,41 @@ angular.module("TerrorismManagerApp").controller("vistasIsmaelCtrl", ["$scope", 
 
     //Gráfica awesoma charting
 
-    $http.get("api/v1/attack-data").then(function doneFilter(response) {
+    $http.get("api/v1/attacks-data").then(function doneFilter(response) {
 
-        var defData = [
-            { "team": "d", "cycleTime": 1, "effort": 1, "count": 1, "priority": "low" },
 
-            { "team": "k", "cycleTime": 4, "effort": 6, "count": 8, "priority": "medium" }
-        ];
-        var chart = new tauCharts.Chart({
-            type: 'bar',
-            x: 'country',
-            y: 'killed',
-            data: response.data
+        var chart = dc.barChart("#test");
+        //d3.csv("morley.csv", function(error, experiments) {
+        var experiments = d3.csv.parse(d3.select('pre#data').text());
+        experiments.forEach(function(x) {
+            x.Speed = +x.Speed;
         });
-        chart.renderTo('#tercera');
+
+        var ndx = crossfilter(experiments),
+            runDimension = ndx.dimension(function(d) { return +d.Run; }),
+            speedSumGroup = runDimension.group().reduceSum(function(d) { return d.Speed * d.Run / 1000; });
+
+        chart
+            .width(768)
+            .height(480)
+            .x(d3.scale.linear().domain([6, 20]))
+            .brushOn(false)
+            .yAxisLabel("This is the Y Axis!")
+            .dimension(runDimension)
+            .group(speedSumGroup)
+            .on('renderlet', function(chart) {
+                chart.selectAll('rect').on("click", function(d) {
+                    console.log("click!", d);
+                });
+            });
+        chart.render('#tercera');
+        //});
+
 
 
     });
+
+
 
 
 
