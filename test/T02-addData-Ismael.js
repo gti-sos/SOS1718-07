@@ -5,6 +5,7 @@
 
 var fs = require("fs");
 var path = require("path");
+    
 
 describe('Add new Data', function() {
     it('should add a new data', function() {
@@ -16,7 +17,7 @@ describe('Add new Data', function() {
 
                         element(by.model('newAttack.country')).sendKeys('Spain');
                         element(by.model('newAttack.date')).sendKeys(Math.random());
-                        element(by.model('newAttack.city')).sendKeys('Madrid');
+                        element(by.model('newAttack.city')).sendKeys('Sevilla');
                         element(by.model('newAttack.killed')).sendKeys(Math.random());
                         element(by.model('newAttack.injured')).sendKeys(Math.random());
 

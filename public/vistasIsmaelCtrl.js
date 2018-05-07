@@ -77,33 +77,48 @@ angular.module("TerrorismManagerApp").controller("vistasIsmaelCtrl", ["$scope", 
     $http.get("api/v1/attacks-data").then(function doneFilter(response) {
 
 
-        var chart = dc.barChart("#test");
-        //d3.csv("morley.csv", function(error, experiments) {
-        var experiments = d3.csv.parse(d3.select('pre#data').text());
-        experiments.forEach(function(x) {
-            x.Speed = +x.Speed;
-        });
-
-        var ndx = crossfilter(experiments),
-            runDimension = ndx.dimension(function(d) { return +d.Run; }),
-            speedSumGroup = runDimension.group().reduceSum(function(d) { return d.Speed * d.Run / 1000; });
-
-        chart
-            .width(768)
-            .height(480)
-            .x(d3.scale.linear().domain([6, 20]))
-            .brushOn(false)
-            .yAxisLabel("This is the Y Axis!")
-            .dimension(runDimension)
-            .group(speedSumGroup)
-            .on('renderlet', function(chart) {
-                chart.selectAll('rect').on("click", function(d) {
-                    console.log("click!", d);
-                });
-            });
-        chart.render('#tercera');
-        //});
-
+var chart = AmCharts.makeChart("chartdiv", {
+            "theme": "light",
+            "type": "serial",
+            "dataProvider": [{
+                "year": 2004,
+                "killed": 201
+            }, {
+                "year": 2015,
+                "killed": 89
+            }, {
+                "year": 2016,
+                "killed": 0
+            }, {
+                "year": 2016,
+                "killed": 84
+            }, {
+                "year": 2012,
+                "killed": 78
+            }],
+            "valueAxes": [{
+                "title": "Muertos por año"
+            }],
+            "graphs": [{
+                "balloonText": "Income in [[category]]:[[value]]",
+                "fillAlphas": 1,
+                "lineAlpha": 0.2,
+                "title": "Income",
+                "type": "column",
+                "valueField": "killed"
+            }],
+            "depth3D": 20,
+            "angle": 30,
+            "rotate": true,
+            "categoryField": "year",
+            "categoryAxis": {
+                "gridPosition": "start",
+                "fillAlpha": 0.05,
+                "position": "left"
+            },
+            "export": {"enabled": true
+     }
+});
 
 
     });
