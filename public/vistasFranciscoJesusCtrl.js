@@ -86,20 +86,44 @@ angular.module("TerrorismManagerApp").controller("vistasFranciscoJesusCtrl", ["$
     });
 
 
-    // Code for rendering a bar chart
-    var xScale = new Plottable.Scales.Category();
-    var yScale = new Plottable.Scales.Linear();
-    var data = [{ x: 1, y: 1 }, { x: 2, y: 3 }, { x: 3, y: 2 },
-        { x: 4, y: 4 }, { x: 5, y: 3 }, { x: 6, y: 5 }
-    ];
 
-    var plot = new Plottable.Plots.Line()
-        .addDataset(new Plottable.Dataset(data))
-        .x(function(d) { return d.x; }, xScale)
-        .y(function(d) { return d.y; }, yScale)
-        .renderTo("svg#example");
+    $http.get("/api/v1/homicide-reports-data").then(function(response) {
 
-   
+        var graphdef = {
+            categories: ['Anchorage', 'North Slope', 'Juneau', 'Jefferson', 'Monroe', 'Dickenson', 'Los Angeles'],
+            dataset: {
+                    'Anchorage': [
+                    { name: 'victim_count', value: 5 }
+                    
+                ],
+                'North Slope': [
+                    { name: 'victim_count', value: 2 }
+                    
+                ],
+                'Juneau': [
+                    { name: 'victim_count', value: 3 }
+                ],
+                'Jefferson': [
+                   { name: 'victim_count', value: 0 }
+                ],
+                'Monroe': [
+                    { name: 'victim_count', value: 1 }
+                ],
+                'Dickenson': [
+                    { name: 'victim_count', value: 10 }
+                ],
+                'Los Angeles': [
+                    { name: 'victim_count', value: 7 }
+                ],
+            }
+        };
+
+        var config = {};
+
+        var charObject = uv.chart('Bar', graphdef);
+
+
+    });
 
 
 }]);
