@@ -77,7 +77,7 @@ angular.module("TerrorismManagerApp").controller("vistasIsmaelCtrl", ["$scope", 
     $http.get("api/v1/attacks-data").then(function doneFilter(response) {
 
 
-        var chart = dc.barChart("#test");
+        var chart = dc.barChart("#tercera");
         //d3.csv("morley.csv", function(error, experiments) {
         var experiments = d3.csv.parse(d3.select('pre#data').text());
         experiments.forEach(function(x) {

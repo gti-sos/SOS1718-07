@@ -3,6 +3,9 @@
  angular.module("TerrorismManagerApp", ["ngRoute"])
   .config(function($routeProvider) {
    $routeProvider
+    .when("/analytics", {
+     templateUrl: "analytics.html",
+    })
     .when("/", {
      templateUrl: "indexOld.html",
     })
