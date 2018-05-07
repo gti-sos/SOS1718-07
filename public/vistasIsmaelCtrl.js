@@ -77,7 +77,7 @@ angular.module("TerrorismManagerApp").controller("vistasIsmaelCtrl", ["$scope", 
     $http.get("api/v1/attacks-data").then(function doneFilter(response) {
 
 
-<<<<<<< HEAD
+
 var chart = AmCharts.makeChart("chartdiv", {
             "theme": "light",
             "type": "serial",
@@ -120,7 +120,7 @@ var chart = AmCharts.makeChart("chartdiv", {
             "export": {"enabled": true
      }
 });
-=======
+
         var chart = dc.barChart("#tercera");
         //d3.csv("morley.csv", function(error, experiments) {
         var experiments = d3.csv.parse(d3.select('pre#data').text());
@@ -147,8 +147,6 @@ var chart = AmCharts.makeChart("chartdiv", {
             });
         chart.render('#tercera');
         //});
-
->>>>>>> 420f58174b5d0068ae2c84535b760c8892b9b8e7
 
 
     });
