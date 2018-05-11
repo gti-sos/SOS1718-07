@@ -52,6 +52,10 @@
     .when("/attacks-data/integrations", {
      templateUrl: "vistaIntegracionIsmael.html",
      controller: "vistaIntegracionIsmaelCtrl"
+    })
+    .when("/homicide-reports-data/integrations", {
+     templateUrl: "vistaIntegracionFran.html",
+     controller: "vistaIntegracionFranCtrl"
     });
   });
  
