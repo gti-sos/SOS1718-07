@@ -44,6 +44,10 @@
     .when("/attacks-data/analytics", {
      templateUrl: "vistasIsmael.html",
      controller: "vistasIsmaelCtrl"
+    })
+    .when("/global-terrorism-data/integrations", {
+     templateUrl: "vistaIntegracionMiguelAngel.html",
+     controller: "vistaIntegracionMiguelAngel"
     });
   });
  
