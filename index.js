@@ -4,6 +4,7 @@ var path = require("path");
 var bodyParser = require("body-parser");
 var app = express();
 var MongoClient = require("mongodb").MongoClient;
+var cors = require("cors");
 
 var terrorismApi = require("./terrorismApi");
 var homicideApi = require("./homicideApi");
@@ -14,7 +15,10 @@ var attacksApi = require("./attacksApi");
 
 
 app.use(bodyParser.json());
+app.use(cors());
 app.use("/", express.static(path.join(__dirname, "public")));
+
+
 
 
 //var BASE_API_PATH = "/api/v1";
