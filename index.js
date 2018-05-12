@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 var app = express();
 var MongoClient = require("mongodb").MongoClient;
 var cors = require("cors");
+var request = require("request");
 
 var terrorismApi = require("./terrorismApi");
 var homicideApi = require("./homicideApi");
@@ -18,7 +19,12 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use("/", express.static(path.join(__dirname, "public")));
 
-
+//Proxy Miguel Angel
+app.use("/proxyMA", function(req, res) {
+    var url = "https://sos1718-08.herokuapp.com" + req.url;
+    console.log('piped: '+req.baseUrl + req.url);
+    req.pipe(request(url)).pipe(res);
+    });
 
 
 //var BASE_API_PATH = "/api/v1";
