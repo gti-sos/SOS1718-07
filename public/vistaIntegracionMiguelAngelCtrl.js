@@ -47,9 +47,8 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtr
                 },
                 series: [{
                     name: 'USA',
-                    data: 
-                        responseBalta.data.map(function(d) { return d.enrolledNumber })
-                    
+                    data: responseBalta.data.map(function(d) { return d.enrolledNumber })
+
                 }, {
                     name: 'USSR/Russia',
                     data: [null, null, null, null, null, null, null, null, null, null,
@@ -63,6 +62,52 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtr
                     ]
                 }]
             });
+        });
+    });
+
+    //Con proxy (Josenri)
+
+    $http.get("api/v1/global-Terrorism-Data").then(function doneFilter(responseMia) {
+        $http.get("proxyMA/api/v2/crimes-an").then(function doneFilter(responseJose) {
+            Highcharts.chart('integracionJose', {
+                chart: {
+                    type: 'spline'
+                },
+                title: {
+                    text: 'Integracion con api de Jose Enrique'
+                },
+                xAxis: {
+                    categories: responseJose.data.map(function(d) { return d.province })
+                },
+                yAxis: {
+                    title: {
+                        text: 'Numero de fallecidos'
+                    },
+                    labels: {
+                        formatter: function() {
+                            return this.value;
+                        }
+                    }
+                },
+                tooltip: {
+                    crosshairs: true,
+                    shared: true
+                },
+                plotOptions: {
+                    spline: {
+                        marker: {
+                            radius: 4,
+                            lineColor: '#666666',
+                            lineWidth: 1
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Numero de fallecidos',
+                    data: responseMia.data.map(function(d) { return d.nkill })
+                }]
+            });
+
         });
     });
 
