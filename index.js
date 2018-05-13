@@ -32,6 +32,13 @@ app.use("/proxyFJ", function(req, res) {
     console.log('piped: '+req.baseUrl + req.url);
     req.pipe(request(url)).pipe(res);
     });
+    
+//Proxy Ismael
+app.use("/proxyIsmael", function(req, res) {
+    var url = "https://sos1718-01.herokuapp.com" + req.url;
+    console.log('piped: '+req.baseUrl + req.url);
+    req.pipe(request(url)).pipe(res);
+    });
 
 
 //var BASE_API_PATH = "/api/v1";
