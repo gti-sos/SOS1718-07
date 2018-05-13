@@ -63,7 +63,7 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtr
     //Con proxy (Josenri)
 
     $http.get("api/v1/global-Terrorism-Data").then(function doneFilter(responseMia) {
-        $http.get("proxyMA/api/v2/crimes-an").then(function doneFilter(responseJose) {
+        $http.get("proxyMA/api/v2/crimes-an").then(function doneFilter(responsePablo) {
             Highcharts.chart('integracionJose', {
                 chart: {
                     type: 'spline'

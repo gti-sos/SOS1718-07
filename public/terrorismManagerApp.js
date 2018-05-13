@@ -6,6 +6,9 @@
     .when("/analytics", {
      templateUrl: "analytics.html",
     })
+    .when("/integrations", {
+     templateUrl: "analytics.html",
+    })
     .when("/", {
      templateUrl: "indexOld.html",
     })

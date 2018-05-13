@@ -35,7 +35,7 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
                 },
                 plotOptions: {
                     area: {
-                        pointStart: 2000,
+                        pointStart: 1990,
                         marker: {
                             enabled: false,
                             symbol: 'diamond',
@@ -66,51 +66,49 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
 
     $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
         $http.get("proxyIsmael/api/v1/tvfees-stats").then(function doneFilter(responsePablo) {
-            /*      $.getJSON(
-                      'https://cdn.rawgit.com/highcharts/highcharts/057b672172ccc6c08fe7dbb27fc17ebca3f5b770/samples/data/range.json',
-                      function(data) { */
-                Highcharts.chart('integracionPablo', {
 
-                        chart: {
-                            type: 'arearange',
-                            zoomType: 'x',
-                            scrollablePlotArea: {
-                                minWidth: 600,
-                                scrollPositionX: 1
-                            }
-                        },
-
-                        title: {
-                            text: 'Integracion con la api de Pablo'
-                        },
-
-                        xAxis: {
-                            categories: responsePablo.data.map(function(d) { return d.city })
-                        },
-
-                        yAxis: {
-                            title: {
-                                text: 'Número de muertos'
-                            }
-                        },
-                        legend: {
-                            enabled: false
-                        },
-
-                        tooltip: {
-                            crosshairs: true,
-                            shared: true,
-                        },
-
-                        series: [{
-                            name: 'Numero de muertos',
-                            data: responseMia.data.map(function(d) { return d.killed })
-                        }]
-
-                    });
-              //  }
-            //);
-
+            Highcharts.chart('integracionPablo', {
+                chart: {
+                    type: 'areaspline'
+                },
+                title: {
+                    text: 'Integracion con la api de Pablo'
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'left',
+                    verticalAlign: 'top',
+                    x: 150,
+                    y: 100,
+                    floating: true,
+                    borderWidth: 1,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+                },
+                xAxis: {
+                     categories: responsePablo.data.map(function(d) { return d.city })
+                },
+                yAxis: {
+                    title: {
+                        text: 'Número de muertos'
+                    }
+                },
+                tooltip: {
+                    shared: true,
+                    valueSuffix: ' muertos'
+                },
+                credits: {
+                    enabled: false
+                },
+                plotOptions: {
+                    areaspline: {
+                        fillOpacity: 0.5
+                    }
+                },
+                series: [{
+                    name: 'Numero de muertos',
+                    data: responseMia.data.map(function(d) { return d.killed })
+                }]
+            });
 
         });
     });
