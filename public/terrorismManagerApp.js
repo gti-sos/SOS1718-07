@@ -7,7 +7,7 @@
      templateUrl: "analytics.html",
     })
     .when("/integrations", {
-     templateUrl: "analytics.html",
+     templateUrl: "integrations.html",
     })
     .when("/", {
      templateUrl: "indexOld.html",
