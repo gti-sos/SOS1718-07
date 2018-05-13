@@ -86,12 +86,9 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
             Highcharts.chart('graficaProxy', {
 
                 title: {
-                    text: 'Solar Employment Growth by Sector, 2010-2016'
+                    text: 'Integracion con la API de Julio Perea'
                 },
 
-                subtitle: {
-                    text: 'Source: thesolarfoundation.com'
-                },
 
                 yAxis: {
                     title: {
