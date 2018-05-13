@@ -37,7 +37,7 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
                     },
                     labels: {
                         formatter: function() {
-                            return this.value / 1000 + 'k';
+                            return this.value;
                         }
                     }
                 },
@@ -62,6 +62,15 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
                 series: [{
                     name: 'New York',
                     data: responseCompi.data.map(function(d) { return d.illiterate })
+                }, {
+                    name: 'cordoba',
+                    data: responseMia.data.map(function(d) { return d.victim_count })
+                }, {
+                    name: 'Alaska',
+                    data: responseCompi.data.map(function(d) { return d["min-age"] })
+                }, {
+                    name: 'Alabama',
+                    data: responseCompi.data.map(function(d) { return d["second-grade"] })
 
                 }]
             });
