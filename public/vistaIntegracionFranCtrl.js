@@ -38,7 +38,7 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
                     }
                 },
                 tooltip: {
-                    pointFormat: '{series.name} had stockpiled <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+                    pointFormat: '{series.name} killed <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
                 },
                 plotOptions: {
                     area: {
@@ -88,8 +88,14 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
 
                 yAxis: {
                     title: {
-                        text: 'Number of Employees'
+                        text: 'Numero de victimas'
                     }
+                },
+                xAxis:{
+                    title:{
+                        text: "Año"
+                    },
+                    categories: responseCompi.data.map(function(d) { return d.year })
                 },
                 legend: {
                     layout: 'vertical',
@@ -101,8 +107,7 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
                     series: {
                         label: {
                             connectorAllowed: false
-                        },
-                        pointStart: 2010
+                        }
                     }
                 },
 
