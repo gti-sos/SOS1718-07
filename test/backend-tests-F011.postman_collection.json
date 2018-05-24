@@ -1,0 +1,1071 @@
+{
+	"info": {
+		"_postman_id": "840715bb-4753-4eae-9cf8-dbaae13c75ee",
+		"name": "backend-tests-F011",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0a731f87-fced-4594-be93-432691d0dfcb",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"array should be 5\"] = (jsonData.length >=5);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2000,\n    \"month\": \"May\",\n    \"state\": \"Alaska\",\n    \"city\": \"Anchoragee\",\n    \"crime-type\": \"Murder or Manslaughter\",\n    \"weapon\": \"Rifle\",\n    \"victim count\": 0\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/Alaska",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "faf8525e-0843-4da6-b631-738c4f39affd",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2000,\n    \"month\": \"May\",\n    \"state\": \"Alaska\",\n    \"city\": \"Anchoragee\",\n    \"crime-type\": \"Murder or Manslaughter\",\n    \"weapon\": \"Rifle\",\n    \"victim count\": 0\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/Alaska"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/Alaska/Anchorage/1980/May",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f097276c-c00c-4a64-9eff-a52175442e30",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2000,\n    \"month\": \"May\",\n    \"state\": \"Alaska\",\n    \"city\": \"Anchoragee\",\n    \"crime-type\": \"Murder or Manslaughter\",\n    \"weapon\": \"Rifle\",\n    \"victim count\": 0\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/Alaska/Anchorage/1980/May"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?state=Alaska",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef4993c4-b600-4353-8802-93710fd80ef3",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2000,\n    \"month\": \"May\",\n    \"state\": \"Alaska\",\n    \"city\": \"Anchoragee\",\n    \"crime-type\": \"Murder or Manslaughter\",\n    \"weapon\": \"Rifle\",\n    \"victim count\": 0\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?state=Alaska",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"homicide-reports-data"
+					],
+					"query": [
+						{
+							"key": "state",
+							"value": "Alaska"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?state=Alaska&year=1980",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c170f86a-61e7-44b5-af8e-d80c8bbea03b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2000,\n    \"month\": \"May\",\n    \"state\": \"Alaska\",\n    \"city\": \"Anchoragee\",\n    \"crime-type\": \"Murder or Manslaughter\",\n    \"weapon\": \"Rifle\",\n    \"victim count\": 0\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?state=Alaska&year=1980",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"homicide-reports-data"
+					],
+					"query": [
+						{
+							"key": "state",
+							"value": "Alaska"
+						},
+						{
+							"key": "year",
+							"value": "1980"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?limit=2&offset=0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dda0f70d-27f7-4dbc-8898-6a2e264c0977",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2000,\n    \"month\": \"May\",\n    \"state\": \"Alaska\",\n    \"city\": \"Anchoragee\",\n    \"crime-type\": \"Murder or Manslaughter\",\n    \"weapon\": \"Rifle\",\n    \"victim count\": 0\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?limit=2&offset=0",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"homicide-reports-data"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?state=Alaska&city=Anchorage&year=1980&month=May",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de6ab559-9eb1-44bb-a3ca-78dd3e9f4610",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2000,\n    \"month\": \"May\",\n    \"state\": \"Alaska\",\n    \"city\": \"Anchoragee\",\n    \"crime-type\": \"Murder or Manslaughter\",\n    \"weapon\": \"Rifle\",\n    \"victim count\": 0\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?state=Alaska&city=Anchorage&year=1980&month=May",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"homicide-reports-data"
+					],
+					"query": [
+						{
+							"key": "state",
+							"value": "Alaska"
+						},
+						{
+							"key": "city",
+							"value": "Anchorage"
+						},
+						{
+							"key": "year",
+							"value": "1980"
+						},
+						{
+							"key": "month",
+							"value": "May"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?limit=2&offset=0&city=Anchorage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4a6a85b4-cdfe-42e1-87fa-cb25fa12a73b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2000,\n    \"month\": \"May\",\n    \"state\": \"Alaska\",\n    \"city\": \"Anchoragee\",\n    \"crime-type\": \"Murder or Manslaughter\",\n    \"weapon\": \"Rifle\",\n    \"victim count\": 0\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?limit=2&offset=0&city=Anchorage",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"homicide-reports-data"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "city",
+							"value": "Anchorage"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?from=1993&to=1995",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "67c39b61-b835-4992-90be-c9e13a93c4ea",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2000,\n    \"month\": \"May\",\n    \"state\": \"Alaska\",\n    \"city\": \"Anchoragee\",\n    \"crime-type\": \"Murder or Manslaughter\",\n    \"weapon\": \"Rifle\",\n    \"victim count\": 0\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?from=1993&to=1995",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"homicide-reports-data"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "1993"
+						},
+						{
+							"key": "to",
+							"value": "1995"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?city=Anchorage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "006e1ab4-ac3a-41b7-b356-9abd302db20e",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2000,\n    \"month\": \"May\",\n    \"state\": \"Alaska\",\n    \"city\": \"Anchoragee\",\n    \"crime-type\": \"Murder or Manslaughter\",\n    \"weapon\": \"Rifle\",\n    \"victim count\": 0\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?city=Anchorage",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"homicide-reports-data"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Anchorage"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?year=1980",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "07966489-3ecd-461c-8141-7ff91efcc48b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2000,\n    \"month\": \"May\",\n    \"state\": \"Alaska\",\n    \"city\": \"Anchoragee\",\n    \"crime-type\": \"Murder or Manslaughter\",\n    \"weapon\": \"Rifle\",\n    \"victim count\": 0\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?year=1980",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"homicide-reports-data"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "1980"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?month=May",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "492e05ff-3bc7-4e9e-beab-631a6377fa86",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2000,\n    \"month\": \"May\",\n    \"state\": \"Alaska\",\n    \"city\": \"Anchoragee\",\n    \"crime-type\": \"Murder or Manslaughter\",\n    \"weapon\": \"Rifle\",\n    \"victim count\": 0\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?month=May",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"homicide-reports-data"
+					],
+					"query": [
+						{
+							"key": "month",
+							"value": "May"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?crimeType=Murder or Manslaughter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4311d34c-8274-4f34-aa16-9ad3d24c5ce6",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2000,\n    \"month\": \"May\",\n    \"state\": \"Alaska\",\n    \"city\": \"Anchoragee\",\n    \"crime-type\": \"Murder or Manslaughter\",\n    \"weapon\": \"Rifle\",\n    \"victim count\": 0\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?crimeType=Murder or Manslaughter",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"homicide-reports-data"
+					],
+					"query": [
+						{
+							"key": "crimeType",
+							"value": "Murder or Manslaughter"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?weapon=Rifle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b5b11ec2-2764-41a6-97a6-b9870f4645ae",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2000,\n    \"month\": \"May\",\n    \"state\": \"Alaska\",\n    \"city\": \"Anchoragee\",\n    \"crime-type\": \"Murder or Manslaughter\",\n    \"weapon\": \"Rifle\",\n    \"victim count\": 0\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?weapon=Rifle",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"homicide-reports-data"
+					],
+					"query": [
+						{
+							"key": "weapon",
+							"value": "Rifle"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?victim_count=1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "961aed12-c8ff-460b-b542-cc26cc17de2a",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2000,\n    \"month\": \"May\",\n    \"state\": \"Alaska\",\n    \"city\": \"Anchoragee\",\n    \"crime-type\": \"Murder or Manslaughter\",\n    \"weapon\": \"Rifle\",\n    \"victim count\": 0\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data?victim_count=1",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"homicide-reports-data"
+					],
+					"query": [
+						{
+							"key": "victim_count",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1b79480f-7369-4086-ac75-ef3901b996ae",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"year\": 1985,\n        \"month\": \"Mayyyy\",\n        \"state\": \"Alaska\",\n        \"city\": \"Anchorage\",\n        \"crime_type\": \"Murder or Manslaughter\",\n        \"weapon\": \"Rifle\",\n        \"victim_count\": 0\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/ Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "09189c58-aad3-40e9-8b5f-ab3107419b34",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"year\": 1985,\n        \"month\": \"Mayyyy\",\n        \"state\": \"Alaska\",\n        \"city\": \"Anchorage\",\n        \"crime_type\": \"Murder or Manslaughter\",\n        \"weapon\": \"Rifle\",\n        \"victim_count\": 0\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cba090ac-d48d-4709-8775-213404b5cb76",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"year\": 1985,\n        \"month\": \"May\",\n        \"state\": \"Alaska\",\n        \"city\": \"Anchorage\",\n        \"crime_type\": \"Murder or Manslaughter\",\n        \"weapon\": \"Rifle\"\n       \n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "95d17283-4f64-4458-99bd-d58a002078c1",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"year\": 1985,\n        \"month\": \"May\",\n        \"state\": \"Alaska\",\n        \"city\": \"Anchorage\",\n        \"crime_type\": \"Murder or Manslaughter\",\n        \"weapon\": \"Rifle\"\n       \n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/Alaska/Anchorage/1980/May",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "932bdd7e-f8fe-4202-82b6-985f866723a9",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"year\": 1985,\n        \"month\": \"May\",\n        \"state\": \"Alaska\",\n        \"city\": \"Anchorage\",\n        \"crime_type\": \"Murder or Manslaughter\",\n        \"weapon\": \"Rifle\"\n       \n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/Alaska/Anchorage/1980/May"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/Anchorage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "284e9fb8-bdca-4663-a484-3a37be18be5b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"year\": 1985,\n        \"month\": \"May\",\n        \"state\": \"Alaska\",\n        \"city\": \"Anchorage\",\n        \"crime_type\": \"Murder or Manslaughter\",\n        \"weapon\": \"Rifle\"\n       \n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/Anchorage"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f798680d-64c0-43fb-b664-2f76aeac4912",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"year\": 1985,\n        \"month\": \"May\",\n        \"state\": \"Alaska\",\n        \"city\": \"Anchorage\",\n        \"crime_type\": \"Murder or Manslaughter\",\n        \"weapon\": \"Rifle\"\n       \n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9ab289d-f026-407b-9299-abef8f933f4d",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"array should be 0\"] = (jsonData.length === 0);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"year\": 1985,\n        \"month\": \"May\",\n        \"state\": \"Alaska\",\n        \"city\": \"Anchorage\",\n        \"crime_type\": \"Murder or Manslaughter\",\n        \"weapon\": \"Rifle\"\n       \n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a00eaa58-3564-46b2-9697-9be6fe931d6c",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"year\": 1985,\n        \"month\": \"May\",\n        \"state\": \"Alaska\",\n        \"city\": \"Anchorage\",\n        \"crime_type\": \"Murder or Manslaughter\",\n        \"weapon\": \"Rifle\"\n       \n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/loadInitialData"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "248f361f-2226-4d4f-aedb-9a89fa0674ce",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"year\": 1985,\n        \"month\": \"May\",\n        \"state\": \"Alaska\",\n        \"city\": \"Anchorage\",\n        \"crime_type\": \"Murder or Manslaughter\",\n        \"weapon\": \"Rifle\"\n       \n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data"
+			},
+			"response": []
+		}
+	]
+}
