@@ -4,7 +4,9 @@
   "description": "Para el feedback",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "pretest": "test/runPhantomjs.sh",
+    "test": "protractor test/config-General.js",
+    "posttest": "killall phantomjs",
     "start": "node index.js"
   },
   "author": "Miguel Angel G.C",
