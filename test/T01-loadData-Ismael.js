@@ -6,6 +6,7 @@
 
 var fs = require("fs");
 var path = require("path");
+var config = require("./config-General");
 
 describe('Data is loaded', function(){  //compruebo que los datos se cargan
     it('should show same attacksData', function(){ //para cada una de las comprobaciones meto la palabra it

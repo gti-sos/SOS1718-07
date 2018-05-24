@@ -5,6 +5,7 @@
 
 var fs = require("fs");
 var path = require("path");
+var config = require("./config-General");
 
 describe('Add new Data', function() {
     it('should add a new data', function() {
