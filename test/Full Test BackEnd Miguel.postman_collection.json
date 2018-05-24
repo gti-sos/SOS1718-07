@@ -1,0 +1,1087 @@
+{
+	"info": {
+		"_postman_id": "694d3345-d26a-445e-b99f-57c741910ecd",
+		"name": "Full Test BackEnd",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get general",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0949874f-9f61-414a-9e59-b39efe973e82",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"array should be 5\"] = (jsonData.length >= 5);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"xxxxxxxxxxxxxxxxxxxx\",\n        \"nkill\": 10\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data"
+			},
+			"response": []
+		},
+		{
+			"name": "Get recurso concreto por country",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"xxxxxxxxxxxxxxxxxxxx\",\n        \"nkill\": 10\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data/Dominican Republic"
+			},
+			"response": []
+		},
+		{
+			"name": "Get recurso concreto específico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"xxxxxxxxxxxxxxxxxxxx\",\n        \"nkill\": 10\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data/United States/Oackland/1970/2/17"
+			},
+			"response": []
+		},
+		{
+			"name": "Busqueda por country",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"xxxxxxxxxxxxxxxxxxxx\",\n        \"nkill\": 10\n    }"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data?country_txt=United States",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"global-terrorism-data"
+					],
+					"query": [
+						{
+							"key": "country_txt",
+							"value": "United States"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busqueda por iyear",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"xxxxxxxxxxxxxxxxxxxx\",\n        \"nkill\": 10\n    }"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data?iyear=1970",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"global-terrorism-data"
+					],
+					"query": [
+						{
+							"key": "iyear",
+							"value": "1970"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busqueda por imonth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"xxxxxxxxxxxxxxxxxxxx\",\n        \"nkill\": 10\n    }"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data?imonth=2",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"global-terrorism-data"
+					],
+					"query": [
+						{
+							"key": "imonth",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busqueda por iday",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"xxxxxxxxxxxxxxxxxxxx\",\n        \"nkill\": 10\n    }"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data?iday=17",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"global-terrorism-data"
+					],
+					"query": [
+						{
+							"key": "iday",
+							"value": "17"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busqueda por city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"xxxxxxxxxxxxxxxxxxxx\",\n        \"nkill\": 10\n    }"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data?city=Oackland",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"global-terrorism-data"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Oackland"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busqueda por tipo de ataque",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"xxxxxxxxxxxxxxxxxxxx\",\n        \"nkill\": 10\n    }"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data?city=Oackland",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"global-terrorism-data"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Oackland"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busqueda por tipo de arma",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"xxxxxxxxxxxxxxxxxxxx\",\n        \"nkill\": 10\n    }"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data?city=Oackland",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"global-terrorism-data"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Oackland"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busqueda por country y año",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"xxxxxxxxxxxxxxxxxxxx\",\n        \"nkill\": 10\n    }"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data?country_txt=United States&iyear=1970",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"global-terrorism-data"
+					],
+					"query": [
+						{
+							"key": "country_txt",
+							"value": "United States"
+						},
+						{
+							"key": "iyear",
+							"value": "1970"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Paginación",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"xxxxxxxxxxxxxxxxxxxx\",\n        \"nkill\": 10\n    }"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data?limit=2&offset=0",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"global-terrorism-data"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busqueda recurso concreto especifico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"xxxxxxxxxxxxxxxxxxxx\",\n        \"nkill\": 10\n    }"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data?country_txt=Dominican Republic&city=Santo Domingo&iyear=1970&imonth=7&iday=2",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"global-terrorism-data"
+					],
+					"query": [
+						{
+							"key": "country_txt",
+							"value": "Dominican Republic"
+						},
+						{
+							"key": "city",
+							"value": "Santo Domingo"
+						},
+						{
+							"key": "iyear",
+							"value": "1970"
+						},
+						{
+							"key": "imonth",
+							"value": "7"
+						},
+						{
+							"key": "iday",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Paginación con un campo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"xxxxxxxxxxxxxxxxxxxx\",\n        \"nkill\": 10\n    }"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data?limit=2&offset=0&country_txt=United States",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"global-terrorism-data"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "country_txt",
+							"value": "United States"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "from y to",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"xxxxxxxxxxxxxxxxxxxx\",\n        \"nkill\": 10\n    }"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data?from=1969&to=2999",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"global-terrorism-data"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "1969"
+						},
+						{
+							"key": "to",
+							"value": "2999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post normal",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1980,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"x\",\n        \"city\": \"Santo Doxxxxxxxxxxxxxxxxxxxdsfmingo\",\n        \"attacktype_txt\": \"Assasdsfsdfsadfdsfaadsfdsafsination\",\n        \"weaptype_txt\": \"Unknown Explosive Type\",\n        \"nkill\": 1\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data/"
+			},
+			"response": []
+		},
+		{
+			"name": "Mismo post normal error 409",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4cf24b84-2b26-4472-96c3-789609483457",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1980,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"x\",\n        \"city\": \"Santo Doxxxxxxxxxxxxxxxxxxxdsfmingo\",\n        \"attacktype_txt\": \"Assasdsfsdfsadfdsfaadsfdsafsination\",\n        \"weaptype_txt\": \"Unknown Explosive Type\",\n        \"nkill\": 1\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data/"
+			},
+			"response": []
+		},
+		{
+			"name": "Post con menos campos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"x\",\n        \"city\": \"Santo Doxxxxxxxxxxxxxxxxxxxdsfmingo\",\n        \"attacktype_txt\": \"Assasdsfsdfsadfdsfaadsfdsafsination\"\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data/"
+			},
+			"response": []
+		},
+		{
+			"name": "Put recurso general",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"x\",\n        \"city\": \"Santo Doxxxxxxxxxxxxxxxxxxxdsfmingo\",\n        \"attacktype_txt\": \"Assasdsfsdfsadfdsfaadsfdsafsination\",\n        \"weaptype_txt\": \"Unknowpe\",\n        \"nkill\": 1\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data/"
+			},
+			"response": []
+		},
+		{
+			"name": "Put correcto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"Unknown Explosive Type\",\n        \"nkill\": 1\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data/Dominican Republic/Santo Domingo/1970/7/2"
+			},
+			"response": []
+		},
+		{
+			"name": "Put error 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a90b944d-b1fa-43e7-9b5a-43d9e3346cc1",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republico\",\n        \"city\": \"Santo Domingo\",\n        \"attacktype_txt\": \"Assassination\",\n        \"weaptype_txt\": \"Unknown Explosive Type\",\n        \"nkill\": 1\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data/Dominican Republic/Santo Domingo/1970/7/2"
+			},
+			"response": []
+		},
+		{
+			"name": "Del recurso concreto por country",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 10,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Doxxxxxxxxxxxxxxxxxxxdsfmingo\",\n        \"attacktype_txt\": \"Assasdsfsdfsadfdsfaadsfdsafsination\",\n        \"weaptype_txt\": \"Unknowpe\",\n        \"nkill\": 1\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data/Dominican Republic"
+			},
+			"response": []
+		},
+		{
+			"name": "Del general",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 10,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"Dominican Republic\",\n        \"city\": \"Santo Doxxxxxxxxxxxxxxxxxxxdsfmingo\",\n        \"attacktype_txt\": \"Assasdsfsdfsadfdsfaadsfdsafsination\",\n        \"weaptype_txt\": \"Unknowpe\",\n        \"nkill\": 1\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get cuando no hay datos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae53c94e-d200-4065-ab22-b6aa0990590a",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"array should be 0\"] = (jsonData.length === 0);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"x\",\n        \"city\": \"Santo Doxxxxxxxxxxxxxxxxxxxdsfmingo\",\n        \"attacktype_txt\": \"Assasdsfsdfsadfdsfaadsfdsafsination\"\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"x\",\n        \"city\": \"Santo Doxxxxxxxxxxxxxxxxxxxdsfmingo\",\n        \"attacktype_txt\": \"Assasdsfsdfsadfdsfaadsfdsafsination\"\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data/loadInitialData"
+			},
+			"response": []
+		},
+		{
+			"name": "Put general",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"iyear\": 1970,\n        \"imonth\": 7,\n        \"iday\": 2,\n        \"country_txt\": \"x\",\n        \"city\": \"Santo Doxxxxxxxxxxxxxxxxxxxdsfmingo\",\n        \"attacktype_txt\": \"Assasdsfsdfsadfdsfaadsfdsafsination\"\n    }"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data/"
+			},
+			"response": []
+		}
+	]
+}
