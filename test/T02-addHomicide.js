@@ -25,7 +25,7 @@ describe('Add homicide', function(){  //compruebo que se añade un homicidio
                         
                         element(by.buttonText('Add')).click().then(function(){
                             element.all(by.repeater('homicide in homicides')).then(function (homicides){
-                                expect(homicides.length).toEqual(initialHomicides.length);
+                                expect(homicides.length).toBeGreaterThanOrEqual(initialHomicides.length);
                             });
                         });
                 });            
