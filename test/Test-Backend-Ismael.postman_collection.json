@@ -1,0 +1,1038 @@
+{
+	"info": {
+		"_postman_id": "1b0f06eb-1407-4ec3-8729-5e46d2911885",
+		"name": "Test-Backend-Ismael",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6cc87366-f93d-4781-9d7c-7a46668af896",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"array should be 5\"] = (jsonData.length >= 5);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\",\n    \"killed\": 20,\n    \"injured\": 300\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd298ad4-d44c-4b01-8203-c991f153d209",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\",\n    \"killed\": 20,\n    \"injured\": 300\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain/Madrid/2004-03-11"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd298ad4-d44c-4b01-8203-c991f153d209",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\",\n    \"killed\": 20,\n    \"injured\": 300\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/attacks-data?country=france",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"attacks-data"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "france"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain Copy Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd298ad4-d44c-4b01-8203-c991f153d209",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\",\n    \"killed\": 20,\n    \"injured\": 300\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/attacks-data?city=Nice",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"attacks-data"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Nice"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain Copy Copy Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd298ad4-d44c-4b01-8203-c991f153d209",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\",\n    \"killed\": 20,\n    \"injured\": 300\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/attacks-data?date=2004-03-11",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"attacks-data"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2004-03-11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain Copy Copy Copy Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd298ad4-d44c-4b01-8203-c991f153d209",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\",\n    \"killed\": 20,\n    \"injured\": 300\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/attacks-data?killed=78",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"attacks-data"
+					],
+					"query": [
+						{
+							"key": "killed",
+							"value": "78"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain Copy Copy Copy Copy Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd298ad4-d44c-4b01-8203-c991f153d209",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\",\n    \"killed\": 20,\n    \"injured\": 300\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/attacks-data?injured=322",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"attacks-data"
+					],
+					"query": [
+						{
+							"key": "injured",
+							"value": "322"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain Copy Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd298ad4-d44c-4b01-8203-c991f153d209",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\",\n    \"killed\": 20,\n    \"injured\": 300\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/attacks-data?country=spain&city=Madrid&date=2004-03-11",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"attacks-data"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "spain"
+						},
+						{
+							"key": "city",
+							"value": "Madrid"
+						},
+						{
+							"key": "date",
+							"value": "2004-03-11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain Copy Copy Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd298ad4-d44c-4b01-8203-c991f153d209",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\",\n    \"killed\": 20,\n    \"injured\": 300\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/attacks-data?limit=5&offset=0",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"attacks-data"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "5"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain Copy Copy Copy Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd298ad4-d44c-4b01-8203-c991f153d209",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\",\n    \"killed\": 20,\n    \"injured\": 300\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/attacks-data?limit=5&offset=0&killed=78",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"attacks-data"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "5"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "killed",
+							"value": "78"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain Copy Copy Copy Copy Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd298ad4-d44c-4b01-8203-c991f153d209",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\",\n    \"killed\": 20,\n    \"injured\": 300\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/attacks-data?from=2015-01-01&to=2016-12-12",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"attacks-data"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2015-01-01"
+						},
+						{
+							"key": "to",
+							"value": "2016-12-12"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain Copy Copy Copy Copy Copy Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd298ad4-d44c-4b01-8203-c991f153d209",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\",\n    \"killed\": 20,\n    \"injured\": 300\n}"
+				},
+				"url": {
+					"raw": "https://sos1718-07.herokuapp.com/api/v1/attacks-data?from=2015-01-01&to=2016-12-12&country=france&city=Paris",
+					"protocol": "https",
+					"host": [
+						"sos1718-07",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"attacks-data"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2015-01-01"
+						},
+						{
+							"key": "to",
+							"value": "2016-12-12"
+						},
+						{
+							"key": "country",
+							"value": "france"
+						},
+						{
+							"key": "city",
+							"value": "Paris"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eeebdf36-ecdf-488e-85f9-597ca80f9a28",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\",\n    \"killed\": 20,\n    \"injured\": 300\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4aaafe2-ad41-421e-a368-204b7b225600",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\",\n    \"killed\": 20,\n    \"injured\": 300\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3ca72d2b-f520-443c-a58a-d3a0ea36d072",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\"\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9dabe57-74f7-46ec-828a-fd80b0e5808a",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\"\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain/Madrid/2004-03-11"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dfb1979c-ecd0-43df-9ab6-3f26dd0b089f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 405, method not allowed\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\"\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd298ad4-d44c-4b01-8203-c991f153d209",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"spain\",\n    \"date\": \"2004-03-11\",\n    \"city\": \"Madrid\",\n    \"killed\": 0,\n    \"injured\": 100\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain/Madrid/2004-03-11"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd298ad4-d44c-4b01-8203-c991f153d209",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"spain\",\n    \"date\": \"2004-03-11\",\n    \"city\": \"Madrid\",\n    \"killed\": 0,\n    \"injured\": 100\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain/Madrid/2004-03-11"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd298ad4-d44c-4b01-8203-c991f153d209",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"spain\",\n    \"date\": \"2004-03-11\",\n    \"city\": \"Madrid\",\n    \"killed\": 0,\n    \"injured\": 100\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4c3f8e3-747d-40fe-8a2b-1ea3ff5e1e99",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Should have more than 2\"] =jsonData.length > 2;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": \"2004-03-11\",\n    \"city\": \"Madrid\",\n    \"killed\": 0,\n    \"injured\": 100\n}"
+				},
+				"url": "https://sos171807iag-sandbox-cloned-sos171807iag.c9users.io/api/v1/contacts",
+				"description": "b.i.1"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "599819ed-7126-4906-895a-b0269e6d647b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\"\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a54f1e90-d249-4f9e-9897-8fbdb91be625",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\"\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12d8110d-25cb-4502-b932-e43cb06bb2b5",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\"\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/loadInitialData"
+			},
+			"response": []
+		},
+		{
+			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59bd5d05-d159-4add-9b00-120583ff81a0",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\"\n}"
+				},
+				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data"
+			},
+			"response": []
+		}
+	]
+}
