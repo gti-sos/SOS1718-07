@@ -715,38 +715,6 @@
 			"response": []
 		},
 		{
-			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data Copy",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "c9dabe57-74f7-46ec-828a-fd80b0e5808a",
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"Status code is 405\", function () {",
-							"    pm.response.to.have.status(405);",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\"\n}"
-				},
-				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain/Madrid/2004-03-11"
-			},
-			"response": []
-		},
-		{
 			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data",
 			"event": [
 				{
@@ -875,38 +843,6 @@
 			"response": []
 		},
 		{
-			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data/spain",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "c4c3f8e3-747d-40fe-8a2b-1ea3ff5e1e99",
-						"type": "text/javascript",
-						"exec": [
-							"var jsonData = JSON.parse(responseBody);",
-							"tests[\"Should have more than 2\"] =jsonData.length > 2;"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"country\": \"england\",\n    \"date\": \"2004-03-11\",\n    \"city\": \"Madrid\",\n    \"killed\": 0,\n    \"injured\": 100\n}"
-				},
-				"url": "https://sos171807iag-sandbox-cloned-sos171807iag.c9users.io/api/v1/contacts",
-				"description": "b.i.1"
-			},
-			"response": []
-		},
-		{
 			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data",
 			"event": [
 				{
@@ -924,38 +860,6 @@
 			],
 			"request": {
 				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"country\": \"england\",\n    \"date\": 1999,\n    \"city\": \"London\"\n}"
-				},
-				"url": "https://sos1718-07.herokuapp.com/api/v1/attacks-data"
-			},
-			"response": []
-		},
-		{
-			"name": "https://sos1718-07.herokuapp.com/api/v1/attacks-data",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "a54f1e90-d249-4f9e-9897-8fbdb91be625",
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"Status code is 404\", function () {",
-							"    pm.response.to.have.status(404);",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
 				"header": [
 					{
 						"key": "Content-Type",
