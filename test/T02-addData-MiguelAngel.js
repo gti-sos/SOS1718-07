@@ -10,7 +10,7 @@ var config = require("./config-General");
 describe('Add new Data', function() {
     it('should add a new data', function() {
         browser
-            .get('https://personal-miggomcan-sos171807magc.c9users.io/terrorismApp.html#!/global-terrorism-data')
+            .get('https://sos1718-07.herokuapp.com/terrorismApp.html#!/global-terrorism-data')
             .then(function() {
                 element.all(by.repeater('data in globalTerrorismData'))
                     .then(function(initialData) {

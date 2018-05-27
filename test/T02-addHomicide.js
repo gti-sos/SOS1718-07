@@ -8,7 +8,7 @@
 describe('Add homicide', function(){  //compruebo que se añade un homicidio
     it('should add a new homicide', function(){ //para cada una de las comprobaciones meto la palabra it
         browser
-            .get('https://sos171807fjpz-sandbox2-sos171807fjpz.c9users.io/terrorismApp.html#!/homicide-reports-data')  //accede a la direccion
+            .get('https://sos1718-07.herokuapp.com/terrorismApp.html#!/homicide-reports-data')  //accede a la direccion
             .then(function(){
                 element
                     .all(by.repeater('homicide in homicides'))  //te devuelve todos los elementos de la pagina que ha cargado que cumplan una condicion, que contengan el ng-repeat
