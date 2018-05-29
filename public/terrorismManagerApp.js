@@ -10,7 +10,7 @@
      templateUrl: "integrations.html",
     })
     .when("/", {
-     templateUrl: "indexOld.html",
+     templateUrl: "indexMenu.html",
     })
     .when("/attacks-data", {
      templateUrl: "attackList.html",
@@ -59,6 +59,9 @@
     .when("/homicide-reports-data/integrations", {
      templateUrl: "vistaIntegracionFran.html",
      controller: "vistaIntegracionFranCtrl"
+    })
+    .when("/about", {
+     templateUrl: "videos.html"
     });
   });
  

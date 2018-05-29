@@ -29,6 +29,7 @@ attacksApi.register = function(app, dbAttacks, attacks_data) {
 
         });
     });
+    
 
 
     //////////////////////////////////////////////////////

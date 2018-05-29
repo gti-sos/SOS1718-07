@@ -1,46 +1,78 @@
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<html>
+<html ng-app="TerrorismManagerApp">
 
 <head>
-    <title>SOS1718-07</title>
+    <title>Terrorism Manager</title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script src="//cdn.jsdelivr.net/d3js/3.5.17/d3.min.js" charset="utf-8"></script>
+    <script src="//cdn.jsdelivr.net/npm/taucharts@1/build/production/tauCharts.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/taucharts@1/build/production/tauCharts.min.css">
+
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/uvCharts/1.1.5/uvcharts.min.js"></script>
+    <script type="text/javascript" src="/bower_components/d3/d3.js"></script>
+
+
+
+    <!-- ISMAEL -->
+    <script src="terrorismManagerApp.js"></script>
+    <script src="attackListCtrl.js"></script>
+    <script src="attackEditCtrl.js"></script>
+
+    <!--ISMAEL GRÁFICA amCharts-->
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+    <script src="vistasIsmaelCtrl.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
+    <!--ISMAEL GRÁFICA CORS-->
+    <script src="vistaIntegracionIsmaelCtrl.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+    <!--ISMAEL GRÁFICA PROXY-->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+    <!--FIN ISMAEL -->
+
+
+    <script src="homicideDataListCtrl.js"></script>
+    <script src="homicideDataEditCtrl.js"></script>
+    <script src="globalTerrorismListCtrl.js"></script>
+    <script src="globalTerrorismEditCtrl.js"></script>
+
+
+    <!-- INTEGRACIONES -->
+    <script src="vistasMiguelAngelCtrl.js"></script>
+    <script src="vistasFranciscoJesusCtrl.js"></script>
+    <script src="vistaIntegracionFranCtrl.js"></script>
+    <script src="vistaIntegracionMiguelAngelCtrl.js"></script>
+
+
 </head>
 
 <body>
-    <h1>SOS1718-07</h1>
-    <h2>Team</h2>
-
-    <a href="https://github.com/fraperzam">Francisco Jesus Perez Zamorano</a>
-    <p>
-        <a href="https://github.com/miguelillo42">Miguel Angel Gomariz Cantador</a>
-    </p>
-    <a href="https://github.com/ismalvgue">Ismael Alvarez Guerrero</a>
-
-    <h3>Project description: </h3>
-    <a>Study of global terrorism</a>
-
-    <h3>Repository: </h3>
-    <a href="https://github.com/gti-sos/SOS1718-07">SOS1718-07</a>
-
-    <h3>URL: </h3>
-    <a href="http://sos1718-07.herokuapp.com/">Nuestra APP en Heroku!</a>
-
-    <h3>APIs - Docs: </h3>
-    <a href="https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data/docs">https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data/docs</a> (developed by Miguel Angel Gomariz Cantador) </br>
-    <a href="https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/docs">https://sos1718-07.herokuapp.com/api/v1/homicide-reports-data/docs</a> (developed by Francisco Jesús Pérez Zamorano) </br>
-    <a href="https://sos1718-07.herokuapp.com/api/v1/attacks-data/docs">https://sos1718-07.herokuapp.com/api/v1/attacks-data/docs</a> (developed by Ismael Álvarez Guerrero)
-
-    <h3>Frontend´s: </h3>
-    <a href="https://sos1718-07.herokuapp.com/terrorismApp.html#!/global-terrorism-data">https://sos1718-07.herokuapp.com/terrorismApp.html#!/global-terrorism-data</a> (developed by Miguel Angel Gomariz Cantador) </br>
-    <a href="https://sos1718-07.herokuapp.com/terrorismApp.html#!/attacks-data">https://sos1718-07.herokuapp.com/terrorismApp.html#!/attacks-data</a> (developed by Ismael Álvarez Guerrero) </br>
-    <a href="https://sos1718-07.herokuapp.com/terrorismApp.html#!/homicide-reports-data">https://sos1718-07.herokuapp.com/terrorismApp.html#!/homicide-reports-data</a> (developed by Francisco Jesús Pérez Zamorano) </br>
-
-    <h3>Vistas</h3>
-    <a href="https://sos1718-07.herokuapp.com/terrorismApp.html#!/analytics/">https://sos1718-07.herokuapp.com/terrorismApp.html#!/analytics/</a>
-
-    <h3>Integrations</h3>
-    <a href="https://sos1718-07.herokuapp.com/terrorismApp.html#!/integrations/">https://sos1718-07.herokuapp.com/terrorismApp.html#!/integrations/</a>
-
-
+    <div ng-view>
+    </div>
 </body>
 
 </html>

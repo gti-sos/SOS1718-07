@@ -68,8 +68,14 @@ var attacks_data =
     {   "country": "france","date": "2015-11-12","city": "Paris","killed": 89,"injured": 322 },
     {   "country": "germany","date": "2016-07-18","city": "Wuerzburg","killed": 0,"injured": 5 },
     {   "country": "france","date": "2016-07-14","city": "Nice","killed": 84,"injured": 202 },
-    {   "country": "syria","date": "2012-06-06","city": "Qubair","killed": 78,"injured": 0 }
+    {   "country": "syria","date": "2012-06-06","city": "Qubair","killed": 78,"injured": 0 },
+    {   "country": "israel", "date": "2002-03-09,", "city": "Jerusalem", "killed": 11, "injured": 54 },
+    {   "country": "pakistan", "date": "2002-03-16", "city": "Jhang", "killed": 5, "injured": 0 },
+    {   "country": "iraq", "date": "2008-11-25", "city": "Mosul", "killed": 25, "injured": 6 },
+    {   "country": "nigeria", "date": "015-02-01,", "city": "Gombe", "killed": 13, "injured": 7 },
+    {   "country": "indonesia", "date": "2002-01-01", "city": "Palu", "killed": 6, "injured": 0 }
 ];
+
 
 
 app.get("/hello", (req, res) => {

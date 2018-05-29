@@ -17,7 +17,7 @@ angular
                     window.alert("Datos insertados con exito, gracias!");
                 }
                 else {
-                    window.alert("It is unnecessary to insert data, the database is not empty");
+                    window.alert("No es necesario insertar datos, la base de datos no está vacía");
                 }
                 getAttacks();
             });
@@ -84,9 +84,11 @@ angular
                 $scope.attacks = response.data;
                 //$scope.status = "Status: " + response.status;
 
+
                 if (response.status === 200) {
                     window.alert("Hemos encontrado datos en tu búsqueda");
                 }
+
 
             }, function failFilter(response) {
                 if (response.status == 400) {
@@ -116,15 +118,16 @@ angular
         getAttacks();
 
         $scope.siguientePag = function() {
-            offset += limit;
-            getAttacks();
+                offset += limit;
+                getAttacks();
         };
 
         $scope.anteriorPag = function() {
-            offset -= limit;
-            getAttacks();
+                offset -= limit;
+                getAttacks();
         };
 
+        /*--------------------Cargar datos--------------------*/
         $scope.loadData = function() {
             $http.get(api + "/loadInitialData").then(function(response) {
                 //$scope.status = "Status: " + response.status;
@@ -132,7 +135,7 @@ angular
                     window.alert("Datos insertados con exito, gracias!");
                 }
                 else {
-                    window.alert("You will reload the data and delete the search by date");
+                    window.alert("Al recargar los datos, borrará los datos insertados en la búsqueda");
                 }
                 getAttacks();
             });
