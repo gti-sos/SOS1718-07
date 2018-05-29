@@ -10,7 +10,7 @@ var path = require("path");
 describe('Data is loaded', function(){  //compruebo que los datos se cargan
     it('should show same terrorismData', function(){ //para cada una de las comprobaciones meto la palabra it
         browser
-            .get('https://sos1718-07.herokuapp.com/terrorismApp.html#!/global-terrorism-data')  //accede a la direccion
+            .get('https://sos1718-07.herokuapp.com/#!/global-terrorism-data')  //accede a la direccion
             .then(function(){
                 element
                     .all(by.repeater('data in globalTerrorismData'))  //te devuelve todos los elementos de la pagina que ha cargado que cumplan una condicion, que contengan el ng-repeat

@@ -22,7 +22,7 @@
             </td>
         </tr>
         <tr align="center" ng-repeat="attack in attacks">
-            <td><a href="/terrorismApp.html#!/attacks-data/{{attack.country}}/{{attack.city}}/{{attack.date}}">{{attack.country}}</a></td>
+            <td><a href="/#!/attacks-data/{{attack.country}}/{{attack.city}}/{{attack.date}}">{{attack.country}}</a></td>
             <td>{{attack.date}}</td>
             <td>{{attack.city}}</td>
             <td>{{attack.killed}}</td>
@@ -62,17 +62,17 @@
 <tr>
     <td><button class="button btn-danger" ng-click="deleteAllAttacks()">Delete All Data</button></td>
     <td><button class="button btn-primary" ng-click="loadInitialData()">Fill Table</button></td>
-    <td><button class="button btn-primary" onClick="location.href='https://sos1718-07.herokuapp.com/terrorismApp.html#!/attacks-data/analytics';">Analytics Graphs</button></td>
-    <td><button class="button btn-primary" onClick="location.href='https://sos1718-07.herokuapp.com/terrorismApp.html#!/attacks-data/integrations';">Integrations</button></td>
+    <td><button class="button btn-primary" onClick="location.href='https://sos1718-07.herokuapp.com/#!/attacks-data/analytics';">Analytics Graphs</button></td>
+    <td><button class="button btn-primary" onClick="location.href='https://sos1718-07.herokuapp.com/#!/attacks-data/integrations';">Integrations</button></td>
     <td><button class="button btn-primary" onClick="location.href='https://sos1718-07.herokuapp.com/'">Back to HerokuApp</button></td>
 </tr>
 </table>
 
 
 <!-- <h3>
-    <div><a href="terrorismApp.html#!/attacks-data/analytics">Analytics graphs</a></div>
+    <div><a href="#!/attacks-data/analytics">Analytics graphs</a></div>
 </h3>
 <h3>
-    <div><a href="terrorismApp.html#!/attacks-data/integrations">Integrations</a></div>
+    <div><a href="#!/attacks-data/integrations">Integrations</a></div>
 </h3>
 -->

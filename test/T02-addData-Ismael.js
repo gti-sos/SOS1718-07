@@ -10,7 +10,7 @@ var path = require("path");
 describe('Add new Data', function() {
     it('should add a new data', function() {
         browser
-            .get('https://sos1718-07.herokuapp.com/terrorismApp.html#!/attacks-data')
+            .get('https://sos1718-07.herokuapp.com/#!/attacks-data')
             .then(function() {
                 element.all(by.repeater('data in attacks'))
                     .then(function(initialData) {
