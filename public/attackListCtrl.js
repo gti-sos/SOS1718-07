@@ -25,7 +25,7 @@ angular
 
         $scope.addAttack = function() {
             $http.post(api, $scope.newAttack).then(function successCallback(response) {
-               // $scope.status = "Status: " + response.status;
+                // $scope.status = "Status: " + response.status;
                 $scope.attacks = response.data;
 
                 if (response.status === 201) {
@@ -51,7 +51,7 @@ angular
 
         $scope.deleteAllAttacks = function() {
             $http.delete(api).then(function(response) {
-               // $scope.status = "Status: " + response.status;
+                // $scope.status = "Status: " + response.status;
                 if (response.status === 200) {
                     window.alert("Acabas de borrar todos los datos de la tabla");
                 }
@@ -61,7 +61,7 @@ angular
 
         $scope.deleteAttack = function(country, city, date) {
             $http.delete(api + "/" + country + "/" + city + "/" + date).then(function(response) {
-              //  $scope.status = "Status: " + response.status;
+                //  $scope.status = "Status: " + response.status;
                 if (response.status === 200) {
                     window.alert("Ha borrado un dato de la tabla");
                 }
@@ -123,6 +123,19 @@ angular
         $scope.anteriorPag = function() {
             offset -= limit;
             getAttacks();
+        };
+
+        $scope.loadData = function() {
+            $http.get(api + "/loadInitialData").then(function(response) {
+                //$scope.status = "Status: " + response.status;
+                if (response.status === 201) {
+                    window.alert("Datos insertados con exito, gracias!");
+                }
+                else {
+                    window.alert("You will reload the data and delete the search by date");
+                }
+                getAttacks();
+            });
         };
 
     }]);
