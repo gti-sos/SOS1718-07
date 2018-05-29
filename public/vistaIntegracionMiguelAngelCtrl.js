@@ -1,4 +1,4 @@
-angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtrl", ["$scope", "$http", function($scope, $http) {
+angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtrl", ["$scope", "$http", function($scope, $http, $tiempo) {
 
     $http.get("api/v1/global-Terrorism-Data").then(function doneFilter(responseMia) {
         $http.get("https://sos1718-09.herokuapp.com/api/v2/span-univ-stats").then(function doneFilter(responseBalta) {
@@ -105,5 +105,24 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtr
 
         });
     });
+    
+    // NUEVO EN D03 ************************************************************************************************************+
+    
+    $http.get("https://api.openweathermap.org/data/2.5/weather?q=Seville&appid=a58c838b9e41e87a40337f6e0b5ebc10").then(function doneFilter(response){
+        $scope.localidad = response.data['sys'];
+        console.log(response.data['sys']['country']);
+    });
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }]);
