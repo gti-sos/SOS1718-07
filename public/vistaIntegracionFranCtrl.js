@@ -1,6 +1,7 @@
 /*global angular*/
 /*global Highcharts*/
 /*global Morris*/
+/*global c3*/
 
 //CORS CON API DE CRISTIAN ROMERO
 
@@ -160,11 +161,45 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
 
         });
     });
-    
-    $http.get("https://lcboapi.com/products?access_key=MDo2NjNiNzhmNC02NDJhLTExZTgtOTVmNC01M2U3YTgzNzc5NDY6d2dKRm92NGNjSjRBYVQxTUdOQTRXOHVteHBQT3VBT0drQjJL").then(function doneFilter(responseExterna2)  {
-        
-        $scope.generaAlcohol = responseExterna2.data;
-        
+
+    $http.get("https://swapi.co/api/people/1/?format=json").then(function doneFilter(responseExterna2) {
+        $http.get("https://swapi.co/api/people/2/?format=json").then(function doneFilter(responseExterna3) {
+            $http.get("https://swapi.co/api/people/3/?format=json").then(function doneFilter(responseExterna4) {
+                $http.get("api/v1/homicide-reports-data").then(function doneFilter(responseMia) {
+
+                    var defData = [
+                        { "name": responseExterna2.data["name"], "height": responseExterna2.data["height"], "mass": responseExterna2.data["mass"], "victim":responseMia.data[0]["victim_count"] }, {
+                            "name": responseExterna2.data["name"],
+                            "height": 2,
+                            "mass": 2,
+                            "victim": 5
+                           
+                        }, { "name": responseExterna3.data["name"], "height": responseExterna3.data["height"], "mass": responseExterna3.data["mass"], "victim":responseMia.data[1]["victim_count"] }, {
+                            "name": responseExterna3.data["name"],
+                           "height": 2,
+                            "mass": 10,
+                            "victim": 5
+                            
+                        }, { "name": responseExterna4.data["name"], "height": responseExterna4.data["height"], "mass": responseExterna4.data["mass"], "victim":responseMia.data[2]["victim_count"]}, {
+                            "name": responseExterna4.data["name"],
+                            "height": 2,
+                            "mass": 77,
+                            "victim": 7
+                            
+                        }
+                    ];
+                    var chart = new tauCharts.Chart({
+                        data: defData,
+                        type: 'bar',
+                        x: 'name',
+                        y: 'height'
+                    });
+                    chart.renderTo('#segundaIntegracion');
+
+
+                });
+            });
+        });
     });
 
 }]);
