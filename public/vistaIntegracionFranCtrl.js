@@ -136,4 +136,14 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
 
         });
     });
+    
+    
+    //INTEGRACIONES ENTREGABLE FINAL
+     $http.get("https://api.nasa.gov/planetary/apod?api_key=ycbzxcPVfJAqLXZOHsd2wXYiEFeL45Tka3m6Ajoy").then(function doneFilter(response){
+         $scope.generaDatos = response.data;
+         console.log(response.data['date']);
+     });
+        
+    
+    
 }]);
