@@ -1,6 +1,6 @@
 /*global angular*/
 /*global Highcharts*/
-
+/*global Morris*/
 
 //CORS CON API DE CRISTIAN ROMERO
 
@@ -18,7 +18,7 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
                 title: {
                     text: 'Integracion con la API de Cristian Romero'
                 },
-              
+
                 xAxis: {
                     allowDecimals: false,
                     labels: {
@@ -63,10 +63,10 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
                     data: responseMia.data.map(function(d) { return d.victim_count })
                 }, {
                     name: 'Alaska',
-                    data: responseCompi.data.map(function(d) { return(parseFloat(d["min-age"])) })
+                    data: responseCompi.data.map(function(d) { return (parseFloat(d["min-age"])) })
                 }, {
                     name: 'Alabama',
-                    data: responseCompi.data.map(function(d) { return(parseFloat(d["second-grade"] ))})
+                    data: responseCompi.data.map(function(d) { return (parseFloat(d["second-grade"])) })
 
                 }]
             });
@@ -91,8 +91,8 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
                         text: 'Numero de victimas'
                     }
                 },
-                xAxis:{
-                    title:{
+                xAxis: {
+                    title: {
                         text: "Año"
                     },
                     categories: responseCompi.data.map(function(d) { return d.year })
@@ -136,14 +136,35 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
 
         });
     });
-    
-    
+
+
     //INTEGRACIONES ENTREGABLE FINAL
-     $http.get("https://api.nasa.gov/planetary/apod?api_key=ycbzxcPVfJAqLXZOHsd2wXYiEFeL45Tka3m6Ajoy").then(function doneFilter(response){
-         $scope.generaDatos = response.data;
-         console.log(response.data['date']);
-     });
+    $http.get("https://api.nasa.gov/planetary/apod?api_key=ycbzxcPVfJAqLXZOHsd2wXYiEFeL45Tka3m6Ajoy").then(function doneFilter(responseExterna) {
+        //$scope.generaDatos = response.data;
+        $http.get("api/v1/homicide-reports-data").then(function doneFilter(responseMia) {
+
+            Morris.Donut({
+
+                element: 'primeraIntegracion',
+                data: [
+                    { label: responseExterna.data["date"], value: responseMia.data[4]["victim_count"] },
+                    { label: responseExterna.data["media_type"], value: responseMia.data[1]["victim_count"] },
+                    { label: responseExterna.data["service_version"], value: responseMia.data[3]["victim_count"] }
+
+                ],
+                colors: ['red'],
+
+            });
+
+
+
+        });
+    });
+    
+    $http.get("https://lcboapi.com/products?access_key=MDo2NjNiNzhmNC02NDJhLTExZTgtOTVmNC01M2U3YTgzNzc5NDY6d2dKRm92NGNjSjRBYVQxTUdOQTRXOHVteHBQT3VBT0drQjJL").then(function doneFilter(responseExterna2)  {
         
-    
-    
+        $scope.generaAlcohol = responseExterna2.data;
+        
+    });
+
 }]);

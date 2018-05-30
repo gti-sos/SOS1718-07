@@ -56,11 +56,11 @@ var terrorism_data = [
 ];
 
 var homicide_data = [
-    { "year": 1980,"month": "May", "state": "Alaska", "city": "Anchorage", "crime_type": "Murder or Manslaughter", "weapon": "Rifle", "victim_count": 0},
-    { "year": 1980, "month": "August", "state": "Alaska", "city": "North Slope", "crime_type": "Murder or Manslaughter", "weapon": "Rifle", "victim_count": 0},
-    { "year": 1980, "month": "July", "state": "Alaska", "city": "Juneau", "crime_type": "Murder or Manslaughter", "weapon": "Firearm", "victim_count": 0},
-    { "year": 1980, "month": "March", "state": "Alabama", "city": "Jefferson", "crime_type": "Murder or Manslaughter", "weapon": "Knife", "victim_count": 0},
-    { "year": 1994, "month": "April", "state": "New York", "city": "Monroe", "crime_type": "Murder or Manslaughter", "weapon": "Rifle", "victim_count": 1}
+    { "year": 1980,"month": "May", "state": "Alaska", "city": "Anchorage", "crime_type": "Murder or Manslaughter", "weapon": "Rifle", "victim_count": 50},
+    { "year": 1980, "month": "August", "state": "Alaska", "city": "North Slope", "crime_type": "Murder or Manslaughter", "weapon": "Rifle", "victim_count": 20},
+    { "year": 1980, "month": "July", "state": "Alaska", "city": "Juneau", "crime_type": "Murder or Manslaughter", "weapon": "Firearm", "victim_count": 60},
+    { "year": 1980, "month": "March", "state": "Alabama", "city": "Jefferson", "crime_type": "Murder or Manslaughter", "weapon": "Knife", "victim_count": 100},
+    { "year": 1994, "month": "April", "state": "New York", "city": "Monroe", "crime_type": "Murder or Manslaughter", "weapon": "Rifle", "victim_count": 15}
 ];
 
 var attacks_data = 
