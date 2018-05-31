@@ -1,5 +1,7 @@
 angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtrl", ["$scope", "$http", function($scope, $http, $tiempo) {
 
+
+
     $http.get("api/v1/global-Terrorism-Data").then(function doneFilter(responseMia) {
         $http.get("https://sos1718-09.herokuapp.com/api/v2/span-univ-stats").then(function doneFilter(responseBalta) {
             Highcharts.chart('integracionBalta', {
@@ -459,15 +461,36 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtr
 
     });
 
-    var client = new Twitter({
-        consumer_key: '	wfgW30S6IF1bHq46ximaGJRYn',
-        consumer_secret: '	ThGF6nkeGMfT3UNqFFS6x6GbPypY2yUfxbplarwihJlfieQazR',
-        access_token_key: '502182716-UKMUENxnosnV9OdvgeprD8dNavtf5mURW0FgGXIZ',
-        access_token_secret: '7Nh90FbRrYbUweCTluxTV1f7e0K7awgrwxlJP5qdT0y3f'
-    });
+    $http.get("api/v1/global-Terrorism-Data").then(function doneFilter(responseMia) {
+        $http.get("https://us.api.battle.net/wow/boss/?locale=en_US&apikey=2ern4ym5vrt82w5uf56ycu6hcwu23w8s").then(function doneFilter(responseExterna) {
+            var misDatos = [];
+            var datosExternos = [];
+            var datosExternos2 = [];
+            for (var i = 0; i < responseMia.data.length; i++) {
+                misDatos.push(responseMia.data[i].city);
+            }
+            for (var j = 0; j < responseMia.data.length; j++) {
+                datosExternos2.push(responseExterna.data.bosses[j].journalId);
+                datosExternos.push(responseExterna.data.bosses[j].zoneId);
+            }
 
-    client.get('search/tweets', { q: 'node.js' }, function(error, tweets, response) {
-        console.log(tweets);
+            new Chartist.Line('#chart', {
+                labels: [misDatos],
+                series: [datosExternos2,datosExternos]
+            }), {
+                high: 100000,
+                low: 0,
+                showArea: true,
+                showLine: false,
+                showPoint: false,
+                fullWjournalIdth: true,
+                axisX: {
+                    showLabel: false,
+                    showGrjournalId: false
+                }
+            };
+
+        });
     });
 
 
