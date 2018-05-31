@@ -228,10 +228,10 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtr
 
 
     $http.get("https://data.police.uk/api/crimes-street-dates").then(function doneFilter(responseExterna) {
-        
+
         var array = [];
         var i = 0;
-        for(i; i< responseExterna.data.length; i ++){
+        for (i; i < responseExterna.data.length; i++) {
             var object = {};
             object["label"] = responseExterna.data[i]["date"];
             object["value"] = responseExterna.data[i]["stop-and-search"].length;
@@ -241,7 +241,7 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtr
         FusionCharts.ready(function() {
             var topStores = new FusionCharts({
                     type: 'bar2d',
-                    renderAt: 'chart-container',
+                    renderAt: 'terceraIntegracionExterna',
                     width: '700',
                     height: '600',
                     dataFormat: 'json',
@@ -281,6 +281,195 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtr
                 .render();
         });
     });
+
+
+    $http.get("https://servicios.ine.es/wstempus/js/ES/OPERACIONES_DISPONIBLES").then(function doneFilter(responseExterna) {
+        FusionCharts.ready(function() {
+            var conversionChart = new FusionCharts({
+                type: 'bubble',
+                renderAt: 'chart-container',
+                width: '900',
+                height: '600',
+                dataFormat: 'json',
+                dataSource: {
+                    "chart": {
+                        "caption": "Analysis of INE price",
+                        "subcaption": "Last Quarter",
+                        "xAxisMinValue": "0",
+                        "xAxisMaxValue": "100",
+                        "yAxisMinValue": "0",
+                        "yAxisMaxValue": "30000",
+                        "plotFillAlpha": "70",
+                        "plotFillHoverColor": "#6baa01",
+                        "showPlotBorder": "0",
+                        "xAxisName": "Average Price",
+                        "yAxisName": "Units",
+                        "numDivlines": "2",
+                        "showValues": "1",
+                        "showTrendlineLabels": "0",
+                        "plotTooltext": "$name : Código INE - $zvalue%",
+                        "drawQuadrant": "1",
+                        "quadrantLineAlpha": "80",
+                        "quadrantLineThickness": "3",
+                        "quadrantXVal": "50",
+                        "quadrantYVal": "15000",
+                        //Quadrant Labels
+                        "quadrantLabelTL": "Low Price / High Sale",
+                        "quadrantLabelTR": "High Price / High Sale",
+                        "quadrantLabelBL": "Low Price / Low Sale",
+                        "quadrantLabelBR": "High Price / Low Sale",
+
+                        //Cosmetics
+                        "baseFontColor": "#333333",
+                        "baseFont": "Helvetica Neue,Arial",
+                        "captionFontSize": "14",
+                        "subcaptionFontSize": "14",
+                        "subcaptionFontBold": "0",
+                        "showBorder": "0",
+                        "bgColor": "#ffffff",
+                        "showShadow": "0",
+                        "canvasBgColor": "#ffffff",
+                        "canvasBorderAlpha": "0",
+                        "divlineAlpha": "100",
+                        "divlineColor": "#999999",
+                        "divlineThickness": "1",
+                        "divLineIsDashed": "1",
+                        "divLineDashLen": "1",
+                        "divLineGapLen": "1",
+                        "use3dlighting": "0",
+                        "showplotborder": "0",
+                        "showYAxisLine": "1",
+                        "yAxisLineThickness": "1",
+                        "yAxisLineColor": "#999999",
+                        "showXAxisLine": "1",
+                        "xAxisLineThickness": "1",
+                        "xAxisLineColor": "#999999",
+                        "showAlternateHGridColor": "0",
+                        "showAlternateVGridColor": "0"
+
+                    },
+                    "categories": [{
+                        "category": [{
+                                "label": "$0",
+                                "x": "0"
+                            },
+                            {
+                                "label": "$20",
+                                "x": "20",
+                                "showverticalline": "1"
+                            },
+                            {
+                                "label": "$40",
+                                "x": "40",
+                                "showverticalline": "1"
+                            },
+                            {
+                                "label": "$60",
+                                "x": "60",
+                                "showverticalline": "1"
+                            },
+                            {
+                                "label": "$80",
+                                "x": "80",
+                                "showverticalline": "1"
+                            }, {
+                                "label": "$100",
+                                "x": "100",
+                                "showverticalline": "1"
+                            }
+                        ]
+                    }],
+                    "dataset": [{
+                        "color": "#00aee4",
+                        "data": [{
+                                "x": "80",
+                                "y": "15000",
+                                "z": "24",
+                                "name": responseExterna.data[0]["Codigo"]
+                            },
+                            {
+                                "x": "60",
+                                "y": "18500",
+                                "z": "26",
+                                "name": responseExterna.data[1]["Codigo"]
+                            },
+                            {
+                                "x": "50",
+                                "y": "19450",
+                                "z": "19",
+                                "name": responseExterna.data[2]["Codigo"]
+                            },
+                            {
+                                "x": "65",
+                                "y": "10500",
+                                "z": "8",
+                                "name": responseExterna.data[3]["Codigo"]
+                            },
+                            {
+                                "x": "43",
+                                "y": "8750",
+                                "z": "5",
+                                "name": responseExterna.data[4]["Codigo"]
+                            },
+                            {
+                                "x": "32",
+                                "y": "22000",
+                                "z": "10",
+                                "name": responseExterna.data[5]["Codigo"]
+                            },
+                            {
+                                "x": "44",
+                                "y": "13000",
+                                "z": "9",
+                                "name": responseExterna.data[6]["Codigo"]
+                            }
+                        ]
+                    }],
+                    "trendlines": [{
+                        "line": [{
+                                "startValue": "20000",
+                                "endValue": "30000",
+                                "isTrendZone": "1",
+                                "color": "#aaaaaa",
+                                "alpha": "14"
+                            },
+                            {
+                                "startValue": "10000",
+                                "endValue": "20000",
+                                "isTrendZone": "1",
+                                "color": "#aaaaaa",
+                                "alpha": "7"
+                            }
+                        ]
+                    }],
+                    "vTrendlines": [{
+                        "line": [{
+                            "startValue": "44",
+                            "isTrendZone": "0",
+                            "color": "#0066cc",
+                            "thickness": "1",
+                            "dashed": "1",
+                            "displayValue": "Gross Avg."
+                        }]
+                    }]
+                }
+            });
+            conversionChart.render();
+        });
+
+    });
+
+    var client = new Twitter({
+        consumer_key: '	wfgW30S6IF1bHq46ximaGJRYn',
+        consumer_secret: '	ThGF6nkeGMfT3UNqFFS6x6GbPypY2yUfxbplarwihJlfieQazR',
+        access_token_key: '502182716-UKMUENxnosnV9OdvgeprD8dNavtf5mURW0FgGXIZ',
+        access_token_secret: '7Nh90FbRrYbUweCTluxTV1f7e0K7awgrwxlJP5qdT0y3f'
+    });
+
+    client.get('search/tweets', { q: 'node.js' }, function(error, tweets, response) {
+        console.log(tweets);
+    });
+
 
 
 
