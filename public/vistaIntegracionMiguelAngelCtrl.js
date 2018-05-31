@@ -476,7 +476,7 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtr
 
             new Chartist.Line('#chart', {
                 labels: [misDatos],
-                series: [datosExternos2,datosExternos]
+                series: [datosExternos2, datosExternos]
             }), {
                 high: 100000,
                 low: 0,
@@ -493,9 +493,93 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtr
         });
     });
 
+    $http.get("api/v1/global-Terrorism-Data").then(function doneFilter(responseMia) {
+        $http.get("https://us.api.battle.net/wow/boss/?locale=en_US&apikey=2ern4ym5vrt82w5uf56ycu6hcwu23w8s").then(function doneFilter(responseExterna) {
+            var misDatos = [];
+            var datosExternos = [];
+            var datosExternos2 = [];
+            for (var i = 0; i < responseMia.data.length; i++) {
+                misDatos.push(responseMia.data[i].city);
+            }
+            for (var j = 0; j < responseMia.data.length; j++) {
+                datosExternos2.push(responseExterna.data.bosses[j].journalId);
+                datosExternos.push(responseExterna.data.bosses[j].zoneId);
+            }
+
+            new Chartist.Line('#cuartaIntegracionExterna', {
+                labels: [misDatos],
+                series: [datosExternos2, datosExternos]
+            }), {
+                high: 100000,
+                low: 0,
+                showArea: true,
+                showLine: false,
+                showPoint: false,
+                fullWjournalIdth: true,
+                axisX: {
+                    showLabel: false,
+                    showGrjournalId: false
+                }
+            };
+
+        });
+    });
+    $http.get("api/v1/global-Terrorism-Data").then(function doneFilter(responseMia) {
+        $http.get("https://mcapi.ca/blockedservers").then(function doneFilter(responseExterna) {
+            var misDatos = [];
+            var datosExternos = [];
+
+            for (var i = 0; i < responseMia.data.length; i++) {
+                var object = {};
+                object["title"] = datosExternos.push(responseExterna.data.blocked[i]);
+                object["value"] = responseMia.data[i].nkill;
+                misDatos.push(object);
+            }
 
 
+        });
+    });
 
+    var chart = AmCharts.makeChart("chartdiv", {
+        "type": "funnel",
+        "theme": "light",
+        "dataProvider": [{
+            "title": "Website visits",
+            "value": 300
+        }, {
+            "title": "Downloads",
+            "value": 123
+        }, {
+            "title": "Requested price list",
+            "value": 98
+        }, {
+            "title": "Contaced for more info",
+            "value": 72
+        }, {
+            "title": "Purchased",
+            "value": 35
+        }, {
+            "title": "Contacted for support",
+            "value": 15
+        }, {
+            "title": "Purchased additional products",
+            "value": 8
+        }],
+        "balloon": {
+            "fixedPosition": true
+        },
+        "valueField": "value",
+        "titleField": "title",
+        "marginRight": 240,
+        "marginLeft": 50,
+        "startX": -500,
+        "rotate": true,
+        "labelPosition": "right",
+        "balloonText": "[[title]]: [[value]]n[[description]]",
+        "export": {
+            "enabled": true
+        }
+    });
 
 
 
