@@ -147,6 +147,7 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
             Morris.Donut({
 
                 element: 'primeraIntegracion',
+
                 data: [
                     { label: responseExterna.data["date"], value: responseMia.data[4]["victim_count"] },
                     { label: responseExterna.data["media_type"], value: responseMia.data[1]["victim_count"] },
@@ -167,34 +168,63 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
             $http.get("https://swapi.co/api/people/3/?format=json").then(function doneFilter(responseExterna4) {
                 $http.get("api/v1/homicide-reports-data").then(function doneFilter(responseMia) {
 
-                    var defData = [
-                        { "name": responseExterna2.data["name"], "height": responseExterna2.data["height"], "mass": responseExterna2.data["mass"], "victim":responseMia.data[0]["victim_count"] }, {
-                            "name": responseExterna2.data["name"],
-                            "height": 2,
-                            "mass": 2,
-                            "victim": 5
-                           
-                        }, { "name": responseExterna3.data["name"], "height": responseExterna3.data["height"], "mass": responseExterna3.data["mass"], "victim":responseMia.data[1]["victim_count"] }, {
-                            "name": responseExterna3.data["name"],
-                           "height": 2,
-                            "mass": 10,
-                            "victim": 5
-                            
-                        }, { "name": responseExterna4.data["name"], "height": responseExterna4.data["height"], "mass": responseExterna4.data["mass"], "victim":responseMia.data[2]["victim_count"]}, {
-                            "name": responseExterna4.data["name"],
-                            "height": 2,
-                            "mass": 77,
-                            "victim": 7
-                            
-                        }
-                    ];
-                    var chart = new tauCharts.Chart({
-                        data: defData,
-                        type: 'bar',
-                        x: 'name',
-                        y: 'height'
+
+
+                    FusionCharts.ready(function() {
+                        var ageGroupChart = new FusionCharts({
+                            type: 'pie2d',
+                            renderAt: 'segundaIntegracion',
+                            width: '700',
+                            height: '600',
+                            dataFormat: 'json',
+                            dataSource: {
+                                "chart": {
+                                    "caption": "Victimas por persona",
+                                    "subCaption": "This year",
+                                    "paletteColors": "#0075c2,#1aaf5d,#f2c500,#f45b00,#8e0000",
+                                    "bgColor": "#ffffff",
+                                    "showBorder": "0",
+                                    "use3DLighting": "0",
+                                    "showShadow": "0",
+                                    "enableSmartLabels": "0",
+                                    "startingAngle": "0",
+                                    "showPercentValues": "1",
+                                    "showPercentInTooltip": "0",
+                                    "decimals": "1",
+                                    "captionFontSize": "14",
+                                    "subcaptionFontSize": "14",
+                                    "subcaptionFontBold": "0",
+                                    "toolTipColor": "#ffffff",
+                                    "toolTipBorderThickness": "0",
+                                    "toolTipBgColor": "#000000",
+                                    "toolTipBgAlpha": "80",
+                                    "toolTipBorderRadius": "2",
+                                    "toolTipPadding": "5",
+                                    "showHoverEffect": "1",
+                                    "showLegend": "1",
+                                    "legendBgColor": "#ffffff",
+                                    "legendBorderAlpha": '0',
+                                    "legendShadow": '0',
+                                    "legendItemFontSize": '10',
+                                    "legendItemFontColor": '#666666'
+                                },
+                                "data": [{
+                                        "label": "mass",
+                                        "value": responseExterna2.data["mass"]
+                                    },
+                                    {
+                                        "label": "height",
+                                        "value": responseExterna3.data["height"]
+                                    },
+                                    {
+                                        "label": "victim_count",
+                                        "value": responseMia.data[0]["victim_count"]
+                                    }
+
+                                ]
+                            }
+                        }).render();
                     });
-                    chart.renderTo('#segundaIntegracion');
 
 
                 });
@@ -202,4 +232,138 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
         });
     });
 
+
+    $http.get("https://libraries.io/api/platforms").then(function doneFilter(responseExterna3) {
+        $http.get("api/v1/homicide-reports-data").then(function doneFilter(responseMia) {
+
+            FusionCharts.ready(function() {
+                var revCompChart = new FusionCharts({
+                    type: 'waterfall2d',
+                    renderAt: 'terceraIntegracion',
+                    width: '700',
+                    height: '600',
+                    dataFormat: 'json',
+                    dataSource: {
+                        "chart": {
+                            "caption": "Total muertes",
+                            "subcaption": "this year",
+                            "yAxisname": "Number",
+                            "connectordashed": "1",
+                            "sumlabel": "Total ",
+                            "positiveColor": "#6baa01",
+                            "negativeColor": "#e44a00",
+
+                            //Cosmetics
+                            "paletteColors": "#0075c2,#1aaf5d,#f2c500",
+                            "baseFontColor": "#333344",
+                            "baseFont": "Helvetica Neue,Arial",
+                            "captionFontSize": "14",
+                            "subcaptionFontSize": "14",
+                            "subcaptionFontBold": "0",
+                            "showBorder": "0",
+                            "bgColor": "#ffffff",
+                            "showShadow": "0",
+                            "canvasBgColor": "#ffffff",
+                            "canvasBorderAlpha": "0",
+                            "divlineAlpha": "100",
+                            "divlineColor": "#999999",
+                            "divlineThickness": "1",
+                            "divLineIsDashed": "1",
+                            "divLineDashLen": "1",
+                            "divLineGapLen": "1",
+                            "usePlotGradientColor": "0",
+                            "showplotborder": "0",
+                            "showXAxisLine": "1",
+                            "xAxisLineThickness": "1",
+                            "xAxisLineColor": "#999999",
+                            "showAlternateHGridColor": "0",
+                        },
+                        "data": [{
+                                "label": responseExterna3.data[0]["name"],
+                                "value": responseMia.data[0]["victim_count"]
+                            },
+                            {
+                                "label": responseExterna3.data[1]["name"],
+                                "value": responseMia.data[1]["victim_count"]
+                            },
+                            {
+                                "label": responseExterna3.data[2]["name"],
+                                "issum": responseMia.data[2]["victim_count"]
+                            },
+                            {
+                                "label": responseExterna3.data[3]["name"],
+                                "value": responseMia.data[3]["victim_count"]
+                            },
+                            {
+                                "label": responseExterna3.data[4]["name"],
+                                "value": responseMia.data[4]["victim_count"]
+                            }
+
+                        ]
+                    }
+                }).render();
+            });
+
+        });
+    });
+
+    $http.get("https://api.citybik.es/v2/networks/").then(function doneFilter(responseExterna3) {
+        $http.get("api/v1/homicide-reports-data").then(function doneFilter(responseMia) {
+            var datos = [];
+            var i = 0;
+            var j = 0;
+            var api = responseExterna3.data.networks.length;
+            var apiMia = responseMia.data.length;
+            for (i; i < api; i++) {
+
+
+                var object1 = {};
+                object1["label"] = responseExterna3.data.networks[i].name;
+
+                datos.push(object1);
+
+            }
+
+            for (j; j < apiMia; j++) {
+                var object2 = {};
+                object2["value"] = responseMia.data[j].victim_count;
+                datos.push(object2);
+            }
+
+            var chart = AmCharts.makeChart("chartdiv", {
+                "theme": "light",
+                "type": "serial",
+                "startDuration": 2,
+                "dataProvider":datos,
+                "valueAxes": [{
+                    "position": "left",
+                    "title": "Visitors"
+                }],
+                "graphs": [{
+                    "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "fillColorsField": "color",
+                    "fillAlphas": 1,
+                    "lineAlpha": 0.1,
+                    "type": "column",
+                    "valueField": "visits"
+                }],
+                "depth3D": 20,
+                "angle": 30,
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+                "categoryField": "country",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "labelRotation": 90
+                },
+                "export": {
+                    "enabled": true
+                }
+
+            });
+        });
+    });
 }]);
