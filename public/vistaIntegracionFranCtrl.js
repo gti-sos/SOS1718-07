@@ -309,60 +309,21 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
 
     $http.get("https://api.citybik.es/v2/networks/").then(function doneFilter(responseExterna3) {
         $http.get("api/v1/homicide-reports-data").then(function doneFilter(responseMia) {
-            var datos = [];
-            var i = 0;
-            var j = 0;
-            var api = responseExterna3.data.networks.length;
-            var apiMia = responseMia.data.length;
-            for (i; i < api; i++) {
 
 
-                var object1 = {};
-                object1["label"] = responseExterna3.data.networks[i].name;
-
-                datos.push(object1);
-
-            }
-
-            for (j; j < apiMia; j++) {
-                var object2 = {};
-                object2["value"] = responseMia.data[j].victim_count;
-                datos.push(object2);
-            }
-
-            var chart = AmCharts.makeChart("chartdiv", {
-                "theme": "light",
-                "type": "serial",
-                "startDuration": 2,
-                "dataProvider":datos,
-                "valueAxes": [{
-                    "position": "left",
-                    "title": "Visitors"
-                }],
-                "graphs": [{
-                    "balloonText": "[[category]]: <b>[[value]]</b>",
-                    "fillColorsField": "color",
-                    "fillAlphas": 1,
-                    "lineAlpha": 0.1,
-                    "type": "column",
-                    "valueField": "visits"
-                }],
-                "depth3D": 20,
-                "angle": 30,
-                "chartCursor": {
-                    "categoryBalloonEnabled": false,
-                    "cursorAlpha": 0,
-                    "zoomable": false
-                },
-                "categoryField": "country",
-                "categoryAxis": {
-                    "gridPosition": "start",
-                    "labelRotation": 90
-                },
-                "export": {
-                    "enabled": true
-                }
-
+            Morris.Bar({
+                element: 'chartdiv',
+                data: [
+                    { y: responseExterna3.data["networks"][0]["location"]["city"] , a: responseMia.data[4].victim_count, b: responseExterna3.data["networks"][0]["location"]["latitude"] },
+                    { y: responseExterna3.data["networks"][1]["location"]["city"], a: responseMia.data[3].victim_count, b: responseExterna3.data["networks"][1]["location"]["latitude"] },
+                    { y: responseExterna3.data["networks"][2]["location"]["city"], a: responseMia.data[2].victim_count, b: responseExterna3.data["networks"][2]["location"]["latitude"] },
+                    { y: responseExterna3.data["networks"][3]["location"]["city"], a: responseMia.data[0].victim_count, b: responseExterna3.data["networks"][3]["location"]["latitude"] },
+                    { y: responseExterna3.data["networks"][4]["location"]["city"], a: responseMia.data[1].victim_count, b: responseExterna3.data["networks"][4]["location"]["latitude"] }
+                    
+                ],
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['Victimas', 'Latitud']
             });
         });
     });
