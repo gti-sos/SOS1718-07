@@ -5,6 +5,7 @@
    $routeProvider
     .when("/analytics", {
      templateUrl: "analytics.html",
+     controller: "analyticsCtrl"
     })
     .when("/integrations", {
      templateUrl: "integrations.html",

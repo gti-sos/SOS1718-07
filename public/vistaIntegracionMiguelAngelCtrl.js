@@ -66,12 +66,20 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtr
 
     $http.get("api/v1/global-Terrorism-Data").then(function doneFilter(responseMia) {
         $http.get("proxyMA/api/v2/crimes-an").then(function doneFilter(responseJose) {
+            var dataFinal = [];
+            for(var i = 0; i < responseMia.data.length; i++){
+                var dataIntermedia = [];
+                dataIntermedia.push(responseMia.data[i]["country_txt"]);
+                dataIntermedia.push(responseJose.data[i].onecrime);
+                dataFinal.push(dataIntermedia);
+            }
+            console.log(dataFinal);
             Highcharts.chart('integracionJose', {
                 chart: {
                     type: 'pyramid'
                 },
                 title: {
-                    text: 'Sales pyramid',
+                    text: 'Crimenes en los paises de mi api',
                     x: -50
                 },
                 plotOptions: {
@@ -90,14 +98,8 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtr
                     enabled: false
                 },
                 series: [{
-                    name: 'Unique users',
-                    data: [
-                        ['Website visits', 15654],
-                        ['Downloads', 4064],
-                        ['Requested price list', 1987],
-                        ['Invoice sent', 976],
-                        ['Finalized', 846]
-                    ]
+                    name: 'onecrime',
+                    data: dataFinal
                 }]
             });
 
