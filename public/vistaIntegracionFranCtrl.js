@@ -314,12 +314,12 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
             Morris.Bar({
                 element: 'chartdiv',
                 data: [
-                    { y: responseExterna3.data["networks"][0]["location"]["city"] , a: responseMia.data[4].victim_count, b: responseExterna3.data["networks"][0]["location"]["latitude"] },
+                    { y: responseExterna3.data["networks"][0]["location"]["city"], a: responseMia.data[4].victim_count, b: responseExterna3.data["networks"][0]["location"]["latitude"] },
                     { y: responseExterna3.data["networks"][1]["location"]["city"], a: responseMia.data[3].victim_count, b: responseExterna3.data["networks"][1]["location"]["latitude"] },
                     { y: responseExterna3.data["networks"][2]["location"]["city"], a: responseMia.data[2].victim_count, b: responseExterna3.data["networks"][2]["location"]["latitude"] },
                     { y: responseExterna3.data["networks"][3]["location"]["city"], a: responseMia.data[0].victim_count, b: responseExterna3.data["networks"][3]["location"]["latitude"] },
                     { y: responseExterna3.data["networks"][4]["location"]["city"], a: responseMia.data[1].victim_count, b: responseExterna3.data["networks"][4]["location"]["latitude"] }
-                    
+
                 ],
                 xkey: 'y',
                 ykeys: ['a', 'b'],
@@ -327,4 +327,9 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
             });
         });
     });
+
+     $http.get("https://api.geonames.org/citiesJSON?north=44.1&south=-9.9&east=-22.4&west=55.2&lang=de&username=daboca92").then(function doneFilter(responseExterna5) {
+         
+         
+     });
 }]);
