@@ -71,11 +71,6 @@ angular.module("TerrorismManagerApp").controller("vistasMiguelAngelCtrl", ["$sco
     });
 
     $http.get("api/v1/global-Terrorism-Data").then(function doneFilter(response) {
-        var defData = [
-            { "team": "d", "cycleTime": 1, "effort": 1, "count": 1, "priority": "low" },
-
-            { "team": "k", "cycleTime": 4, "effort": 6, "count": 8, "priority": "medium" }
-        ];
         var chart = new tauCharts.Chart({
             type: 'bar',
             x: 'country_txt',
