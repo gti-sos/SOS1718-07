@@ -68,40 +68,36 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionMiguelAngelCtr
         $http.get("proxyMA/api/v2/crimes-an").then(function doneFilter(responseJose) {
             Highcharts.chart('integracionJose', {
                 chart: {
-                    type: 'spline'
+                    type: 'pyramid'
                 },
                 title: {
-                    text: 'Integracion con api de Jose Enrique'
-                },
-                xAxis: {
-                    categories: responseJose.data.map(function(d) { return d.province })
-                },
-                yAxis: {
-                    title: {
-                        text: 'Numero de fallecidos'
-                    },
-                    labels: {
-                        formatter: function() {
-                            return this.value;
-                        }
-                    }
-                },
-                tooltip: {
-                    crosshairs: true,
-                    shared: true
+                    text: 'Sales pyramid',
+                    x: -50
                 },
                 plotOptions: {
-                    spline: {
-                        marker: {
-                            radius: 4,
-                            lineColor: '#666666',
-                            lineWidth: 1
-                        }
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b> ({point.y:,.0f})',
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                            softConnector: true
+                        },
+                        center: ['40%', '50%'],
+                        width: '80%'
                     }
                 },
+                legend: {
+                    enabled: false
+                },
                 series: [{
-                    name: 'Numero de fallecidos',
-                    data: responseMia.data.map(function(d) { return d.nkill })
+                    name: 'Unique users',
+                    data: [
+                        ['Website visits', 15654],
+                        ['Downloads', 4064],
+                        ['Requested price list', 1987],
+                        ['Invoice sent', 976],
+                        ['Finalized', 846]
+                    ]
                 }]
             });
 
