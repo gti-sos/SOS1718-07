@@ -121,24 +121,25 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
 
     ///////////////////    Gráfica externa 1 ///////////////////////
 
-    $http.get("http://api.tvmaze.com/singlesearch/shows?q=girls").then(function doneFilter(responseExterna) {
+    $http.get("https://api.jcdecaux.com/vls/v1/stations/?contract=Seville&apiKey=6fa39265431480ca0b5f3393cd78f29e2d436882").then(function doneFilter(responseExterna) {
         //$scope.generaDatos = response.data;
         $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
+            
+            var dataFinal = [];
+            for(var i = 0; i<responseMia.data.length; i++){
+                var objeto = {};
+                objeto["y"] = responseMia.data[i].date;
+                objeto["a"] = responseExterna.data[i]["number"];
+                dataFinal.push(objeto);
+            }
+            //console.log(dataFinal);
 
             Morris.Line({
                 element: 'primeraIntegracion',
-                data: [
-                    { y: '2006', a: 100, b: 90 },
-                    { y: '2007', a: 75, b: 65 },
-                    { y: '2008', a: 50, b: 40 },
-                    { y: '2009', a: 75, b: 65 },
-                    { y: '2010', a: 50, b: 40 },
-                    { y: '2011', a: 75, b: 65 },
-                    { y: '2012', a: 100, b: 90 }
-                ],
+                data: dataFinal,
                 xkey: 'y',
-                ykeys: ['a', 'b'],
-                labels: ['Series A', 'Series B']
+                ykeys: ['a'],
+                labels: ['Id de la zona']
             });
         });
     });
@@ -148,13 +149,16 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
     $http.get("https://restcountries.eu/rest/v2/all").then(function doneFilter(responseExterna) {
         $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
             anychart.onDocumentReady(function() {
-                // The data used in this sample can be obtained from the CDN
-                // https://cdn.anychart.com/samples/error-charts/marker-chart/data.json
                 var data = anychart.data.set([
-                    [responseMia.data[0]["killed"], responseExterna.data["population"]],
-                    [responseMia.data[1]["killed"], responseExterna.data["area"]],
-                  //  [responseMia.data[2]["killed"], responseExterna.data["main"]["humidity"]],
-                  //  [responseMia.data[3]["killed"], responseExterna.data["main"]["temp_min"]]
+                    [responseMia.data[0]["killed"], responseExterna.data[0]["area"]],
+                    [responseMia.data[1]["killed"], responseExterna.data[1]["area"]],
+                    [responseMia.data[2]["killed"], responseExterna.data[2]["area"]],
+                    [responseMia.data[3]["killed"], responseExterna.data[3]["area"]],
+                    [responseMia.data[4]["killed"], responseExterna.data[8]["area"]],
+                    [responseMia.data[5]["killed"], responseExterna.data[5]["area"]],
+                    [responseMia.data[6]["killed"], responseExterna.data[6]["area"]],
+                    [responseMia.data[7]["killed"], responseExterna.data[7]["area"]]
+
                 ]);
                 // create scatter chart
                 var chart = anychart.marker(data);
@@ -163,7 +167,7 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
                 chart.padding([5, 10, 0, 5]);
 
                 // set chart title text settings
-                chart.title('Prime Costs and Prices for ACME Fashion\nCollection "Spring-Summer, 2016"');
+                chart.title('Integracion del número de muertos por terrorismo con area de superficie del país de la api externa');
 
                 // create marker series
                 var series = chart.marker(data);
@@ -181,7 +185,7 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
                     })
                     .format(function() {
                         return '<span style="font-size: 12px; color: #E1E1E1">Numero de muertos: </span>' + this.getData('x') + '<br/>' +
-                            '<span style="font-size: 12px; color: #E1E1E1">Api externa: </span>' + this.getData('value');
+                            '<span style="font-size: 12px; color: #E1E1E1">Area del pais (api externa): </span>' + this.getData('value');
                     });
 
                 // set titles for axises
@@ -195,5 +199,94 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
             });
         });
     });
+
+    ///////////////////    Gráfica externa 3 ///////////////////////
+    $http.get("https://restcountries.eu/rest/v2/all").then(function doneFilter(responseExterna) {
+        $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
+
+            anychart.onDocumentReady(function() {
+                var data = anychart.data.set([
+                    [responseMia.data[0]["killed"], responseExterna.data[0]["area"]],
+                    [responseMia.data[1]["killed"], responseExterna.data[1]["area"]],
+                    [responseMia.data[2]["killed"], responseExterna.data[2]["area"]],
+                    [responseMia.data[3]["killed"], responseExterna.data[3]["area"]]
+
+
+                ]);
+
+                // create scatter chart
+                var chart = anychart.scatter(data);
+
+                // turn on chart animation
+                chart.animation(true);
+
+                // set chart title text settings
+                chart.title()
+                    .enabled(true)
+                    .useHtml(true)
+                    .padding([0, 0, 10, 0])
+                    .text('Best sportsmen training data ' +
+                        '<br/><span  style="color:#929292; font-size: 12px;">' +
+                        '(bubble size means duration, each bubble represents one training)</span>'
+                    );
+
+                // set chart margin settings
+                chart.padding(20, 20, 10, 20);
+
+                // grid settings
+                chart.yGrid(true)
+                    .xGrid(true)
+                    .xMinorGrid(true)
+                    .yMinorGrid(true);
+
+                // bubble size settings
+                chart.minBubbleSize(5)
+                    .maxBubbleSize(40);
+
+                // set chart axes settings
+                chart.xAxis()
+                    .title('Average pulse during training')
+                    .minorTicks(true);
+                chart.yAxis()
+                    .title('Average power')
+                    .minorTicks(true);
+
+                //set chart legend settings
+                chart.legend()
+                    .enabled(true)
+                    .padding({
+                        bottom: 10
+                    });
+
+                // create first series with mapped data
+                chart.bubble(sportsmen1).name('Christopher Sanchez');
+                // create second series with mapped data
+                chart.bubble(sportsmen2).name('Judy Evans');
+                // create third series with mapped data
+                chart.bubble(sportsmen3).name('Walter Burke');
+                // create forth series with mapped data
+                chart.bubble(sportsmen4).name('Daniel Williamson');
+
+                chart.tooltip()
+                    .useHtml(true)
+                    .fontColor('#fff')
+                    .format(function() {
+                        return this.getData('data') + '<br/>' +
+                            'Power: <span style="color: #d2d2d2; font-size: 12px">' +
+                            this.getData('value') + '</span></strong><br/>' +
+                            'Pulse: <span style="color: #d2d2d2; font-size: 12px">' +
+                            this.getData('x') + '</span></strong><br/>' +
+                            'Duration: <span style="color: #d2d2d2; font-size: 12px">' +
+                            this.getData('size') + ' min.</span></strong>';
+                    });
+
+                // set container id for the chart
+                chart.container('terceraIntegracion');
+
+                // initiates chart drawing
+                chart.draw();
+            });
+        }); 
+    }); 
 
 }]);
