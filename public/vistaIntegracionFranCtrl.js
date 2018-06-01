@@ -3,6 +3,7 @@
 /*global Morris*/
 /*global c3*/
 
+
 //CORS CON API DE CRISTIAN ROMERO
 
 
@@ -328,8 +329,82 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionFranCtrl", ["$
         });
     });
 
-     $http.get("https://api.geonames.org/citiesJSON?north=44.1&south=-9.9&east=-22.4&west=55.2&lang=de&username=daboca92").then(function doneFilter(responseExterna5) {
-         
-         
-     });
+    $http.get("https://api.tvmaze.com/search/people?q=lauren").then(function doneFilter(responseExterna5) {
+        var datos = [];
+
+        for (var i = 0; i < responseExterna5.data.length; i++) {
+            var object = {};
+            object["title"] = responseExterna5.data[i]["person"]["name"];
+            object["value"] = responseExterna5.data[i]["score"];
+            datos.push(object);
+        }
+        var chart = AmCharts.makeChart("quintaIntegracion", {
+            "type": "funnel",
+            "theme": "light",
+            "dataProvider": datos,
+            "balloon": {
+                "fixedPosition": true
+            },
+            "valueField": "value",
+            "titleField": "title",
+            "marginRight": 240,
+            "marginLeft": 50,
+            "startX": -500,
+            "rotate": true,
+            "labelPosition": "right",
+            "balloonText": "[[title]]: [[value]]n[[description]]",
+            "export": {
+                "enabled": true
+            }
+        });
+
+    });
+    $http.get("https://api.football-data.org/v1/competitions", {
+        headers: {
+            'X-Auth-Token': '197f9f5edf4042c2b3e5a0f96295c5dc',
+
+        }
+    }).
+    then(function doneFilter(responseExterna6) {
+        
+         var datos = [];
+
+        for (var i = 0; i < responseExterna6.data.length; i++) {
+            var object = [];
+            object.push(responseExterna6.data[i]["league"]);
+            object.push(responseExterna6.data[i]["numberOfTeams"]);
+            datos.push(object);
+        }
+
+
+
+        anychart.onDocumentReady(function() {
+            // prepare data for the chart
+            var data = datos;
+
+            // create funnel chart
+            var chart = anychart.funnel(data);
+
+            // set chart margin
+            chart.margin(10, '20%', 10, '20%')
+                // set chart base width settings
+                .baseWidth('70%')
+                // set the neck height
+                .neckHeight('17%');
+
+            // set chart labels settings
+            chart.labels()
+                .position('outside-left')
+                .format('{%X} - {%Value}');
+
+            // enable animation
+            chart.animation(true);
+
+            // set container id for the chart
+            chart.container('sextaIntegracion');
+            // initiate chart drawing
+            chart.draw();
+        });
+    });
+
 }]);
