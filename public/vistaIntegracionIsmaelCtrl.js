@@ -201,17 +201,16 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
     });
 
     ///////////////////    Gráfica externa 3 ///////////////////////
-    $http.get("https://restcountries.eu/rest/v2/all").then(function doneFilter(responseExterna) {
+    $http.get("https://sos1718-09.herokuapp.com/api/v2/spanish-universities").then(function doneFilter(responseExterna) {
         $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
 
             anychart.onDocumentReady(function() {
                 var data = anychart.data.set([
-                    [responseMia.data[0]["killed"], responseExterna.data[0]["area"]],
-                    [responseMia.data[1]["killed"], responseExterna.data[1]["area"]],
-                    [responseMia.data[2]["killed"], responseExterna.data[2]["area"]],
-                    [responseMia.data[3]["killed"], responseExterna.data[3]["area"]]
-
-
+                    [responseExterna.data[0]["yearFund"], responseMia.data[0]["injured"]],
+                    [responseExterna.data[1]["yearFund"], responseMia.data[1]["injured"]],
+                    [responseExterna.data[2]["yearFund"], responseMia.data[2]["injured"]],
+                    [responseExterna.data[3]["yearFund"], responseMia.data[3]["injured"]],
+                    [responseExterna.data[10]["yearFund"], responseMia.data[10]["injured"]]
                 ]);
 
                 // create scatter chart
@@ -225,13 +224,11 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
                     .enabled(true)
                     .useHtml(true)
                     .padding([0, 0, 10, 0])
-                    .text('Best sportsmen training data ' +
-                        '<br/><span  style="color:#929292; font-size: 12px;">' +
-                        '(bubble size means duration, each bubble represents one training)</span>'
+                    .text('Integracion de heridos y año de api externa '
                     );
 
                 // set chart margin settings
-                chart.padding(20, 20, 10, 20);
+                chart.padding(10, 10, 5, 10);
 
                 // grid settings
                 chart.yGrid(true)
@@ -241,43 +238,31 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
 
                 // bubble size settings
                 chart.minBubbleSize(5)
-                    .maxBubbleSize(40);
+                    .maxBubbleSize(2);
 
                 // set chart axes settings
                 chart.xAxis()
-                    .title('Average pulse during training')
+                    .title('Media de los años')
                     .minorTicks(true);
                 chart.yAxis()
-                    .title('Average power')
+                    .title('Media de heridos')
                     .minorTicks(true);
 
                 //set chart legend settings
                 chart.legend()
                     .enabled(true)
                     .padding({
-                        bottom: 10
+                        bottom: 5
                     });
-
-                // create first series with mapped data
-                chart.bubble(sportsmen1).name('Christopher Sanchez');
-                // create second series with mapped data
-                chart.bubble(sportsmen2).name('Judy Evans');
-                // create third series with mapped data
-                chart.bubble(sportsmen3).name('Walter Burke');
-                // create forth series with mapped data
-                chart.bubble(sportsmen4).name('Daniel Williamson');
 
                 chart.tooltip()
                     .useHtml(true)
                     .fontColor('#fff')
                     .format(function() {
-                        return this.getData('data') + '<br/>' +
-                            'Power: <span style="color: #d2d2d2; font-size: 12px">' +
+                        return 'Heridos: <span style="color: #d2d2d2; font-size: 12px">' +
                             this.getData('value') + '</span></strong><br/>' +
-                            'Pulse: <span style="color: #d2d2d2; font-size: 12px">' +
-                            this.getData('x') + '</span></strong><br/>' +
-                            'Duration: <span style="color: #d2d2d2; font-size: 12px">' +
-                            this.getData('size') + ' min.</span></strong>';
+                            'Año: <span style="color: #d2d2d2; font-size: 12px">' +
+                            this.getData('x') + '</span></strong><br/>';
                     });
 
                 // set container id for the chart
