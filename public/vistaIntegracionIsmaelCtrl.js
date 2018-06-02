@@ -2,6 +2,8 @@
 /*global Highcharts*/
 /*global Morris*/
 /*global anychart*/
+/*global zingchart*/
+
 
 angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", ["$scope", "$http", function($scope, $http) {
 
@@ -124,9 +126,9 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
     $http.get("https://api.jcdecaux.com/vls/v1/stations/?contract=Seville&apiKey=6fa39265431480ca0b5f3393cd78f29e2d436882").then(function doneFilter(responseExterna) {
         //$scope.generaDatos = response.data;
         $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
-            
+
             var dataFinal = [];
-            for(var i = 0; i<responseMia.data.length; i++){
+            for (var i = 0; i < responseMia.data.length; i++) {
                 var objeto = {};
                 objeto["y"] = responseMia.data[i].date;
                 objeto["a"] = responseExterna.data[i]["number"];
@@ -200,7 +202,7 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
         });
     });
 
-    ///////////////////    Gráfica externa 3 ///////////////////////
+    ///////////////////    Gráfica  3 ///////////////////////
     $http.get("https://sos1718-09.herokuapp.com/api/v2/spanish-universities").then(function doneFilter(responseExterna) {
         $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
 
@@ -221,11 +223,11 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
 
                 // set chart title text settings
                 chart.title()
+
                     .enabled(true)
                     .useHtml(true)
                     .padding([0, 0, 10, 0])
-                    .text('Integracion de heridos y año de api externa '
-                    );
+                    .text('Integracion de heridos y año de api externa ');
 
                 // set chart margin settings
                 chart.padding(10, 10, 5, 10);
@@ -271,7 +273,274 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
                 // initiates chart drawing
                 chart.draw();
             });
-        }); 
-    }); 
+        });
+    });
+
+    ///////////////////    Gráfica externa 4 ///////////////////////
+    $http.get("https://api.github.com/gists/public").then(function doneFilter(responseExterna) {
+        $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
+
+            var myConfig = {
+                backgroundColor: '#FBFCFE',
+                type: "ring",
+                title: {
+                    text: "Integracion api externa 4",
+                    fontFamily: 'Lato',
+                    fontSize: 14,
+                    // border: "1px solid black",
+                    padding: "15",
+                    fontColor: "#1E5D9E",
+                },
+                /*          subtitle: {
+                              text: "06/10/16 - 07/11/16",
+                              fontFamily: 'Lato',
+                              fontSize: 12,
+                              fontColor: "#777",
+                              padding: "5"
+                          },*/
+                plot: {
+                    slice: '50%',
+                    borderWidth: 0,
+                    backgroundColor: '#FBFCFE',
+                    animation: {
+                        effect: 2,
+                        sequence: 3
+                    },
+                    valueBox: [{
+                            type: 'all',
+                            text: '%t',
+                            placement: 'out'
+                        },
+                        {
+                            type: 'all',
+                            text: '%npv%',
+                            placement: 'in'
+                        }
+                    ]
+                },
+                tooltip: {
+                    fontSize: 16,
+                    anchor: 'c',
+                    x: '50%',
+                    y: '50%',
+                    sticky: true,
+                    backgroundColor: 'none',
+                    borderWidth: 0,
+                    thousandsSeparator: ',',
+                    text: '<span style="color:%color">Id: %v</span>',
+                    mediaRules: [{
+                        maxWidth: 500,
+                        y: '54%',
+                    }]
+                },
+                plotarea: {
+                    backgroundColor: 'transparent',
+                    borderWidth: 0,
+                    borderRadius: "0 0 0 10",
+                    margin: "70 0 10 0"
+                },
+                legend: {
+                    toggleAction: 'remove',
+                    backgroundColor: '#FBFCFE',
+                    borderWidth: 0,
+                    adjustLayout: true,
+                    align: 'center',
+                    verticalAlign: 'bottom',
+                    marker: {
+                        type: 'circle',
+                        cursor: 'pointer',
+                        borderWidth: 0,
+                        size: 5
+                    },
+                    item: {
+                        fontColor: "#777",
+                        cursor: 'pointer',
+                        offsetX: -6,
+                        fontSize: 12
+                    },
+                    mediaRules: [{
+                        maxWidth: 500,
+                        visible: false
+                    }]
+                },
+                scaleR: {
+                    refAngle: 270
+                },
+                series: [{
+                        text: "El país es " + [responseMia.data[0]["country"]],
+                        values: [responseExterna.data[0]["owner"]["id"]],
+                        lineColor: "#00BAF2",
+                        backgroundColor: "#00BAF2",
+                        lineWidth: 1,
+                        marker: {
+                            backgroundColor: '#00BAF2'
+                        }
+                    },
+                    {
+                        text: "El país es " + [responseMia.data[1]["country"]],
+                        values: [responseExterna.data[1]["owner"]["id"]],
+                        lineColor: "#E80C60",
+                        backgroundColor: "#E80C60",
+                        lineWidth: 1,
+                        marker: {
+                            backgroundColor: '#E80C60'
+                        }
+                    },
+                    {
+                        text: "El país es " + [responseMia.data[2]["country"]],
+                        values: [responseExterna.data[2]["owner"]["id"]],
+                        lineColor: "#9B26AF",
+                        backgroundColor: "#9B26AF",
+                        lineWidth: 1,
+                        marker: {
+                            backgroundColor: '#9B26AF'
+                        }
+                    }
+                ]
+            };
+
+            zingchart.render({
+                id: 'cuartaIntegracion',
+                data: {
+                    gui: {
+                        contextMenu: {
+                            button: {
+                                visible: true,
+                                lineColor: "#2D66A4",
+                                backgroundColor: "#2D66A4"
+                            },
+                            gear: {
+                                alpha: 1,
+                                backgroundColor: "#2D66A4"
+                            },
+                            position: "right",
+                            backgroundColor: "#306EAA",
+                            /*sets background for entire contextMenu*/
+                            docked: true,
+                            item: {
+                                backgroundColor: "#306EAA",
+                                borderColor: "#306EAA",
+                                borderWidth: 0,
+                                fontFamily: "Lato",
+                                color: "#fff"
+                            }
+
+                        },
+                    },
+                    graphset: [myConfig]
+                },
+                height: '499',
+                width: '99%'
+            });
+
+        });
+    });
+
+    ///////////////////    Gráfica externa 4 ///////////////////////
+    $http.get("https://simple-weather.p.mashape.com/weatherdata?lat=40.0&lng=-3.0&mashape-key=d8593BVX5dmshF2FTxE1j7VTjI1fp1NZA3ijsnlGTaAgUqSAaE").then(function doneFilter(responseExterna) {
+        $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
+
+            zingchart.THEME = "classic";
+            var myConfig = {
+                "graphset": [{
+                    "type": "hfunnel",
+                    "background-color": "#fff",
+                    "background-color-2": "#f1f1f1",
+                    "scale-x": {
+                        "values": [
+                            "Ciudades <br>con datos<br> de api externa"
+                        ],
+                        "item": {
+                            "offset-y": -20,
+                            "font-size": "12px",
+                        }
+                    },
+                    "tooltip": {
+                        "shadow": false
+                    },
+                    "scale-y": {
+                        "visible": false
+                    },
+                    "scale-y-2": {
+                        "values": [
+                            "Dato TTL - " + responseExterna.data["query"]["results"]["channel"]["ttl"],
+                            "El ancho de imagen es de: "+responseExterna.data["query"]["results"]["channel"]["image"]["width"]+" px",
+                           "La altura de la image es de: "+responseExterna.data["query"]["results"]["channel"]["image"]["height"]+ " px"
+                        ],
+                        "guide": {
+                            "items": [{
+                                    "background-color": "#fff"
+                                },
+                                {
+                                    "background-color": "#eee"
+                                },
+                                {
+                                    "background-color": "#ddd"
+                                },
+                                {
+                                    "background-color": "#ccc"
+                                },
+                                {
+                                    "background-color": "green",
+                                    "alpha": 0.2
+                                }
+                            ]
+                        }
+                    },
+                    "plotarea": {
+                        "margin": "75 25 50 80"
+                    },
+                    "plot": {
+                        "tooltip-text": "La ciudad es %v",
+                        "scales": "scale-x,scale-y-2",
+                        "offset": 40
+
+                    },
+                    "series": [{
+                            "values": [responseMia.data[0]["city"]
+
+                            ],
+                            "background-color": "#5FB4E8",
+                            "border-color": "#000000",
+                            "shadow": false,
+                        },
+                        {
+                            "values": [responseMia.data[1]["city"]],
+                            "background-color": "#EBC765",
+                            "border-color": "#000000",
+                            "shadow": false,
+                        },
+                        {
+                            "values": [responseMia.data[2]["city"]],
+                            "background-color": "#8FB550",
+                            "border-color": "#000000",
+                            "shadow": false,
+
+                        },
+                        {
+                            "values": [responseMia.data[3]["city"]],
+                            "background-color": "#D17549",
+                            "border-color": "#000000",
+                            "shadow": false
+                        },
+                        {
+                            "values": [responseMia.data[4]["city"]],
+                            "background-color": "#8E468E",
+                            "border-color": "#000000",
+                            "shadow": false,
+
+                        }
+                    ]
+                }]
+            };
+
+            zingchart.render({
+                id: 'quintaIntegracion',
+                data: myConfig,
+                height: 500,
+                width: 1000
+            });
+        });
+    });
 
 }]);
