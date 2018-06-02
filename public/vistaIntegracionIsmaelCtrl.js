@@ -3,12 +3,12 @@
 /*global Morris*/
 /*global anychart*/
 /*global zingchart*/
-
+/*global FusionCharts*/
 
 angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", ["$scope", "$http", function($scope, $http) {
 
 
-    $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
+  /*  $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
         $http.get("https://sos171811als-sos171811als.c9users.io/api/v2/basketball-stats").then(function doneFilter(responseAntonio) {
 
 
@@ -69,9 +69,78 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
             });
 
         });
+    }); 
+*/
+
+
+    /////////////// GRAFICA 1 //////////////
+    $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
+        $http.get("https://sos1718-11.herokuapp.com/api/v2/basketball-stats").then(function doneFilter(responseAntonio) {
+
+            var dataFinal = [];
+            for(var i = 0; i < responseMia.data.length; i++){
+                var dataIntermedia = [];
+                dataIntermedia.push(responseMia.data[i]["country"]);
+                dataIntermedia.push(responseAntonio.data[i].first);
+                dataFinal.push(dataIntermedia);
+            }
+
+            Highcharts.chart('integracionAntonio', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Integración de gráfica con Antonio (SOS) junto a mi numero de muertos (% del global)'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} (% muertos)',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Brands',
+                    colorByPoint: true,
+                    data: [{
+                        name: responseAntonio.data[0]["stadium"],
+                        y: responseAntonio.data[0]["first"],
+                        sliced: true,
+                        selected: true
+                    }, {
+                        name: responseAntonio.data[2]["stadium"],
+                        y: responseMia.data[1]["killed"]
+                    }, {
+                        name: responseAntonio.data[4]["stadium"],
+                        y: responseMia.data[2]["killed"]
+                    }, {
+                        name: responseAntonio.data[5]["stadium"],
+                        y: responseMia.data[3]["killed"]
+                    }, {
+                        name: responseAntonio.data[7]["stadium"],
+                        y: responseMia.data[4]["killed"]
+                    }]
+                }]
+            });
+
+        });
     });
 
 
+
+    ///////////////// GRAFICA 2////////////////
     $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
         $http.get("proxyIsmael/api/v1/tvfees-stats").then(function doneFilter(responsePablo) {
 
@@ -436,7 +505,7 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
         });
     });
 
-    ///////////////////    Gráfica externa 4 ///////////////////////
+    ///////////////////    Gráfica externa 5 ///////////////////////
     $http.get("https://simple-weather.p.mashape.com/weatherdata?lat=40.0&lng=-3.0&mashape-key=d8593BVX5dmshF2FTxE1j7VTjI1fp1NZA3ijsnlGTaAgUqSAaE").then(function doneFilter(responseExterna) {
         $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
 
@@ -464,8 +533,8 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
                     "scale-y-2": {
                         "values": [
                             "Dato TTL - " + responseExterna.data["query"]["results"]["channel"]["ttl"],
-                            "El ancho de imagen es de: "+responseExterna.data["query"]["results"]["channel"]["image"]["width"]+" px",
-                           "La altura de la image es de: "+responseExterna.data["query"]["results"]["channel"]["image"]["height"]+ " px"
+                            "El ancho de imagen es de: " + responseExterna.data["query"]["results"]["channel"]["image"]["width"] + " px",
+                            "La altura de la image es de: " + responseExterna.data["query"]["results"]["channel"]["image"]["height"] + " px"
                         ],
                         "guide": {
                             "items": [{
@@ -543,4 +612,81 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
         });
     });
 
+    ///////////////////    Gráfica 6 ///////////////////////
+    $http.get("https://sos1718-10.herokuapp.com/api/v1/motogp-stats").then(function doneFilter(responseExterna) {
+        $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
+
+            /*   var array = [];
+               var i = 0;
+               for (i; i < responseExterna.data.length; i++) {
+                   var object = {};
+                   object["value"] = responseExterna.data[i]["score"].length;
+                   array.push(object);
+               }  */
+
+            FusionCharts.ready(function() {
+                var salesByBrandChart = new FusionCharts({
+                    type: 'marimekko',
+                    renderAt: 'sextaIntegracion',
+                    width: '1000',
+                    height: '400',
+                    dataFormat: 'json',
+                    dataSource: {
+                        "chart": {
+                            "caption": "Integracion de paises con los puntos de api externa sobre motos, para una fecha",
+                            "aligncaptiontocanvas": "0",
+                            "yaxisname": "Puntuacion y edad por piloto",
+                            "xaxisname": "Paises ",
+                            "valueBgColor": "#FFFFFF",
+                            "valueBgAlpha": "60",
+                            "showPlotBorder": "1",
+                            "plotBorderThickness": "0.25",
+                            "showxaxispercentvalues": "1",
+                            "showsum": "1",
+                            //Custom tool-text string built using a combination of HTML and chart macro variables
+                            "plottooltext": "<div id='nameDiv' style='font-size: 14px; border-bottom: 1px dashed #666666; font-weight:bold; padding-bottom: 3px; margin-bottom: 5px; display: inline-block;'>$label :</div>{br}Pais: <b>$seriesName</b>{br}Datos del piloto : <b>$dataValue</b>{br}",
+                            "theme": "fint"
+                        },
+                        "categories": [{
+                            "category": [
+                                { "label": "Para la fecha " + responseMia.data[0]["date"] },
+                                { "label": "Para la fecha " + responseMia.data[1]["date"] }
+                            ]
+                        }],
+                        "dataset": [{
+                                "seriesname": responseMia.data[0]["country"],
+                                "data": [
+                                    { "value": responseExterna.data[0]["score"] },
+                                    { "value": responseExterna.data[0]["age"] }
+                                ]
+                            },
+                            {
+                                "seriesname": responseMia.data[2]["country"],
+                                "data": [
+                                    { "value": responseExterna.data[1]["score"] },
+                                    { "value": responseExterna.data[1]["age"] }
+                                ]
+                            },
+                            {
+                                "seriesname": responseMia.data[4]["country"],
+                                "data": [
+                                    { "value": responseExterna.data[2]["score"] },
+                                    { "value": responseExterna.data[2]["age"] }
+                                ]
+                            },
+                            {
+                                "seriesname": responseMia.data[6]["country"],
+                                "data": [
+                                    { "value": responseExterna.data[3]["score"] },
+                                    { "value": responseExterna.data[3]["age"] }
+                                ]
+                            }
+                        ]
+                    }
+                }).render();
+
+            });
+
+        });
+    });
 }]);
