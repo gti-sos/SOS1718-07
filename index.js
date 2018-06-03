@@ -48,11 +48,11 @@ var dbHomicideReports = "mongodb://fraperzam:fraperzam@ds229909.mlab.com:29909/h
 var dbAttacksData = "mongodb://ismalvgue:ismalvgue@ds229909.mlab.com:29909/attacks-data";
 
 var terrorism_data = [
-    { "iyear": 1970, "imonth": 7, "iday": 2, "country_txt": "Dominican Republic", "city": "Santo Domingo", "attacktype_txt": "Assassination", "weaptype_txt": "Unknown Explosive Type", "nkill": 1 },
-    { "iyear": 1970, "imonth": 2, "iday": 17, "country_txt": "United States", "city": "Oackland", "attacktype_txt": "Bombing/Explosion", "weaptype_txt": "Explosives/Bombs/Dynamite", "nkill": 0 },
-    { "iyear": 1970, "imonth": 3, "iday": 1, "country_txt": "Italy", "city": "Rome", "attacktype_txt": "Bombing/Explosion", "weaptype_txt": "Explosives/Bombs/Dynamite", "nkill": 0 },
+    { "iyear": 1970, "imonth": 7, "iday": 2, "country_txt": "Dominican Republic", "city": "Santo Domingo", "attacktype_txt": "Assassination", "weaptype_txt": "Unknown Explosive Type", "nkill": 11 },
+    { "iyear": 1970, "imonth": 2, "iday": 17, "country_txt": "United States", "city": "Oackland", "attacktype_txt": "Bombing/Explosion", "weaptype_txt": "Explosives/Bombs/Dynamite", "nkill": 22 },
+    { "iyear": 1970, "imonth": 3, "iday": 1, "country_txt": "Italy", "city": "Rome", "attacktype_txt": "Bombing/Explosion", "weaptype_txt": "Explosives/Bombs/Dynamite", "nkill": 34 },
     { "iyear": 1970, "imonth": 2, "iday": 21, "country_txt": "Switzerland", "city": "Zurich", "attacktype_txt": "Bombing/Explosion", "weaptype_txt": "Explosives/Bombs/Dynamite", "nkill": 47 },
-    { "iyear": 1970, "imonth": 2, "iday": 16, "country_txt": "United States", "city": "San Francisco", "attacktype_txt": "Armed Assault", "weaptype_txt": "Firearms", "nkill": 0 }
+    { "iyear": 1970, "imonth": 2, "iday": 16, "country_txt": "United States", "city": "San Francisco", "attacktype_txt": "Armed Assault", "weaptype_txt": "Firearms", "nkill": 55 }
 ];
 
 var homicide_data = [
