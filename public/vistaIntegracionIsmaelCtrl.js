@@ -7,72 +7,6 @@
 
 angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", ["$scope", "$http", function($scope, $http) {
 
-
-  /*  $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
-        $http.get("https://sos171811als-sos171811als.c9users.io/api/v2/basketball-stats").then(function doneFilter(responseAntonio) {
-
-
-            Highcharts.chart('integracionAntonio', {
-                chart: {
-                    type: 'area'
-                },
-                title: {
-                    text: 'Integración de gráfica con Antonio'
-                },
-                xAxis: {
-                    allowDecimals: false,
-                    labels: {
-                        formatter: function() {
-                            return this.value; // clean, unformatted number for year
-                        }
-                    }
-                },
-                yAxis: {
-                    title: {
-                        text: 'Número de muertos'
-                    },
-                    labels: {
-                        formatter: function() {
-                            return this.value;
-                        }
-                    }
-                },
-                tooltip: {
-                    pointFormat: '{series.name} killed <b>{point.y:,.0f}</b><br/> {point.x}'
-                },
-                plotOptions: {
-                    area: {
-                        pointStart: 1990,
-                        marker: {
-                            enabled: false,
-                            symbol: 'diamond',
-                            radius: 2,
-                            states: {
-                                hover: {
-                                    enabled: true
-                                }
-                            }
-                        }
-                    }
-                },
-                series: [{
-                    name: 'Charlotte',
-                    data: responseAntonio.data.map(function(d) { return d.first })
-
-                }, {
-                    name: 'Boston',
-                    data: responseMia.data.map(function(d) { return d.killed })
-                }, {
-                    name: 'Miami',
-                    data: responseAntonio.data.map(function(d) { return d.second })
-                }]
-            });
-
-        });
-    }); 
-*/
-
-
     /////////////// GRAFICA 1 //////////////
     $http.get("api/v1/attacks-data").then(function doneFilter(responseMia) {
         $http.get("https://sos1718-11.herokuapp.com/api/v2/basketball-stats").then(function doneFilter(responseAntonio) {
@@ -137,7 +71,6 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
 
         });
     });
-
 
 
     ///////////////// GRAFICA 2////////////////
@@ -281,7 +214,7 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
                     [responseExterna.data[1]["yearFund"], responseMia.data[1]["injured"]],
                     [responseExterna.data[2]["yearFund"], responseMia.data[2]["injured"]],
                     [responseExterna.data[3]["yearFund"], responseMia.data[3]["injured"]],
-                    [responseExterna.data[10]["yearFund"], responseMia.data[10]["injured"]]
+                    [responseExterna.data[10]["yearFund"], responseMia.data[8]["injured"]]
                 ]);
 
                 // create scatter chart
@@ -633,7 +566,7 @@ angular.module("TerrorismManagerApp").controller("vistaIntegracionIsmaelCtrl", [
                     dataFormat: 'json',
                     dataSource: {
                         "chart": {
-                            "caption": "Integracion de paises con los puntos de api externa sobre motos, para una fecha",
+                            "caption": "Integracion de paises con los puntos y edad de api externa sobre motos, para una fecha.",
                             "aligncaptiontocanvas": "0",
                             "yaxisname": "Puntuacion y edad por piloto",
                             "xaxisname": "Paises ",
